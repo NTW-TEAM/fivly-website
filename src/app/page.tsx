@@ -4,8 +4,8 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
   title:
-    "Next.js E-commerce Dashboard | Fivly - Next.js Dashboard Template",
-  description: "This is Next.js Home for Fivly Dashboard Template",
+    "Fivly",
+  description: "Fivly Front-End to manage 1901's law association in France.",
 };
 
 export default function Home() {
