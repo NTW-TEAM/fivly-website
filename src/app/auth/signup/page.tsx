@@ -5,11 +5,11 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
+import { DESCRIPTION, TITLE } from "@/constant/metadata";
 
 export const metadata: Metadata = {
-  title: "Next.js SignUp Page | Fivly - Next.js Dashboard Template",
-  description: "This is Next.js SignUp Page Fivly Dashboard Template",
-  // other metadata
+  title: TITLE + " - Sign Up",
+  description: DESCRIPTION,
 };
 
 const SignUp: React.FC = () => {
