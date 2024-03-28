@@ -5,32 +5,100 @@ interface registerFormErrors {
     lastName: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    passwordConfirm: string;
+    other?: string;
 }
 
 export async function register(formData: FormData) {
     try {
-        console.log(formData);
         
+
+/*         const errors = validateForm(formData);
+
+        if (Object.values(errors).some((error) => error !== "")) {
+            handleErrors(errors);
+            return;
+        } */
+
+        const body = {
+          "firstName": formData.get("firstname"),
+          "lastName": formData.get("lastname"),
+          "email": formData.get("email"),
+          "password": formData.get("password"),
+          "phoneNumber": formData.get("phone"),
+          "numberAndStreet": formData.get("address"),
+          "postalCode": formData.get("zip"),
+          "city": formData.get("city"),
+          "country": formData.get("country"),
+        };
+
+        console.log(body);
+        
+
+        const response = await fetch(`${process.env.API_URL}/user/register`, {
+            method: "POST",
+            body: JSON.stringify(body),
+        });
+
+        const data = await response.json();
+
+        console.log(data);
+
+/*         if (data.errors) {
+            errors.other = data.errors; 
+            handleErrors(errors);
+            return;
+        }    */
     } catch (error) {
-        console.log("feuuuuuur");
-        
         throw error;
     }
 
     return formData;
 }
 
-function validateFormData(formData: FormData) {
+function validateForm(formData: FormData) : registerFormErrors {
     const firstName = formData.get("firstname");
     const lastName = formData.get("lastname");
     const email = formData.get("email");
     const password = formData.get("password");
-    const confirmPassword = formData.get("confirmPassword");
+    const passwordConfirm = formData.get("passwordConfirm");
 
-    if (!firstName || !lastName || !email || !password || !confirmPassword) {
-        return false;
+    const errors: registerFormErrors = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        passwordConfirm: "",
+    };
+
+    if (!firstName) {
+        errors.firstName = "First name is required";
     }
 
+    if (!lastName) {
+        errors.lastName = "Last name is required";
+    }
 
+    if (!email) {
+        errors.email = "Email is required";
+    }
+
+    if (!password) {
+        errors.password = "Password is required";
+    }
+
+    if (!passwordConfirm) {
+        errors.passwordConfirm = "Confirm password is required";
+    }
+
+    if (password !== passwordConfirm) {
+        errors.passwordConfirm = "Passwords do not match";
+    }
+
+    return errors;
+}
+
+function handleErrors(errors: registerFormErrors) {
+    // Handle errors
+    console.log(errors);
 }
