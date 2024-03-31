@@ -20,7 +20,7 @@ export async function register(formData: FormData) {
             return;
         } */
 
-        const body = {
+        const bodi = {
           "firstName": formData.get("firstname"),
           "lastName": formData.get("lastname"),
           "email": formData.get("email"),
@@ -32,12 +32,16 @@ export async function register(formData: FormData) {
           "country": formData.get("country"),
         };
 
-        console.log(body);
+        console.log(JSON.stringify(bodi));
+        
         
 
         const response = await fetch(`${process.env.API_URL}/user/register`, {
             method: "POST",
-            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(bodi),
         });
 
         const data = await response.json();
