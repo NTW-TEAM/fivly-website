@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import jwt from "jsonwebtoken";
 
 export async function login(formData: FormData) {
 
@@ -10,11 +11,6 @@ export async function login(formData: FormData) {
     if (!email || !password) {
       return;
     }
-
-    // Validators
-
-
-    // get env API_URL variable from .env
     
     const response = await fetch(`${process.env.API_URL}/auth/login`, {
       method: "POST",
@@ -25,11 +21,12 @@ export async function login(formData: FormData) {
     });
 
     if (response.ok) {
-
         const data = await response.json();
         const token = data.access_token;
-        console.log("token", token);
-         
+        
+        const user = jwt.verify(token, process.env.JWT_SECRET!);
+        console.log("token", user);
+        
         cookies().set("token", token);
     } else {
         console.log("Error", response.text().then(
