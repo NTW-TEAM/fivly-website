@@ -13,8 +13,12 @@ const SignInForm = () => {
     const handleLogin = async (formData: FormData) => {
         const response = await login(formData);
         
-        if (response?.status === "success") {
+        if (response.status === "success") {
             toast.success(response.message);
+        } else {
+            for (const message of response.message) {
+                toast.error(message);
+            }
         }
     };
 

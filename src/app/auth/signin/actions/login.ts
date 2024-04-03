@@ -9,7 +9,10 @@ export async function login(formData: FormData) {
     const password = formData.get("password");
 
     if (!email || !password) {
-      return;
+      return {
+        status : "error",
+        message : "Veuillez remplir tous les champs."
+      };
     }
     
     const response = await fetch(`${process.env.API_URL}/auth/login`, {
@@ -33,15 +36,15 @@ export async function login(formData: FormData) {
 
         return { 
           status : "success",
-          message : `Wesh, ${user.firstName}!`
+          message : `Bonjour, ${user.firstName}!`
         };
     } else {
-        console.log("Error", response.text().then(
-            (text) => console.log(text)
-        ));
-        return { 
-          status : "success",
-          message : "Miskine"
+        const data = await response.json();
+        // data.message is an array of error messages
+        
+        return {
+          status : "error",
+          message : data.message
         };
     }
 
