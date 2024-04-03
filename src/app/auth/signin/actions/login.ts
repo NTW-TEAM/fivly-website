@@ -25,9 +25,11 @@ export async function login(formData: FormData) {
         const token = data.access_token;
         
         const user = jwt.verify(token, process.env.JWT_SECRET!);
-        console.log("token", user);
         
-        cookies().set("token", token);
+        cookies().set("auth_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+        });
     } else {
         console.log("Error", response.text().then(
             (text) => console.log(text)
