@@ -30,10 +30,19 @@ export async function login(formData: FormData) {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
         });
+
+        return { 
+          status : "success",
+          message : `Wesh, ${user.firstName}!`
+        };
     } else {
         console.log("Error", response.text().then(
             (text) => console.log(text)
         ));
+        return { 
+          status : "success",
+          message : "Miskine"
+        };
     }
 
 }   
