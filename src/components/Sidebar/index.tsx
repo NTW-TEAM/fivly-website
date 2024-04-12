@@ -133,25 +133,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     "bg-graydark dark:bg-meta-4"
                   }`}
                 >
-                  <FaList />
-                  Liste des activités
+                  <FaRegCalendarAlt />
+                  Activités
                 </Link>
               </li>
               {/* <!-- Menu Item Activity --> */}
-
-              {/* <!-- Menu Item Events --> */}
-              <li>
-                <Link
-                  href="/events"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("events") && "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <FaRegCalendarAlt />
-                  Liste des événements
-                </Link>
-              </li>
-              {/* <!-- Menu Item Events --> */}
 
               {/* <!-- Menu Item members --> */}
               <li>
@@ -162,7 +148,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   }`}
                 >
                   <FaUsers />
-                  Liste des membres
+                  Membres
                 </Link>
               </li>
               {/* <!-- Menu Item Settings --> */}
@@ -260,7 +246,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </ul>
           </div>
 
-          
           {/* Gestion Electronique des Documents */}
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
@@ -284,7 +269,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Documents --> */}
             </ul>
           </div>
-
         </nav>
         {/* <!-- Sidebar Menu --> */}
       </div>
