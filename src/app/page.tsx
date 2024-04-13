@@ -13,7 +13,10 @@ export default function Home() {
   return (
     <>
       <DefaultLayout>
-        <ECommerce />
+        <div className="w-full h-[70vh] flex justify-center items-center flex-col">
+          <h1 className="text-7xl font-bold text-center">Welcome to <span className="text-primary">Fivly</span></h1>
+          <p className="text-center">{DESCRIPTION}</p>
+        </div>
       </DefaultLayout>
     </>
   );
