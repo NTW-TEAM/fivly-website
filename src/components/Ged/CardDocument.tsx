@@ -1,15 +1,8 @@
+import { File } from "@/types/file";
 import React, { ReactNode } from "react";
-import { FaMapPin } from "react-icons/fa";
 import { MdFileDownload, MdOutlinePushPin } from "react-icons/md";
 
-interface CardDocumentProps {
-  title: string;
-  size: string;
-  dateImport: string;
-  userImport: string;
-}
-
-const CardDocument: React.FC<CardDocumentProps> = ({
+const CardDocument: React.FC<File> = ({
   title,
   size,
   dateImport,
@@ -24,7 +17,7 @@ const CardDocument: React.FC<CardDocumentProps> = ({
         </div>
 
         <div className="flex gap-4 mt-4 items-center">
-          <div className="h-40 w-40 bg-meta-2 dark:bg-meta-4 rounded-md flex items-center justify-center">
+          <div className="h-25 w-50 bg-meta-2 dark:bg-meta-4 rounded-md flex items-center justify-center">
             <MdFileDownload className="text-7xl text-primary" />
           </div>
           <div className="w-60 flex flex-col gap-2">
