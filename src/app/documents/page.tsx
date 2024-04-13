@@ -3,6 +3,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
+import SideBarGed from "@/components/Ged/SideBarGed";
+import CardDocument from "@/components/Ged/CardDocument";
 
 
 export const metadata: Metadata = {
@@ -15,22 +17,21 @@ const DocumentsPage = () => {
     <DefaultLayout>
       <Breadcrumb pageName="Gestion éléctronique des documents" />
 
-      {/* make a card that use the full height of the page and only 2 col span of 12 */}
-      <div className="col-span-12 xl:col-span-2">
-        <div className="min-h-screen bg-white dark:bg-gray-800 shadow-lg rounded-md overflow-hidden">
-          <div className="p-4">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-              Documents
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Gestion éléctronique des documents
-            </p>
+      <div className="grid grid-cols-5 gap-4">
+
+        <SideBarGed />
+
+        <div className="col-span-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-2 2xl:gap-7.5">
+            <CardDocument title="Document 1" size="1.5 Mo" dateImport="12/12/2021" userImport="Admin" />
+            <CardDocument title="Document 1" size="1.5 Mo" dateImport="12/12/2021" userImport="Admin" />
           </div>
+
+
+
+
         </div>
       </div>
-
-
-
     </DefaultLayout>
   );
 };
