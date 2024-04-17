@@ -10,13 +10,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  if (!token && pathname !== "/auth/signin" && pathname !== "/auth/signout") {
-    console.log("redirecting to signin");
+  if (!token && pathname !== "/auth/signin" && pathname !== "/auth/signout" && pathname !== "/auth/signup") {
     return NextResponse.redirect(new URL("/auth/signin", request.url));
   }
 
   if (pathname === "/auth/logout") {
-    console.log("logging out");
     const response = NextResponse.redirect(
       new URL("/auth/signin", request.url),
     );
