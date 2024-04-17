@@ -2,6 +2,8 @@
 
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { revalidatePath } from "next/cache";
+import { permanentRedirect } from "next/navigation";
 
 export async function login(formData: FormData) {
 
@@ -33,6 +35,9 @@ export async function login(formData: FormData) {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
         });
+
+        revalidatePath("/");
+        permanentRedirect("/");
 
         return { 
           status : "success",
