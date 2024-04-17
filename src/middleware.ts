@@ -5,8 +5,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("auth_token");
   const pathname = request.nextUrl.pathname;
 
-  // Ignore middleware for static files or API routes
-  if (pathname.startsWith("/_next/static/") || pathname.startsWith("/api/")) {
+  if (pathname.startsWith("/_next/static/") || pathname.startsWith("/images/")) {
     return NextResponse.next();
   }
 
@@ -22,6 +21,5 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Continue with the normal flow for all other requests
   return NextResponse.next();
 }
