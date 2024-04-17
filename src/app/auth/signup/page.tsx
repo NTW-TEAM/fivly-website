@@ -3,8 +3,8 @@ import Image from "next/image";
 
 import { Metadata } from "next";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
-import RegisterLayout from "@/components/Layouts/RegisterLayout";
-import SignUpForm from "@/components/Auth/SignUpForm";
+import AuthLayout from "@/components/Layouts/AuthLayout";
+import SignUpForm from "@/components/Auth/SignupForm";
 
 export const metadata: Metadata = {
   title: TITLE + " - Sign Up",
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const SignUp: React.FC = () => {
   return (
-    <RegisterLayout>
+    <AuthLayout>
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
@@ -165,7 +165,7 @@ const SignUp: React.FC = () => {
             </div>
         </div>
       </div>
-    </RegisterLayout>
+    </AuthLayout>
   );
 };
 

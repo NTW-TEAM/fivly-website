@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, ReactNode } from "react";
-import Header from "@/components/RegisterHeader";
+import Header from "@/components/AuthHeader";
 
-export default function RegisterLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
