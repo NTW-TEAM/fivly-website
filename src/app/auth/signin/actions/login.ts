@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
-import { permanentRedirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export async function login(formData: FormData) {
 
@@ -37,12 +37,8 @@ export async function login(formData: FormData) {
         });
 
         revalidatePath("/");
-        permanentRedirect("/");
-
-        return { 
-          status : "success",
-          message : `Bonjour, ${user.firstName}!`
-        };
+        redirect("/");
+        
     } else {
         const data = await response.json();
         // data.message is an array of error messages
