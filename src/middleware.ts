@@ -1,18 +1,29 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
- 
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
+  const token = request.cookies.get("auth_token");
+  const pathname = request.nextUrl.pathname;
 
-    // handle logout
-    if (request.nextUrl.pathname === "/auth/logout") {
+  // Ignore middleware for static files or API routes
+  if (pathname.startsWith("/_next/static/") || pathname.startsWith("/api/")) {
+    return NextResponse.next();
+  }
 
-        const response = NextResponse.redirect(new URL('/auth/signin', request.url))
-        response.cookies.delete('auth_token');
-        
-        return response;
-    }
+  if (!token && pathname !== "/auth/signin" && pathname !== "/auth/signout") {
+    console.log("redirecting to signin");
+    return NextResponse.redirect(new URL("/auth/signin", request.url));
+  }
 
-    // return NextResponse.redirect(new URL('/', request.url))
+  if (pathname === "/auth/logout") {
+    console.log("logging out");
+    const response = NextResponse.redirect(
+      new URL("/auth/signin", request.url),
+    );
+    response.cookies.delete("auth_token");
+    return response;
+  }
+
+  // Continue with the normal flow for all other requests
+  return NextResponse.next();
 }
-
