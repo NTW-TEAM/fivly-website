@@ -5,18 +5,15 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("auth_token");
   const pathname = request.nextUrl.pathname;
 
-  // Ignore middleware for static files or API routes
-  if (pathname.startsWith("/_next/static/") || pathname.startsWith("/api/")) {
+  if (pathname.startsWith("/_next/static/") || pathname.startsWith("/images/")) {
     return NextResponse.next();
   }
 
-  if (!token && pathname !== "/auth/signin" && pathname !== "/auth/signout") {
-    console.log("redirecting to signin");
+  if (!token && pathname !== "/auth/signin" && pathname !== "/auth/signout" && pathname !== "/auth/signup") {
     return NextResponse.redirect(new URL("/auth/signin", request.url));
   }
 
   if (pathname === "/auth/logout") {
-    console.log("logging out");
     const response = NextResponse.redirect(
       new URL("/auth/signin", request.url),
     );
@@ -24,6 +21,5 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Continue with the normal flow for all other requests
   return NextResponse.next();
 }
