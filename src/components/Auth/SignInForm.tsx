@@ -1,7 +1,10 @@
 "use client";
 
 import { login } from "@/app/auth/signin/actions/login";
+import ToastHandler from "@/tools/ToastHandler";
+import { revalidatePath } from "next/cache";
 import Link from "next/link";
+import { permanentRedirect } from "next/navigation";
 import { FaLock } from "react-icons/fa6";
 import { LuMail } from "react-icons/lu";
 import { MdOutlineEmail } from "react-icons/md";
@@ -12,14 +15,7 @@ const SignInForm = () => {
 
     const handleLogin = async (formData: FormData) => {
         const response = await login(formData);
-        
-        if (response.status === "success") {
-            toast.success(response.message);
-        } else {
-            for (const message of response.message) {
-                toast.error(message);
-            }
-        }
+        ToastHandler.toast(response.message, response.status);
     };
 
     return (
