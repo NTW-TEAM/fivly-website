@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
 import SignInForm from "@/components/Auth/SignInForm";
+import AuthLayout from "@/components/Layouts/AuthLayout";
 
 export const metadata: Metadata = {
   title: TITLE + " - Sign In",
@@ -15,8 +15,7 @@ export const metadata: Metadata = {
 const SignIn: React.FC = () => {
 
   return (
-    <DefaultLayout>
-      <Breadcrumb pageName="Sign In" />
+    <AuthLayout>
 
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
@@ -180,7 +179,7 @@ const SignIn: React.FC = () => {
           </div>
         </div>
       </div>
-    </DefaultLayout>
+    </AuthLayout>
   );
 };
 

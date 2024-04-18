@@ -5,12 +5,17 @@ import ToastHandler from "@/tools/ToastHandler";
 import Link from "next/link";
 import { FaLock } from "react-icons/fa6";
 import { LuMail } from "react-icons/lu";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const SignInForm = () => {
 
     const handleLogin = async (formData: FormData) => {
         const response = await login(formData);
         ToastHandler.toast(response.message, response.status);
+        if (response.status === "success") {
+            window.location.href = '/';
+        }
     };
 
     return (
