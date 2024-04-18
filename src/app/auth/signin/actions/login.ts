@@ -2,6 +2,8 @@
 
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function login(formData: FormData) {
 
@@ -32,7 +34,7 @@ export async function login(formData: FormData) {
     cookies().set("auth_token", token, {
       secure: process.env.NODE_ENV === "production",
     });
-    console.log(data.message);
+    
     return {
       status: "success",
       message: `Bonjour ${user.firstName} !`
@@ -40,12 +42,16 @@ export async function login(formData: FormData) {
 
   } else {
     const data = await response.json();
-    // data.message is an array of error messages
-    console.log(data.message);
 
     return {
       status: "error",
       message: "Echec de la connexion."
+    };
+  }
+
+    return {
+      status: "error",
+      message: data.message
     };
   }
 

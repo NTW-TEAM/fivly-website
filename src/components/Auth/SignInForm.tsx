@@ -5,8 +5,9 @@ import ToastHandler from "@/tools/ToastHandler";
 import Link from "next/link";
 import { FaLock } from "react-icons/fa6";
 import { LuMail } from "react-icons/lu";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { MdOutlineEmail } from "react-icons/md";
+import { TfiEmail } from "react-icons/tfi";
+import { toast } from "react-toastify";
 
 const SignInForm = () => {
 
