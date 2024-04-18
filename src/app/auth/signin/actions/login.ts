@@ -48,11 +48,4 @@ export async function login(formData: FormData) {
       message: "Echec de la connexion."
     };
   }
-
-    return {
-      status: "error",
-      message: data.message
-    };
-  }
-
-}   
+}
