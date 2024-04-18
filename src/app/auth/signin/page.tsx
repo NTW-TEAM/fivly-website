@@ -5,7 +5,6 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
-import { login } from "./actions/login";
 import SignInForm from "@/components/Auth/SignInForm";
 
 export const metadata: Metadata = {
@@ -176,7 +175,7 @@ const SignIn: React.FC = () => {
               </h2>
 
               <SignInForm />
-              
+
             </div>
           </div>
         </div>
