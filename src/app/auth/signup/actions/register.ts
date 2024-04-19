@@ -1,104 +1,32 @@
 "use server";
 
-interface registerFormErrors {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    passwordConfirm: string;
-    other?: string;
-}
+import { signUp, signUpMember } from "@/services/authService";
 
 export async function register(formData: FormData) {
 
-    
-/*         const errors = validateForm(formData);
-
-    if (Object.values(errors).some((error) => error !== "")) {
-        handleErrors(errors);
-        return;
-    } */
-
-    const body = {
-        "firstName": formData.get("firstname"),
-        "lastName": formData.get("lastname"),
-        "email": formData.get("email"),
-        "password": formData.get("password"),
-        "phoneNumber": formData.get("phone"),
-        "numberAndStreet": formData.get("address"),
-        "postalCode": formData.get("zip"),
-        "city": formData.get("city"),
-        "country": formData.get("country"),
+    const body: signUpMember = {
+        firstName: formData.get("firstname") as string,
+        lastName: formData.get("lastname") as string,
+        email: formData.get("email") as string,
+        password: formData.get("password") as string,
+        phoneNumber: formData.get("phone") as string,
+        numberAndStreet: formData.get("address") as string,
+        postalCode: formData.get("zip") as string,
+        city: formData.get("city") as string,
+        country: formData.get("country") as string,
     };
 
-    const response = await fetch(`${process.env.API_URL}/users/register`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-    });
-    
-    if (response.ok) {
-
-        return {
-            status: "success",
-            message: `Merci ${formData.get("firstname")}, tu es inscrit !`,
-        };
-    }
-    else {
-        const data = await response.json();
-
-        return {
-            status : "error",
-            message : data.message
-        };
+    const response = await signUp(body)
+    if (response.status === 201) {
+      return {
+        status: "success",
+        message: `Merci ${formData.get("firstname")}, tu es inscrit !`,
+      };
+    } else {
+      return {
+        status: "error",
+        message: response.message,
+      };
     }
 }
 
-function validateForm(formData: FormData) : registerFormErrors {
-    const firstName = formData.get("firstname");
-    const lastName = formData.get("lastname");
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const passwordConfirm = formData.get("passwordConfirm");
-
-    const errors: registerFormErrors = {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        passwordConfirm: "",
-    };
-
-    if (!firstName) {
-        errors.firstName = "First name is required";
-    }
-
-    if (!lastName) {
-        errors.lastName = "Last name is required";
-    }
-
-    if (!email) {
-        errors.email = "Email is required";
-    }
-
-    if (!password) {
-        errors.password = "Password is required";
-    }
-
-    if (!passwordConfirm) {
-        errors.passwordConfirm = "Confirm password is required";
-    }
-
-    if (password !== passwordConfirm) {
-        errors.passwordConfirm = "Passwords do not match";
-    }
-
-    return errors;
-}
-
-function handleErrors(errors: registerFormErrors) {
-    // Handle errors
-    console.log(errors);
-}
