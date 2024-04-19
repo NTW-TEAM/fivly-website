@@ -1,4 +1,10 @@
 import axios from "axios";
+import { cookies } from "next/headers";
+
+export interface errorResponse {
+    status: string;
+    message: string[];
+}
 
 const api = axios.create({
   baseURL: process.env.API_URL,
@@ -9,7 +15,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   function (config) {
-    const token = localStorage.getItem("auth_token");
+    const token = cookies().get("auth_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -21,11 +27,17 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response.status === 401 || error.response.status === 403) {
-      localStorage.removeItem("auth_token");
-      window.location.href = "/auth/siginin";
+  function (response) {
+    return response;
+  },
+  function (error) {
+    if (error.response.status === 400) {
+      const data  = {
+          status: "error",
+          message: error.response.data.message,
+      }
+      
+      return data;
     }
     return Promise.reject(error);
   },

@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { sign } from "crypto";
+import { signIn, signInMember } from "@/services/authService";
 
 export async function login(formData: FormData) {
 
@@ -17,16 +19,14 @@ export async function login(formData: FormData) {
     };
   }
 
-  const response = await fetch(`${process.env.API_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ "email": email, "password": password }),
-  });
+  const memberInfo: signInMember = {
+    email: email as string,
+    password: password as string
+  };
+  const response = await signIn(memberInfo);
 
-  if (response.ok) {
-    const data = await response.json();
+  if (response.status === 200) {
+    const data = response.data;
     const token = data.access_token;
 
     const user = jwt.verify(token, process.env.JWT_SECRET!);
@@ -41,10 +41,8 @@ export async function login(formData: FormData) {
     };
 
   } else {
-    const data = await response.json();
-
     return {
-      status: "error",
+      status: response.status,
       message: "Echec de la connexion."
     };
   }
