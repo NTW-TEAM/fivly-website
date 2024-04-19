@@ -10,56 +10,50 @@ interface registerFormErrors {
 }
 
 export async function register(formData: FormData) {
-    try {
+
     
 /*         const errors = validateForm(formData);
 
-        if (Object.values(errors).some((error) => error !== "")) {
-            handleErrors(errors);
-            return;
-        } */
+    if (Object.values(errors).some((error) => error !== "")) {
+        handleErrors(errors);
+        return;
+    } */
 
-        const body = {
-          "firstName": formData.get("firstname"),
-          "lastName": formData.get("lastname"),
-          "email": formData.get("email"),
-          "password": formData.get("password"),
-          "phoneNumber": formData.get("phone"),
-          "numberAndStreet": formData.get("address"),
-          "postalCode": formData.get("zip"),
-          "city": formData.get("city"),
-          "country": formData.get("country"),
-        };
+    const body = {
+        "firstName": formData.get("firstname"),
+        "lastName": formData.get("lastname"),
+        "email": formData.get("email"),
+        "password": formData.get("password"),
+        "phoneNumber": formData.get("phone"),
+        "numberAndStreet": formData.get("address"),
+        "postalCode": formData.get("zip"),
+        "city": formData.get("city"),
+        "country": formData.get("country"),
+    };
 
-        const response = await fetch(`${process.env.API_URL}/users/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        });
-        
-        const data = await response.json();
-        const status = response.status;
-
-        if (status != 201) {
-            console.log(data.message);
-            
-            return {
-                status : "error",
-                message : data.message
-            };
-        }
-
-        return { 
-            status : "success",
-            message : `Merci ${formData.get("firstname")}, tu es inscrit !`
-        };
-
-    } catch (error) {
-        throw error;
-    }
+    const response = await fetch(`${process.env.API_URL}/users/register`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+    });
     
+    if (response.ok) {
+
+        return {
+            status: "success",
+            message: `Merci ${formData.get("firstname")}, tu es inscrit !`,
+        };
+    }
+    else {
+        const data = await response.json();
+
+        return {
+            status : "error",
+            message : data.message
+        };
+    }
 }
 
 function validateForm(formData: FormData) : registerFormErrors {

@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 
 
 class ToastHandler {
-    static toast(value: string | Array<String>, type: "success" | "error" | "info" | "warning") {
+    static toast(value: string | Array<String>, type: "success" | "error" | "info" | "warning" | String) {
         switch (type) {
             case "success":
                 if (typeof value === "string") {

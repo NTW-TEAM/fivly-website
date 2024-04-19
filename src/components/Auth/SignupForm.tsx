@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { register } from "@/app/auth/signup/actions/register";
+import ToastHandler from "@/tools/ToastHandler";
 
 function SignUpForm() {
   const [step, setStep] = useState(1);
@@ -9,7 +10,12 @@ function SignUpForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    await register(formData);
+    const response = await register(formData);
+
+    ToastHandler.toast(response.message, response.status);
+    if (response.status === "success") {
+        window.location.href = '/auth/signin';
+    }
   };
 
   return (
