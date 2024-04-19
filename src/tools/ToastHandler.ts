@@ -5,7 +5,7 @@ class ToastHandler {
     static toast(value: string | Array<String>, type: "success" | "error" | "info" | "warning" | String) {
         switch (type) {
             case "success":
-                if (typeof value === "string") {
+                if (typeof value !== "object") {
                     toast.success(value);
                 }
                 else {
@@ -15,7 +15,7 @@ class ToastHandler {
                 }
                 break;
             case "error":
-                if (typeof value === "string") {
+                if (typeof value !== "object") {
                     toast.error(value);
                 } else {
                     for (const message of value) {
@@ -24,7 +24,7 @@ class ToastHandler {
                 }
                 break;
             case "info":
-                if (typeof value === "string") {
+                if (typeof value !== "object") {
                     toast.info(value);
                 }
                 else {
@@ -34,7 +34,7 @@ class ToastHandler {
                 }
                 break;
             case "warning":
-                if (typeof value === "string") {
+                if (typeof value !== "object") {
                     toast.warning(value);
                 }
                 else {
