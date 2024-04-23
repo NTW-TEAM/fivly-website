@@ -1,5 +1,8 @@
 "use client";
+import { deleteRoleToMemberService } from "@/services/memberService";
 import { Members } from "@/types/members";
+import { Roles } from "@/types/roles";
+import { Scopes } from "@/types/scopes";
 import {
   Table,
   TableHeader,
@@ -18,11 +21,12 @@ import {
   Selection,
   SortDescriptor,
   Link,
+  Spinner,
 } from "@nextui-org/react";
+import axios from "axios";
 import React from "react";
-import { FaEllipsisV } from "react-icons/fa";
-
-const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions"];
+import { FaEllipsisV, FaTimesCircle} from "react-icons/fa";
+const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions", "roles"];
 
 const columns = [
   { name: "Identifiant", uid: "id", sortable: true },
@@ -36,14 +40,10 @@ const columns = [
   { name: "Actions", uid: "actions", sortable: false },
 ];
 
-const TableMembers = ({ users } : { users: any[] }) => {
+const TableMembers = ({ users }: { users: Members[]}) => {
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set([]),
-  );
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS),
-  );
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]),);
+  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS),);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "name",
@@ -124,27 +124,54 @@ const TableMembers = ({ users } : { users: any[] }) => {
           </div>
         );
       case "roles":
+        const deleteRoleToMember = (userId: number, roleName: string) => async () => {
+          try {
+            const res = await axios.delete(`http://localhost:3001/api/users/${userId}/role/${roleName}`);
+            console.log("response intern api call", res);
+          }
+          catch (error) {
+            console.error(error);
+          }
+        }
+
+
         return (
-          <div className="flex gap-1">
-            {user.roles.map((role: any) => ( role.name.toLowerCase() !== "member" ?
-              <Chip key={role.name} color="primary" size="sm">
-                {role.name}
-              </Chip> : <></>
-            ))}
+          <div className="flex items-center gap-1">
+            {user.roles.map((role: Roles, i: number) =>
+              role.name.toLowerCase() !== "member" ? (
+                <div key={role.name} className="flex items-center gap-1">
+                  <div className="flex items-center gap-2 rounded bg-primary px-2 py-1 text-sm text-white">
+                    <span>{role.name}</span>
+
+                    <Button onClick={ deleteRoleToMember(user.id, role.name)}
+                      size="sm"
+                      variant="light"
+                    >
+                      <FaTimesCircle />
+                    </Button>
+
+
+
+                  </div>
+                </div>
+              ) : (
+                <div key={role.name}></div>
+              ),
+            )}
+            {/* add button */}
+            {/* <Button key={"button"} size="sm" variant="light" onClick={() => console.log("Add role")}><FaPlus /></Button> */}
           </div>
         );
       case "scopes":
         return (
           <div className="flex gap-1">
-            {user.scopes.map((scope: any) => (
+            {user.scopes.map((scope: Scopes) => (
               <Chip key={scope.name} color="primary" size="sm">
                 {scope.name}
               </Chip>
             ))}
           </div>
-        );
-      case "roles":
-        return (<></>);
+        );;
       case "actions":
         return (
           <div className="relative flex items-center justify-end gap-2">

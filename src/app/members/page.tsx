@@ -6,30 +6,24 @@ import { DESCRIPTION, TITLE } from "@/constant/metadata";
 import TableMembers from "@/components/members/TableMembers";
 import CardDataStats from "@/components/CardDataStats";
 import { FaUsers } from "react-icons/fa";
-import { useEffect } from "react";
-import axios from "axios";
-import { cookies } from "next/headers";
 import { Members } from "@/types/members";
+import { deleteRoleToMemberService, getMembers } from "../../services/memberService";
+import React, { useState } from "react";
 
 export const metadata: Metadata = {
   title: TITLE + " - Membres",
   description: DESCRIPTION,
 };
 
+/* export async function deleteRoleToMember(userId: number, roleName: string) {
+  await deleteRoleToMemberService(userId, roleName);
+  console.log("Role deleted");
+} */
+
 const MembresPage = async () => {  
-  let users: Members[] = [];
-  await axios.get(`${process.env.API_URL}/users` , {
-    headers: {
-      'Authorization': `Bearer ${cookies().get('auth_token')?.value}`
-    }
-  })
-    .then(function (response) {
-      users = response.data;      
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   
+  let users: Members[] = await getMembers();
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Membres" />
@@ -44,7 +38,7 @@ const MembresPage = async () => {
         <CardDataStats title="data" total="0" rate="">
           <FaUsers className="fill-primary dark:fill-white" />
         </CardDataStats>
-      </div>
+      </div>x
 
       <div className="mt-4 flex flex-col gap-10">
         <TableMembers users={users} />

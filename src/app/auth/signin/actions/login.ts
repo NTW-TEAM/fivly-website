@@ -2,9 +2,6 @@
 
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { sign } from "crypto";
 import { signIn, signInMember } from "@/services/authService";
 
 export async function login(formData: FormData) {
