@@ -1,24 +1,25 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { cookies } from "next/headers";
+import {cookies, headers} from "next/headers";
 import NextCors from "nextjs-cors";
+import axios from "axios";
 
-export default async function DELETE(req: NextApiRequest, res: NextApiResponse) {
+export async function DELETE(req: NextApiRequest, {params}: {params: {userId: string, roleName: string}}) {
+    console.log()
 
-    const { userId, roleName } = req.query;
+        const { userId, roleName } = params;
 
     console.log("cookiiiiiiiie", cookies().get("auth_token")?.value);
     
 
-/*     const data = axios.delete(`http://localhost:3000/users/${userId}/role/${roleName}`,
+    const data = axios.delete(`http://localhost:3000/users/${userId}/roles/${roleName}`,
         {
             headers: {
                 Authorization: `Bearer ${cookies().get("auth_token")?.value}`,
             },
-        }) 
+        })
 
-    return res.status(200).json(data); */
 
-    return res.status(200).json({userId, roleName});
+    return Response.json(data);
     
 };
 

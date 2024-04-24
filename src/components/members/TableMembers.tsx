@@ -36,7 +36,7 @@ const columns = [
   { name: "ADRESSE", uid: "adresse", sortable: true },
   { name: "Dernière connexion", uid: "lastConnection", sortable: true },
   { name: "Rôles", uid: "roles", sortable: true },
-  { name: "Scopes", uid: "scopes", sortable: true },
+  { name: "Permissions", uid: "scopes", sortable: true },
   { name: "Actions", uid: "actions", sortable: false },
 ];
 

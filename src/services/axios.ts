@@ -31,6 +31,7 @@ api.interceptors.response.use(
     return response;
   },
   function (error) {
+      console.log("error", error);
     if (error.response.status === 400) {
       const data  = {
           status: "error",
