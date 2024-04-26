@@ -15,11 +15,6 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
 };
 
-/* export async function deleteRoleToMember(userId: number, roleName: string) {
-  await deleteRoleToMemberService(userId, roleName);
-  console.log("Role deleted");
-} */
-
 const MembresPage = async () => {  
   
   let users: Members[] = await getMembers();
@@ -38,7 +33,7 @@ const MembresPage = async () => {
         <CardDataStats title="data" total="0" rate="">
           <FaUsers className="fill-primary dark:fill-white" />
         </CardDataStats>
-      </div>x
+      </div>
 
       <div className="mt-4 flex flex-col gap-10">
         <TableMembers users={users} />

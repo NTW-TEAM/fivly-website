@@ -1,7 +1,5 @@
 "use client";
-import { deleteRoleToMemberService } from "@/services/memberService";
 import { Members } from "@/types/members";
-import { Roles } from "@/types/roles";
 import { Scopes } from "@/types/scopes";
 import {
   Table,
@@ -23,9 +21,9 @@ import {
   Link,
   Spinner,
 } from "@nextui-org/react";
-import axios from "axios";
 import React from "react";
-import { FaEllipsisV, FaTimesCircle} from "react-icons/fa";
+import { FaEllipsisV} from "react-icons/fa";
+import HandleRoleMembers from "./HandleRoleMembers";
 const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions", "roles"];
 
 const columns = [
@@ -124,44 +122,9 @@ const TableMembers = ({ users }: { users: Members[]}) => {
           </div>
         );
       case "roles":
-        const deleteRoleToMember = (userId: number, roleName: string) => async () => {
-          try {
-            const res = await axios.delete(`http://localhost:3001/api/users/${userId}/role/${roleName}`);
-            console.log("response intern api call", res);
-          }
-          catch (error) {
-            console.error(error);
-          }
-        }
-
-
         return (
-          <div className="flex items-center gap-1">
-            {user.roles.map((role: Roles, i: number) =>
-              role.name.toLowerCase() !== "member" ? (
-                <div key={role.name} className="flex items-center gap-1">
-                  <div className="flex items-center gap-2 rounded bg-primary px-2 py-1 text-sm text-white">
-                    <span>{role.name}</span>
-
-                    <Button onClick={ deleteRoleToMember(user.id, role.name)}
-                      size="sm"
-                      variant="light"
-                    >
-                      <FaTimesCircle />
-                    </Button>
-
-
-
-                  </div>
-                </div>
-              ) : (
-                <div key={role.name}></div>
-              ),
-            )}
-            {/* add button */}
-            {/* <Button key={"button"} size="sm" variant="light" onClick={() => console.log("Add role")}><FaPlus /></Button> */}
-          </div>
-        );
+           <HandleRoleMembers user={user} />
+          );
       case "scopes":
         return (
           <div className="flex gap-1">
