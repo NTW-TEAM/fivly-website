@@ -9,6 +9,7 @@ import { FaPlus, FaPlusCircle, FaTimesCircle } from "react-icons/fa"; // Assurez
 const HandleRoleMembers = ({ user }: { user: Members }) => {
   const [roles, setRoles] = useState(user.roles);
   const [allRoles, setAllRoles] = useState([]);
+  const [role, setRole] = useState("");
 
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
@@ -26,7 +27,6 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
     }
   }
 
-
   const onOpenModal = async () => {
     await getAllRoles();  
     onOpen();
@@ -37,7 +37,7 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
       await axios.delete(
         `http://localhost:3001/api/users/${userId}/role/${roleName}`,
       ).then((response) => {
-        if (response.status === 200) {
+        if (response.data.statusCode === 200) {
             ToastHandler.toast("Role deleted", "success");
             setRoles(roles.filter(role => role.name !== roleName))
         }
@@ -47,7 +47,27 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
     }
   };
 
-  const addRole = (userId: number) => async () => {
+  const addRole = (userId: number, role: string) => async () => {
+    if (!role) {
+      ToastHandler.toast("Please select a role", "error");
+      return;
+    }
+    try {
+      await axios
+        .put(`http://localhost:3001/api/users/${userId}/role/${role}`)
+        .then((response) => {
+          if (response.data.statusCode !== 200) {
+            ToastHandler.toast("Error", "error");
+            return;
+          }
+
+            ToastHandler.toast("Role added", "success");
+            const roleInfo = allRoles.find((r: Roles) => r.name === role) as unknown as Roles;
+            setRoles([...roles, roleInfo]);
+        });
+    } catch (error) {
+      console.error("error", error);
+    }
   };
 
   return (
@@ -75,9 +95,10 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
             <>
               <ModalHeader className="flex flex-col gap-1">Ajouter un rôle</ModalHeader>
               <ModalBody>
-                <select>
+                <select onChange={(e) => setRole(e.target.value)}>
+                  <option value="">Select a role</option>
                   {allRoles.map((role: Roles, i) => (
-                    <option key={role.name} value={role.name}>
+                    <option key={role.name} value={role.name} {...(roles.find((r) => r.name === role.name) ? { disabled: true } : {})}>
                       {role.name}
                     </option>
                   ))}
@@ -87,7 +108,7 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>
-                <Button color="primary" onPress={addRole(user.id)}>
+                <Button color="primary" onPress={addRole(user.id, role)}>
                   Ajouter
                 </Button>
               </ModalFooter>

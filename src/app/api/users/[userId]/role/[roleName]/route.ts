@@ -29,7 +29,7 @@ export async function PUT(req: NextApiRequest, {params}: {params: {userId: strin
             },
         })
 
-    return Response.json(data)
+    return Response.json((await data).data)
 }
 
 
