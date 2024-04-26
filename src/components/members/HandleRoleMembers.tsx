@@ -37,10 +37,13 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
       await axios.delete(
         `http://localhost:3001/api/users/${userId}/role/${roleName}`,
       ).then((response) => {
-        if (response.data.statusCode === 200) {
-            ToastHandler.toast("Role deleted", "success");
-            setRoles(roles.filter(role => role.name !== roleName))
+        if (response.status !== 200) {
+          ToastHandler.toast("Erreur lors de la suppression du rôle", "error");
+          return;
         }
+        
+        ToastHandler.toast("Role deleted", "success");
+        setRoles(roles.filter(role => role.name !== roleName))
       });
     } catch (error) {
       console.error("error", error);
@@ -56,10 +59,10 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
       await axios
         .put(`http://localhost:3001/api/users/${userId}/role/${role}`)
         .then((response) => {
-          if (response.data.statusCode !== 200) {
-            ToastHandler.toast("Error", "error");
-            return;
-          }
+            if (response.status !== 200) {
+              ToastHandler.toast("Error", "error");
+              return;
+            }
 
             ToastHandler.toast("Role added", "success");
             const roleInfo = allRoles.find((r: Roles) => r.name === role) as unknown as Roles;

@@ -1,35 +1,32 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import {cookies, headers} from "next/headers";
-import NextCors from "nextjs-cors";
-import axios from "axios";
+import api from "@/services/axios";
 
 export async function DELETE(req: NextApiRequest, {params}: {params: {userId: string, roleName: string}}) {
 
     const { userId, roleName } = params;
 
-    const data = axios.delete(`http://localhost:3000/users/${userId}/roles/${roleName}`,
-        {
-            headers: {
-                Authorization: `Bearer ${cookies().get("auth_token")?.value}`,
-            },
-        })
+    const data = await api.delete(`http://localhost:3000/users/${userId}/roles/${roleName}`);
 
+    const response = { statusCode: data.status, data: data.data };
 
-    return Response.json(data)
+    return Response.json(response);
 };
 
 export async function PUT(req: NextApiRequest, {params}: {params: {userId: string, roleName: string}}) {
 
     const { userId, roleName } = params;
 
-    const data = axios.put(`http://localhost:3000/users/${userId}/roles/${roleName}`,
-        {
-            headers: {
-                Authorization: `Bearer ${cookies().get("auth_token")?.value}`,
-            },
-        })
+    try {
+        const response = await api.put(`http://localhost:3000/users/${userId}/roles/${roleName}`)
 
-    return Response.json((await data).data)
+        const answer = { statusCode: response.data.statusCode, data: response.data };
+        return Response.json(answer);
+    }
+    catch (error) {
+        console.error("error", error);
+    }
+
+    return Response.json({ statusCode: 500, data: "Internal server error" });
 }
 
 
