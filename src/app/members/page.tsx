@@ -7,8 +7,8 @@ import TableMembers from "@/components/members/TableMembers";
 import CardDataStats from "@/components/CardDataStats";
 import { FaUsers } from "react-icons/fa";
 import { Members } from "@/types/members";
-import { deleteRoleToMemberService, getMembers } from "../../services/memberService";
-import React, { useState } from "react";
+import { getMembers } from "../../services/memberService";
+import React from "react";
 
 export const metadata: Metadata = {
   title: TITLE + " - Membres",

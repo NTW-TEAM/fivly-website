@@ -90,18 +90,31 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
         ),
       )}
 
-      <Button onPress={onOpenModal}><FaPlusCircle /></Button>
-      
+      <button
+        className="flex items-center gap-2 px-2 py-2"
+        onClick={onOpenModal}
+      >
+        <FaPlusCircle />
+      </button>
+
       <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Ajouter un rôle</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">
+                Ajouter un rôle
+              </ModalHeader>
               <ModalBody>
                 <select onChange={(e) => setRole(e.target.value)}>
                   <option value="">Select a role</option>
                   {allRoles.map((role: Roles, i) => (
-                    <option key={role.name} value={role.name} {...(roles.find((r) => r.name === role.name) ? { disabled: true } : {})}>
+                    <option
+                      key={role.name}
+                      value={role.name}
+                      {...(roles.find((r) => r.name === role.name)
+                        ? { disabled: true }
+                        : {})}
+                    >
                       {role.name}
                     </option>
                   ))}

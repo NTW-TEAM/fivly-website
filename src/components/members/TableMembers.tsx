@@ -24,6 +24,8 @@ import {
 import React from "react";
 import { FaEllipsisV} from "react-icons/fa";
 import HandleRoleMembers from "./HandleRoleMembers";
+import HandleEditMembers from "./HandleEditMembers";
+import ScopesMembersDisplay from "./ScopesMembersDisplay";
 const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions", "roles"];
 
 const columns = [
@@ -122,35 +124,12 @@ const TableMembers = ({ users }: { users: Members[]}) => {
           </div>
         );
       case "roles":
-        return (
-           <HandleRoleMembers user={user} />
-          );
+        return <HandleRoleMembers user={user} />
       case "scopes":
-        return (
-          <div className="flex gap-1">
-            {user.scopes.map((scope: Scopes) => (
-              <Chip key={scope.name} color="primary" size="sm">
-                {scope.name}
-              </Chip>
-            ))}
-          </div>
-        );;
+        return <ScopesMembersDisplay user={user} />
       case "actions":
-        return (
-          <div className="relative flex items-center justify-end gap-2">
-            <Dropdown>
-              <DropdownTrigger>
-                <Button isIconOnly size="sm" variant="light">
-                  <FaEllipsisV />
-                </Button>
-              </DropdownTrigger>
-              <DropdownMenu>
-                <DropdownItem><Link href={`/members/edit/${user.id}`}>Modifier</Link></DropdownItem>
-                <DropdownItem>Actif / Innactif</DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </div>
-        );
+        return <HandleEditMembers user={user as Members} />
+        
       default:
         return cellValue;
     }
