@@ -1,6 +1,5 @@
 "use client";
 import { Members } from "@/types/members";
-import { Scopes } from "@/types/scopes";
 import {
   Table,
   TableHeader,
@@ -22,11 +21,10 @@ import {
   Spinner,
 } from "@nextui-org/react";
 import React from "react";
-import { FaEllipsisV} from "react-icons/fa";
 import HandleRoleMembers from "./HandleRoleMembers";
 import HandleEditMembers from "./HandleEditMembers";
-import ScopesMembersDisplay from "./ScopesMembersDisplay";
-const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions", "roles"];
+import HandleScopesMembers from "./HandleScopesMembers";
+const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions", "scopes"];
 
 const columns = [
   { name: "Identifiant", uid: "id", sortable: true },
@@ -127,7 +125,7 @@ const TableMembers = ({ users }: { users: Members[]}) => {
       case "roles":
         return <HandleRoleMembers user={user} />
       case "scopes":
-        return <ScopesMembersDisplay user={user} />
+        return <HandleScopesMembers user={user} />;
       case "actions":
         return <HandleEditMembers user={user as Members} userState={user} setUsersState={setUsersState} />;
         
@@ -202,7 +200,7 @@ const TableMembers = ({ users }: { users: Members[]}) => {
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary">Ajouter un membre</Button>
+            {/* <Button color="primary">Ajouter un membre</Button> */}
           </div>
         </div>
         <div className="flex items-center justify-between">

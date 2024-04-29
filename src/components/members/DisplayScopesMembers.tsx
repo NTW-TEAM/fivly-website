@@ -1,18 +1,5 @@
-import ToastHandler from "@/tools/ToastHandler";
 import { Members } from "@/types/members";
-import { Roles } from "@/types/roles";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from "@nextui-org/react";
-import axios from "axios";
 import { useState } from "react";
-import { FaPlus, FaPlusCircle, FaTimesCircle } from "react-icons/fa"; // Assurez-vous d'avoir installé react-icons
 
 const ScopesMembersDisplay = ({ user }: { user: Members }) => {
   const [scopes, setScopes] = useState(user.scopes);

@@ -11,8 +11,8 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { FaPen } from "react-icons/fa";
-import RoleMembersDisplay from "./RoleMembersDisplay";
-import ScopesMembersDisplay from "./ScopesMembersDisplay";
+import RoleMembersDisplay from "./DisplayRoleMembers";
+import ScopesMembersDisplay from "./DisplayScopesMembers";
 import axios from "axios";
 import React, { useState } from "react";
 
