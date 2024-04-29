@@ -49,6 +49,7 @@ const TableMembers = ({ users }: { users: Members[]}) => {
     column: "name",
     direction: "ascending",
   });
+  const [usersState, setUsersState] = React.useState<Members[]>(users);
 
   const [page, setPage] = React.useState(1);
 
@@ -63,16 +64,16 @@ const TableMembers = ({ users }: { users: Members[]}) => {
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsersState = [...usersState];
 
     if (hasSearchFilter) {
-      filteredUsers = filteredUsers.filter((user) =>
+      filteredUsersState = filteredUsersState.filter((user) =>
         user.firstName.toLowerCase().includes(filterValue.toLowerCase()) || user.lastName.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
 
-    return filteredUsers;
-  }, [users, hasSearchFilter, filterValue]);
+    return filteredUsersState;
+  }, [usersState, hasSearchFilter, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -128,7 +129,7 @@ const TableMembers = ({ users }: { users: Members[]}) => {
       case "scopes":
         return <ScopesMembersDisplay user={user} />
       case "actions":
-        return <HandleEditMembers user={user as Members} />
+        return <HandleEditMembers user={user as Members} userState={user} setUsersState={setUsersState} />;
         
       default:
         return cellValue;
@@ -199,20 +200,19 @@ const TableMembers = ({ users }: { users: Members[]}) => {
                     {column.name}
                   </DropdownItem>
                 ))}
-                
               </DropdownMenu>
             </Dropdown>
             <Button color="primary">Ajouter un membre</Button>
           </div>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-default-400 text-small">
-            {users.length} membres
+          <span className="text-small text-default-400">
+            {usersState.length} membres
           </span>
-          <label className="text-default-400 text-small flex items-center">
+          <label className="flex items-center text-small text-default-400">
             Lignes par page
             <select
-              className="text-default-400 text-small bg-transparent outline-none"
+              className="bg-transparent text-small text-default-400 outline-none"
               onChange={onRowsPerPageChange}
             >
               <option value="5">5</option>
@@ -226,7 +226,7 @@ const TableMembers = ({ users }: { users: Members[]}) => {
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, users.length, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, usersState.length, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (

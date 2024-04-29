@@ -2,15 +2,19 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Members } from "@/types/members";
 import api from "@/services/axios";
 
-export async function PATCH(req: NextApiRequest, {params}: {params: {user: Members}}) {
+export async function PATCH(req: Request, {params}: {params: {userId: string}}) {
 
-    const { user } = params;
-    const body = req.body;
+    const { userId } = params;
 
+    const body = await req.json();
 
-    const data = await api.patch(`/users/${user.id}`, body);
+    try {
+        const response = await api.patch(`/users/${userId}`, body)
 
-    const response = { statusCode: data.status, data: data.data };
-
-    return Response.json("ERREUR");
+        const answer = { statusCode: response.status, data: response.data };
+        return Response.json(answer);
+    }
+    catch (error) {
+        return Response.json({ statusCode: 500, data: "Internal server error" });
+    }
 };
