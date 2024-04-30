@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
 
 export async function PUT(req: Request, {params}: {params: {userId: string}}) {

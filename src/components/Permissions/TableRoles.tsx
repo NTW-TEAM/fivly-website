@@ -20,6 +20,7 @@ import {
 import React from "react";
 import DisplayScopesMembers from "../members/DisplayScopesMembers";
 import { FaPen, FaTrash } from "react-icons/fa";
+import HandleCreateRole from "./HandleCreateRole";
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
@@ -183,7 +184,7 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <Button color="primary">Ajouter un rôle</Button>
+            <HandleCreateRole roles={roles} setRoles={setRoles} />
           </div>
         </div>
         <div className="flex items-center justify-between">
