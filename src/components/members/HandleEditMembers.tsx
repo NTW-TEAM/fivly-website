@@ -143,14 +143,14 @@ const HandleEditMembers = ({
                   <div className="flex flex-col gap-2">
                     <label>Rôles</label>
                     <div className="flex items-center gap-1">
-                      <RoleMembersDisplay user={userState} />
+                      <RoleMembersDisplay rolesData={userState.roles} />
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-2">
                     <label>Permissions</label>
                     <div className="flex items-center gap-1">
-                      <ScopesMembersDisplay user={userState} />
+                      <ScopesMembersDisplay scopesData={userState.scopes} />
                     </div>
                   </div>
                 </ModalBody>

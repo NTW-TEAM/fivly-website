@@ -12,6 +12,7 @@ import {
   FaMonero,
   FaRegCalendar,
   FaRegCalendarAlt,
+  FaShieldAlt,
   FaUsers,
   FaWallet,
 } from "react-icons/fa";
@@ -152,6 +153,22 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Settings --> */}
+
+              {/* <!-- Menu Item Roles & Scopes --> */}
+              <li>
+                <Link
+                  href="/permissions"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("permissions") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <FaShieldAlt />
+                  Permissions
+                </Link>
+              </li>
+              {/* <!-- Menu Item Roles & Scopes --> */}
+            
             </ul>
           </div>
 

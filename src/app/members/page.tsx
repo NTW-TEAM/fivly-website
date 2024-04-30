@@ -5,7 +5,7 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
 import TableMembers from "@/components/members/TableMembers";
 import CardDataStats from "@/components/CardDataStats";
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaUserShield } from "react-icons/fa";
 import { Members } from "@/types/members";
 import { getMembers } from "../../services/memberService";
 import React from "react";
@@ -27,10 +27,10 @@ const MembresPage = async () => {
         <CardDataStats title="Membres" total={users.length.toString()} rate="">
           <FaUsers className="fill-primary dark:fill-white" />
         </CardDataStats>
-        <CardDataStats title="data" total="0" rate="">
-          <FaUsers className="fill-primary dark:fill-white" />
+        <CardDataStats title="Administrateur" total={users.filter((user) => user.roles.map((role) => role.name).includes("admin")).length.toString()} rate="">
+           <FaUserShield className="fill-primary dark:fill-white" />
         </CardDataStats>
-        <CardDataStats title="data" total="0" rate="">
+        <CardDataStats title="Autres" total={(users.length * 234).toString()} rate="">
           <FaUsers className="fill-primary dark:fill-white" />
         </CardDataStats>
       </div>
