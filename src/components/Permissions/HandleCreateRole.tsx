@@ -35,6 +35,22 @@ const HandleCreateRole = ({roles, setRoles}: {roles: Roles[]; setRoles: React.Di
             });
     };
 
+    const getAllRoles = async () => {
+        return new Promise<Roles[]>((resolve, reject) => {
+        axios
+            .get(`http://localhost:3001/api/roles`)
+            .then((response) => {
+            if (response.status === 200) {
+                resolve(response.data);
+            }
+            })
+            .catch((error) => {
+            console.error("error", error);
+            reject([]);
+            });
+        });
+    };
+
     React.useEffect(() => {
         getAllScopes();
     }, []);
@@ -57,10 +73,10 @@ const HandleCreateRole = ({roles, setRoles}: {roles: Roles[]; setRoles: React.Di
         await axios
             .post(`http://localhost:3001/api/roles`, 
             body)
-            .then((response) => {
+            .then(async (response) => {
                 if (response.data.statusCode === 201) {
-                    setRoles((prevRoles) => [...prevRoles, response.data.data]);
 
+                    setRoles(await getAllRoles());
                     ToastHandler.toast("Rôle ajouté avec succès", "success");
                 }
                 else {
@@ -93,11 +109,13 @@ const HandleCreateRole = ({roles, setRoles}: {roles: Roles[]; setRoles: React.Di
                         label="Name"
                         type="text"
                         name="name"
+                        defaultValue=""
                         isRequired
                         />
                         <Textarea
                             label="Description"
                             name="description"
+                            defaultValue=""
                             isRequired
                         />
 

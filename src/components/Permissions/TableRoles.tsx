@@ -275,7 +275,7 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"Aucune membres"} items={sortedItems}>
+        <TableBody emptyContent={"Aucun rôles"} items={sortedItems}>
           {(item) => (
             <TableRow key={item.name}>
               {(columnKey) => (
