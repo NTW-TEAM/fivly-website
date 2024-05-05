@@ -22,6 +22,7 @@ import DisplayScopesMembers from "../members/DisplayScopesMembers";
 import { FaPen, FaTrash } from "react-icons/fa";
 import HandleCreateRole from "./HandleCreateRole";
 import HandleDeleteRole from "./HandleDeleteRole";
+import HandleEditRole from "./HandleEditRole";
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
@@ -109,7 +110,7 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
       case "actions":
         return (
           <div className="flex gap-2">
-            <button><FaPen /></button>
+            <HandleEditRole roles={roles} setRoles={setRoles} roleToEdit={role} />
             <HandleDeleteRole roles={roles} setRoles={setRoles} roleToDelete={role} />
           </div>
         );
