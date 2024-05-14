@@ -19,6 +19,7 @@ import {
 import { GiReceiveMoney } from "react-icons/gi";
 import { SiCrowdsource, SiGooglemeet } from "react-icons/si";
 import { FaFileShield } from "react-icons/fa6";
+import { MdOutlineTypeSpecimen } from "react-icons/md";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -125,6 +126,21 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
+              {/* <!-- Menu Item Type Activity --> */}
+              <li>
+                <Link
+                  href="/activityType"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("activityType") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <MdOutlineTypeSpecimen />
+                  Type Activités
+                </Link>
+              </li>
+              {/* <!-- Menu Item Type Activity --> */}
+
               {/* <!-- Menu Item Activity --> */}
               <li>
                 <Link
@@ -168,7 +184,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Roles & Scopes --> */}
-            
             </ul>
           </div>
 
