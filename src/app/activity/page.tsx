@@ -5,7 +5,7 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
 import CardDataStats from "@/components/CardDataStats";
 import { FaUsers } from "react-icons/fa";
-import TableActivityType from "@/components/activity/TableActivityType";
+import TableActivityType from "@/components/ActivityType/TableActivityType";
 import TableActivity from "@/components/activity/TableActivity";
 
 export const metadata: Metadata = {
@@ -34,11 +34,6 @@ const MembresPage = () => {
         <div className="col-span-2 flex">
           <div className="flex h-full w-full flex-col justify-between bg-white shadow-md p-4">
             <TableActivity />
-          </div>
-        </div>
-        <div className="col-span-1 flex">
-          <div className="flex h-full w-full flex-col justify-between bg-white shadow-md p-4">
-            <TableActivityType />
           </div>
         </div>
       </div>
