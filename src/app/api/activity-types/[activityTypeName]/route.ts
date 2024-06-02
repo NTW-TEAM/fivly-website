@@ -5,7 +5,7 @@ export async function DELETE(req: NextApiRequest, {params}: {params: {activityTy
 
     const { activityTypeName } = params;
 
-    const data = await api.delete(`http://localhost:3000/activity-types/${activityTypeName}`);
+    const data = await api.delete(`/activity-types/${activityTypeName}`);
 
     const response = { statusCode: data.status, data: data.data };
 
@@ -16,7 +16,7 @@ export async function POST(req: NextApiRequest, {params}: {params: {activityType
 
     const { activityTypeName } = params;
 
-    const data = await api.post(`http://localhost:3000/activity-types/${activityTypeName}`);
+    const data = await api.post(`/activity-types/${activityTypeName}`);
 
     const response = { statusCode: data.status, data: data.data };
 

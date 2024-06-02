@@ -1,14 +1,14 @@
 import React from "react";
-import axios from "axios";
 import ToastHandler from "@/tools/ToastHandler";
 import { FaTrash } from "react-icons/fa";
 import { ActivityType } from "@/types/activityType";
+import localApi from "@/services/localAxiosApi";
 
 const HandleDeleteActivityType = ({activityTypes, setActivityTypes, activityTypeDelete}: {activityTypes: ActivityType[]; setActivityTypes: React.Dispatch<React.SetStateAction<ActivityType[]>>; activityTypeDelete: ActivityType;}) => {
     const getAllActivityType = async () => {
       return new Promise<ActivityType[]>((resolve, reject) => {
-      axios
-          .get(`http://localhost:3001/api/activity-types`)
+      localApi
+          .get(`/api/activity-types`)
           .then((response) => {
               if (response.status === 200) {
                   resolve(response.data);
@@ -22,9 +22,9 @@ const HandleDeleteActivityType = ({activityTypes, setActivityTypes, activityType
     };
 
     function deleteActivityType(): void {
-      axios
+      localApi
         .delete(
-          `http://localhost:3001/api/activity-types/${activityTypeDelete.name}`,
+          `/api/activity-types/${activityTypeDelete.name}`,
         )
         .then((response) => {
           if (response.status === 200) {

@@ -12,9 +12,9 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
-import axios from "axios";
 import ToastHandler from "@/tools/ToastHandler";
 import { ActivityType } from "@/types/activityType";
+import localApi from "@/services/localAxiosApi";
 
 const HandleCreateActivityType = ({activityTypes, setActivityTypes}: {activityTypes: ActivityType[]; setActivityTypes: React.Dispatch<React.SetStateAction<ActivityType[]>>;}) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -29,8 +29,8 @@ const HandleCreateActivityType = ({activityTypes, setActivityTypes}: {activityTy
           name: formData.get("name") as string,
         };
 
-        await axios
-            .post(`http://localhost:3001/api/activity-types/${activityType.name}`)
+        await localApi
+            .post(`/api/activity-types/${activityType.name}`)
             .then(async (response) => {
                 if (response.data.statusCode === 201) {
                     ToastHandler.toast("Type d'activité ajouté avec succès", "success");

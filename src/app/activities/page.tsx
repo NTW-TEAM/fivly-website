@@ -6,7 +6,7 @@ import { DESCRIPTION, TITLE } from "@/constant/metadata";
 import CardDataStats from "@/components/CardDataStats";
 import { FaUsers } from "react-icons/fa";
 import TableActivityType from "@/components/ActivityType/TableActivityType";
-import TableActivity from "@/components/activity/TableActivity";
+import TableActivity from "@/components/activities/TableActivity";
 
 export const metadata: Metadata = {
   title: TITLE + " - Activités",
