@@ -1,3 +1,4 @@
+import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
 import { Members } from "@/types/members";
 import { Scopes } from "@/types/scopes";
@@ -15,7 +16,7 @@ const HandleScopesMembers = ({ user }: { user: Members }) => {
 
   const getAllScopes = async () => {
     try {
-      await axios.get(`http://localhost:3001/api/scopes`).then((response) => {
+      await localApi.get(`/api/scopes`).then((response) => {
         if (response.status === 200) {
           setAllScopes(response.data);
         }
@@ -34,8 +35,8 @@ const HandleScopesMembers = ({ user }: { user: Members }) => {
     return new Promise(async (resolve, reject) => {
       try {
 
-        await axios
-          .put(`http://localhost:3001/api/users/${userId}/scopes`, {
+        await localApi
+          .put(`/api/users/${userId}/scopes`, {
             scopes: scopes,
           })
           .then((response) => {
@@ -91,14 +92,14 @@ const HandleScopesMembers = ({ user }: { user: Members }) => {
         scope.name.toLowerCase() !== "member" ? (
           <div key={scope.name} className="flex items-center gap-1">
             <div className="flex items-center gap-2 rounded bg-purple-700 px-2 py-1 text-sm text-white">
-              <span>{scope.name}</span>
+              <span>{scope.description}</span>
               <button onClick={deleteScope(user.id, scope.name)}>
                 <FaTimesCircle />
               </button>
             </div>
           </div>
         ) : (
-          <div key={scope.description}></div>
+          <div key={scope.name}></div>
         ),
       )}
 

@@ -17,13 +17,14 @@ import { Scopes } from "@/types/scopes";
 import axios from "axios";
 import ToastHandler from "@/tools/ToastHandler";
 import { FaTrash } from "react-icons/fa";
+import localApi from "@/services/localAxiosApi";
 
 const HandleDeleteRole = ({roles, setRoles, roleToDelete}: {roles: Roles[]; setRoles: React.Dispatch<React.SetStateAction<Roles[]>>; roleToDelete: Roles;}) => {
 
     const getAllRoles = async () => {
         return new Promise<Roles[]>((resolve, reject) => {
-        axios
-            .get(`http://localhost:3001/api/roles`)
+        localApi
+            .get(`/api/roles`)
             .then((response) => {
             if (response.status === 200) {
                 resolve(response.data);
@@ -37,8 +38,8 @@ const HandleDeleteRole = ({roles, setRoles, roleToDelete}: {roles: Roles[]; setR
     };
 
     function deleteRole(): void {
-        axios
-            .delete(`http://localhost:3001/api/roles/${roleToDelete.name}`)
+        localApi
+            .delete(`/api/roles/${roleToDelete.name}`)
             .then((response) => {
                 if (response.status === 200) {
                     ToastHandler.toast("Rôle supprimé avec succès", "success");

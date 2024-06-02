@@ -16,6 +16,7 @@ import { Roles } from "@/types/roles";
 import { Scopes } from "@/types/scopes";
 import axios from "axios";
 import ToastHandler from "@/tools/ToastHandler";
+import localApi from "@/services/localAxiosApi";
 
 const HandleCreateRole = ({roles, setRoles}: {roles: Roles[]; setRoles: React.Dispatch<React.SetStateAction<Roles[]>>;}) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -23,8 +24,8 @@ const HandleCreateRole = ({roles, setRoles}: {roles: Roles[]; setRoles: React.Di
     const [scopes, setScopes] = React.useState<Scopes[]>([]);
 
     const getAllScopes = async () => {
-        axios
-            .get(`http://localhost:3001/api/scopes`)
+        localApi
+            .get(`/api/scopes`)
             .then((response) => {
                 if (response.status === 200) {
                     setScopes(response.data);
@@ -37,16 +38,16 @@ const HandleCreateRole = ({roles, setRoles}: {roles: Roles[]; setRoles: React.Di
 
     const getAllRoles = async () => {
         return new Promise<Roles[]>((resolve, reject) => {
-        axios
-            .get(`http://localhost:3001/api/roles`)
+        localApi
+            .get(`/api/roles`)
             .then((response) => {
-            if (response.status === 200) {
-                resolve(response.data);
-            }
+                if (response.status === 200) {
+                    resolve(response.data);
+                }
             })
             .catch((error) => {
-            console.error("error", error);
-            reject([]);
+                console.error("error", error);
+                reject([]);
             });
         });
     };
@@ -70,8 +71,8 @@ const HandleCreateRole = ({roles, setRoles}: {roles: Roles[]; setRoles: React.Di
             scopes: scopes,
         };
 
-        await axios
-            .post(`http://localhost:3001/api/roles`, 
+        await localApi
+            .post(`/api/roles`, 
             body)
             .then(async (response) => {
                 if (response.data.statusCode === 201) {

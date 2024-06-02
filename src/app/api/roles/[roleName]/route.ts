@@ -5,7 +5,7 @@ export async function DELETE(req: NextApiRequest, {params}: {params: {roleName: 
 
     const {roleName } = params;
 
-    const data = await api.delete(`http://localhost:3000/roles/${roleName}`);
+    const data = await api.delete(`/roles/${roleName}`);
 
     const response = { statusCode: data.status, data: data.data };
 

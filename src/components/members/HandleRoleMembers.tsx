@@ -1,8 +1,8 @@
+import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
 import { Members } from "@/types/members";
 import { Roles } from "@/types/roles";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
-import axios from "axios";
 import { useState } from "react";
 import { FaPlus, FaPlusCircle, FaTimesCircle } from "react-icons/fa"; // Assurez-vous d'avoir installé react-icons
 
@@ -15,13 +15,11 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
 
   const getAllRoles = async () => {
     try {
-      await axios
-        .get(`http://localhost:3001/api/roles`)
-        .then((response) => {
-          if (response.status === 200) {
-            setAllRoles(response.data);
-          }
-        });
+      await localApi.get(`/api/roles`).then((response) => {
+        if (response.status === 200) {
+          setAllRoles(response.data);
+        }
+      });
     } catch (error) {
       console.error("error", error);
     }
@@ -34,17 +32,20 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
 
   const deleteRole = (userId: number, roleName: string) => async () => {
     try {
-      await axios.delete(
-        `http://localhost:3001/api/users/${userId}/role/${roleName}`,
-      ).then((response) => {
-        if (response.status !== 200) {
-          ToastHandler.toast("Erreur lors de la suppression du rôle", "error");
-          return;
-        }
-        
-        ToastHandler.toast("Role deleted", "success");
-        setRoles(roles.filter(role => role.name !== roleName))
-      });
+      await localApi
+        .delete(`/api/users/${userId}/role/${roleName}`)
+        .then((response) => {
+          if (response.status !== 200) {
+            ToastHandler.toast(
+              "Erreur lors de la suppression du rôle",
+              "error",
+            );
+            return;
+          }
+
+          ToastHandler.toast("Role deleted", "success");
+          setRoles(roles.filter((role) => role.name !== roleName));
+        });
     } catch (error) {
       console.error("error", error);
     }
@@ -56,8 +57,8 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
       return;
     }
     try {
-      await axios
-        .put(`http://localhost:3001/api/users/${userId}/role/${role}`)
+      await localApi
+        .put(`/api/users/${userId}/role/${role}`)
         .then((response) => {
             if (response.status !== 200) {
               ToastHandler.toast("Error", "error");

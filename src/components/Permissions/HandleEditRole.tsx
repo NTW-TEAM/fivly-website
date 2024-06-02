@@ -17,6 +17,7 @@ import { Scopes } from "@/types/scopes";
 import axios from "axios";
 import ToastHandler from "@/tools/ToastHandler";
 import { FaPen } from "react-icons/fa";
+import localApi from "@/services/localAxiosApi";
 
 const HandleEditRole = ({roles, setRoles, roleToEdit}: {roles: Roles[]; setRoles: React.Dispatch<React.SetStateAction<Roles[]>>; roleToEdit: Roles;}) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -24,8 +25,8 @@ const HandleEditRole = ({roles, setRoles, roleToEdit}: {roles: Roles[]; setRoles
     const [scopes, setScopes] = React.useState<Scopes[]>([]);
 
     const getAllScopes = async () => {
-        axios
-            .get(`http://localhost:3001/api/scopes`)
+        localApi
+            .get(`/api/scopes`)
             .then((response) => {
                 if (response.status === 200) {
                     setScopes(response.data);
@@ -38,8 +39,8 @@ const HandleEditRole = ({roles, setRoles, roleToEdit}: {roles: Roles[]; setRoles
 
     const getAllRoles = async () => {
         return new Promise<Roles[]>((resolve, reject) => {
-        axios
-            .get(`http://localhost:3001/api/roles`)
+        localApi
+            .get(`/api/roles`)
             .then((response) => {
             if (response.status === 200) {
                 resolve(response.data);
@@ -71,8 +72,8 @@ const HandleEditRole = ({roles, setRoles, roleToEdit}: {roles: Roles[]; setRoles
             scopes: scopes,
         };
 
-        await axios
-            .post(`http://localhost:3001/api/roles`, 
+        await localApi
+            .post(`/api/roles`, 
             body)
             .then(async (response) => {
                 if (response.data.statusCode === 201) {

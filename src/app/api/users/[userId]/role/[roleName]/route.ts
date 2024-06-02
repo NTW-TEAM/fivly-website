@@ -5,7 +5,7 @@ export async function DELETE(req: NextApiRequest, {params}: {params: {userId: st
 
     const { userId, roleName } = params;
 
-    const data = await api.delete(`http://localhost:3000/users/${userId}/roles/${roleName}`);
+    const data = await api.delete(`/users/${userId}/roles/${roleName}`);
 
     const response = { statusCode: data.status, data: data.data };
 
@@ -17,7 +17,7 @@ export async function PUT(req: NextApiRequest, {params}: {params: {userId: strin
     const { userId, roleName } = params;
 
     try {
-        const response = await api.put(`http://localhost:3000/users/${userId}/roles/${roleName}`)
+        const response = await api.put(`/users/${userId}/roles/${roleName}`)
 
         const answer = { statusCode: response.data.statusCode, data: response.data };
         return Response.json(answer);

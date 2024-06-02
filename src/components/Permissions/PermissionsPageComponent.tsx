@@ -9,12 +9,13 @@ import axios from "axios";
 import { Scopes } from "@/types/scopes";
 import { MdVerifiedUser } from "react-icons/md";
 import TableRoles from "./TableRoles";
+import localApi from "@/services/localAxiosApi";
 
 const PermissionsPageComponent = () => {
     const getAllRoles = async () => {
         return new Promise<Roles[]>((resolve, reject) => {
-        axios
-            .get(`http://localhost:3001/api/roles`)
+        localApi
+            .get(`/api/roles`)
             .then((response) => {
                 if (response.status === 200) {
                     resolve(response.data);
@@ -29,8 +30,8 @@ const PermissionsPageComponent = () => {
 
     const getAllScopes = async () => {
         return new Promise<Scopes[]>((resolve, reject) => {
-        axios
-            .get(`http://localhost:3001/api/scopes`)
+        localApi
+            .get(`/api/scopes`)
             .then((response) => {
                 if (response.status === 200) {
                     resolve(response.data);
