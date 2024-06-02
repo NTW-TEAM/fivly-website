@@ -3,16 +3,16 @@ import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
-import axios from "axios";
 import { MdOutlineTypeSpecimen } from "react-icons/md";
 import { ActivityType } from "@/types/activityType";
 import TableActivityType from "./TableActivityType";
+import localApi from "@/services/localAxiosApi";
 
 const ActivityTypePageComponent = () => {
     const getAllActivityType = async () => {
         return new Promise<ActivityType[]>((resolve, reject) => {
-        axios
-            .get(`http://localhost:3001/api/activity-types`)
+        localApi
+            .get(`/api/activity-types`)
             .then((response) => {
                 if (response.status === 200) {
                     resolve(response.data);
