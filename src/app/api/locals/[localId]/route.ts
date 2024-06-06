@@ -11,3 +11,16 @@ export async function DELETE(req: NextApiRequest, {params}: {params: {localId: s
 
     return Response.json(response);
 };
+
+export async function PATCH(req: Request, {params}: {params: {localId: string}}) {
+    
+    const { localId } = params;
+
+    const body = await req.json();
+
+    const response = await api.patch(`/locals/${localId}`, body);
+
+    const answer = { statusCode: response.status, data: response.data };
+
+    return Response.json(answer);
+}   

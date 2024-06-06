@@ -20,6 +20,7 @@ import React from "react";
 import { local } from "@/types/local";
 import HandleCreateLocal from "./HandleCreateLocal";
 import HandleDeleteLocal from "./HandleDeleteLocal";
+import HandleUpdateLocal from "./HandleUpdateLocal";
 const INITIAL_VISIBLE_COLUMNS = ["name", "address", "actions"];
 
 const columns = [
@@ -102,7 +103,9 @@ const TableLocals = ({ locals, setLocals }: { locals: local[]; setLocals: React.
       case "actions":
         return (
           <div className="flex gap-2">
+            <HandleUpdateLocal locals={locals} setLocals={setLocals} local={local} />
             <HandleDeleteLocal locals={locals} setLocals={setLocals} local={local} />
+            
           </div>
         );
         
