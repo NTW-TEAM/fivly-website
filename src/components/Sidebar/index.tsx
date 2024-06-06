@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SidebarLinkGroup from "./SidebarLinkGroup";
 import {
+  FaBuilding,
   FaChartPie,
   FaHandsHelping,
   FaList,
@@ -18,7 +19,7 @@ import {
 } from "react-icons/fa";
 import { GiReceiveMoney } from "react-icons/gi";
 import { SiCrowdsource, SiGooglemeet } from "react-icons/si";
-import { FaFileShield } from "react-icons/fa6";
+import { FaB, FaFileShield } from "react-icons/fa6";
 import { MdOutlineTypeSpecimen } from "react-icons/md";
 
 interface SidebarProps {
@@ -169,6 +170,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Settings --> */}
+
+              {/* <!-- Menu Item Locals --> */}
+              <li>
+                <Link
+                  href="/locals"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.includes("locals") && "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <FaBuilding />
+                  Locaux
+                </Link>
+              </li>
+              {/* <!-- Menu Item Locals --> */}
 
               {/* <!-- Menu Item Roles & Scopes --> */}
               <li>
