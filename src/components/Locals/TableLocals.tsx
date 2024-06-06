@@ -19,10 +19,12 @@ import {
 import React from "react";
 import { local } from "@/types/local";
 import HandleCreateLocal from "./HandleCreateLocal";
-const INITIAL_VISIBLE_COLUMNS = ["name", "actions"];
+import HandleDeleteLocal from "./HandleDeleteLocal";
+const INITIAL_VISIBLE_COLUMNS = ["name", "address", "actions"];
 
 const columns = [
   { name: "Nom", uid: "name", sortable: true },
+  { name: "Adresse", uid: "address", sortable: false },
   { name: "Actions", uid: "actions", sortable: false },
 ];
 
@@ -89,10 +91,18 @@ const TableLocals = ({ locals, setLocals }: { locals: local[]; setLocals: React.
             <p className="text-bold text-small capitalize">{local.name}</p>
           </div>
         );
+      case "address":
+        return (
+          <div className="flex flex-col">
+            <p className="text-small">{local.numberAndStreet}, {local.postalCode} {local.city}</p>
+            <p className="text-small">{local.country}</p>
+          </div>
+        );
+
       case "actions":
         return (
           <div className="flex gap-2">
-            {/* <HandleDeleteActivityType activityTypes={local} setActivityTypes={setActivityTypes} activityTypeDelete={activityType} /> */}
+            <HandleDeleteLocal locals={locals} setLocals={setLocals} local={local} />
           </div>
         );
         

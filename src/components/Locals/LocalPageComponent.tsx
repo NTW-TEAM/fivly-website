@@ -38,7 +38,7 @@ const LocalPageComponent = () => {
 
     return (
         <DefaultLayout>
-        <Breadcrumb pageName="Permissions"/>
+        <Breadcrumb pageName="Locaux"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
             <CardDataStats title="Locaux" total={locals.length.toString()} rate="">
