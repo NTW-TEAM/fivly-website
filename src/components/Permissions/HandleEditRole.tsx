@@ -102,7 +102,7 @@ const HandleEditRole = ({roles, setRoles, roleToEdit}: {roles: Roles[]; setRoles
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <ModalContent>
                     <ModalHeader>
-                        Ajouter un nouveau rôle
+                        Modifier {roleToEdit.name}
                     </ModalHeader>
                     <ModalBody>
                         <Input
