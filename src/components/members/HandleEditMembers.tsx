@@ -1,5 +1,5 @@
 import ToastHandler from "@/tools/ToastHandler";
-import { Members } from "@/types/members";
+import { Members } from "@/types/Members";
 import {
   Button,
   Input,

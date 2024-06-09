@@ -1,4 +1,4 @@
-import { Members } from '@/types/members';
+import { Members } from '@/types/Members';
 import api from './axios';
 
 export interface signInMember {

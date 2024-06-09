@@ -1,7 +1,7 @@
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
-import { Members } from "@/types/members";
-import { Scopes } from "@/types/scopes";
+import { Members } from "@/types/Members";
+import { Scopes } from "@/types/Scopes";
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import axios from "axios";
 import { useState } from "react";

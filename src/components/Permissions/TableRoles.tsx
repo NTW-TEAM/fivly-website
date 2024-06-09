@@ -1,5 +1,5 @@
 "use client";
-import { Roles } from "@/types/roles";
+import { Roles } from "@/types/Roles";
 import {
   Table,
   TableHeader,

@@ -1,5 +1,5 @@
 "use client";
-import { Members } from "@/types/members";
+import { Members } from "@/types/Members";
 import {
   Table,
   TableHeader,

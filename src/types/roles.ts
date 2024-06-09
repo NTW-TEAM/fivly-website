@@ -1,6 +1,6 @@
-import { Scopes } from "./scopes";
+import { Scopes } from "./Scopes";
 
-export type activityTypesRoles = {
+export type Roles = {
   id: string | number | undefined;
   name: string;
   description: string;

@@ -17,8 +17,9 @@ import {
   SortDescriptor,
 } from "@nextui-org/react";
 import React from "react";
-import { Activity } from "@/types/activity";
+import { Activity } from "@/types/Activity";
 import HandleDeleteActivities from "./HandleDeleteActivities";
+import HandleCreateActivities from "./HandleCreateActivities";
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
@@ -209,10 +210,10 @@ const TableActivities = ({
                 ))}
               </DropdownMenu>
             </Dropdown>
-            {/*             <HandleCreateActivity
+                        <HandleCreateActivities
               activities={activities}
               setActivities={setActivities}
-            /> */}
+            />
           </div>
         </div>
         <div className="flex items-center justify-between">

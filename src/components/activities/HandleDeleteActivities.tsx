@@ -1,9 +1,8 @@
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import { FaTrash } from "react-icons/fa";
-import { ActivityType } from "@/types/activityType";
 import localApi from "@/services/localAxiosApi";
-import { Activity } from "@/types/activity";
+import { Activity } from "@/types/Activity";
 
 const HandleDeleteActivities = ({activities, setActivities, activitieDelete}: {activities: Activity[]; setActivities: React.Dispatch<React.SetStateAction<Activity[]>>; activitieDelete: Activity;}) => {
     const getAllActivities = async () => {

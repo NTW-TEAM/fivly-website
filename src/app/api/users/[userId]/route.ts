@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Members } from "@/types/members";
+import { Members } from "@/types/Members";
 import api from "@/services/axios";
 
 export async function PATCH(req: Request, {params}: {params: {userId: string}}) {

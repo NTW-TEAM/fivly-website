@@ -4,9 +4,9 @@ import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
 import { MdOutlineTypeSpecimen } from "react-icons/md";
-import { ActivityType } from "@/types/activityType";
+import { ActivityType } from "@/types/ActivityType";
 import localApi from "@/services/localAxiosApi";
-import { Activity } from "@/types/activity";
+import { Activity } from "@/types/Activity";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import TableActivities from "./TableActivities";
 
