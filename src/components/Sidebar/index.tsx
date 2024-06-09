@@ -20,7 +20,7 @@ import {
 import { GiReceiveMoney } from "react-icons/gi";
 import { SiCrowdsource, SiGooglemeet } from "react-icons/si";
 import { FaB, FaFileShield } from "react-icons/fa6";
-import { MdOutlineTypeSpecimen } from "react-icons/md";
+import { MdOutlineChairAlt, MdOutlineTypeSpecimen } from "react-icons/md";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -184,6 +184,36 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item Locals --> */}
+
+              {/* <!-- Menu Item Materials Model --> */}
+              <li>
+                <Link
+                  href="/materials/model"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.endsWith("materials/model") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <MdOutlineTypeSpecimen />
+                  Model de Matériels
+                </Link>
+              </li>
+              {/* <!-- Menu Item Materials Model --> */}
+
+              {/* <!-- Menu Item Materials --> */}
+              <li>
+                <Link
+                  href="/materials"
+                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                    pathname.endsWith("materials") &&
+                    "bg-graydark dark:bg-meta-4"
+                  }`}
+                >
+                  <MdOutlineChairAlt />
+                  Matériels
+                </Link>
+              </li>
+              {/* <!-- Menu Item Roles & Scopes --> */}
 
               {/* <!-- Menu Item Roles & Scopes --> */}
               <li>
