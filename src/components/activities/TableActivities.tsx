@@ -22,6 +22,9 @@ const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
   { name: "Nom", uid: "name", sortable: true },
+  { name: "Description", uid: "description", sortable: false },
+  { name: "Date de début", uid: "dateDebut", sortable: true },
+  { name: "Date de fin", uid: "dateFin", sortable: true },
   { name: "Actions", uid: "actions", sortable: false },
 ];
 
@@ -89,16 +92,36 @@ const TableActivities = ({
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback(
-    (activityType: Activity, columnKey: React.Key) => {
-      const cellValue = activityType[columnKey as keyof Activity];
+    (activity: Activity, columnKey: React.Key) => {
+      const cellValue = activity[columnKey as keyof Activity];
 
       switch (columnKey) {
         case "name":
           return (
             <div className="flex flex-col">
               <p className="text-bold text-small capitalize">
-                {activityType.name}
+                {activity.title}
               </p>
+            </div>
+          );
+        case "description":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">{activity.description}</p>
+            </div>
+          );  
+        case "dateDebut":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">
+                {activity.beginDateTime}
+              </p>
+            </div>
+          );
+        case "dateFin":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">{activity.endDateTime}</p>
             </div>
           );
         case "actions":
@@ -193,7 +216,7 @@ const TableActivities = ({
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            {activities.length} types d&apos;activité
+            {activities.length} activité(s)
           </span>
           <label className="flex items-center text-small text-default-400">
             Lignes par page
@@ -226,8 +249,8 @@ const TableActivities = ({
       <div className="flex items-center justify-between px-2 py-2">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
-            ? "Tous les types d'activité sélectionnés"
-            : `${selectedKeys.size} sur ${filteredItems.length} types d'activité sélectionnés`}
+            ? "Activité sélectionnés"
+            : `${selectedKeys.size} sur ${filteredItems.length} activité(s) sélectionnés`}
         </span>
         <Pagination
           isCompact
@@ -270,7 +293,7 @@ const TableActivities = ({
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <Table
-        aria-label="Type d'activité Table"
+        aria-label="Activité Table"
         isHeaderSticky
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
@@ -293,7 +316,7 @@ const TableActivities = ({
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"Aucun type d'activité"} items={sortedItems}>
+        <TableBody emptyContent={"Aucune activité"} items={sortedItems}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

@@ -2,8 +2,8 @@ export type Activity = {
     id: number;
     title: string;
     description: string;
-    beginDate: string;
-    endDate: string;
+    beginDateTime: string;
+    endDateTime: string;
     activityType: string;
     creator: string;
 };

@@ -4,7 +4,7 @@ import React from "react";
 import ActivitiesPageComponent from "@/components/activities/ActivitiesPageComponent";
 
 export const metadata: Metadata = {
-  title: TITLE + " - Type d'activité",
+  title: TITLE + " - Activité(s)",
   description: DESCRIPTION,
 };
 
