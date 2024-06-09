@@ -38,7 +38,6 @@ const HandleCreateActivities = ({activities, setActivities}: {activities: Activi
         });
     };
 
-    
     const getAllActivities = async () => {
         return new Promise<Activity[]>((resolve, reject) => {
         localApi
@@ -54,7 +53,6 @@ const HandleCreateActivities = ({activities, setActivities}: {activities: Activi
             });
         });
     };
-
 
     React.useEffect(() => {
         const fetchActivityTypes = async () => {
@@ -77,16 +75,14 @@ const HandleCreateActivities = ({activities, setActivities}: {activities: Activi
             beginDateTime: formData.get("startDate") as string,
             endDateTime: formData.get("endDate") as string,
             activityType: formData.get("activityType") as string,
-            creator: "admin",
         };
 
         await localApi
-            .post(`/api/activities/`, activity)
+            .post(`/api/activities`, activity)
             .then(async (response) => {
                 if (response.data.statusCode === 201) {
-                    ToastHandler.toast("Activité ajouté avec succès", "success");
-                    const newActivity = response.data.data;
-                    setActivities((prevActivities) => [...prevActivities, newActivity]);
+                    const activities = await getAllActivities();
+                    setActivities(activities);
                 }
                 else {
                     ToastHandler.toast(response.data, "error");
@@ -99,6 +95,7 @@ const HandleCreateActivities = ({activities, setActivities}: {activities: Activi
             .finally(() => {
                 onOpenChange();
             });
+        ToastHandler.toast("Activité ajouté avec succès", "success");
     }
    
     return (

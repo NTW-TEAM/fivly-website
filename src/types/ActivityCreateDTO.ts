@@ -4,5 +4,4 @@ export type ActivityCreateDTO = {
     beginDateTime: string;
     endDateTime: string;
     activityType: string;
-    creator: string;
 };
