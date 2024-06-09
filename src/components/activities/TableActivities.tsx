@@ -18,6 +18,7 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import { Activity } from "@/types/activity";
+import HandleDeleteActivities from "./HandleDeleteActivities";
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
@@ -127,11 +128,11 @@ const TableActivities = ({
         case "actions":
           return (
             <div className="flex gap-2">
-              {/* <HandleDeleteActivity
+              <HandleDeleteActivities
                 activities={activities}
                 setActivities={setActivities}
-                activityTypeDelete={activityType}
-              /> */}
+                activitieDelete={activity}
+              />
             </div>
           );
 

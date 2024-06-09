@@ -1,22 +1,22 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
 
-export async function DELETE(req: NextApiRequest, {params}: {params: {activityTypeName: string}}) {
+export async function DELETE(req: NextApiRequest, {params}: {params: {activityId: string}}) {
 
-    const { activityTypeName } = params;
+    const { activityId } = params;
 
-    const data = await api.delete(`/activity-types/${activityTypeName}`);
+    const data = await api.delete(`/activities/${activityId}`);
 
     const response = { statusCode: data.status, data: data.data };
 
     return Response.json(response);
 };
 
-export async function POST(req: NextApiRequest, {params}: {params: {activityTypeName: string}}) {
+export async function POST(req: NextApiRequest, {params}: {params: {activityId: string}}) {
 
-    const { activityTypeName } = params;
+    const { activityId } = params;
 
-    const data = await api.post(`/activity-types/${activityTypeName}`);
+    const data = await api.post(`/activities/${activityId}`);
 
     const response = { statusCode: data.status, data: data.data };
 
