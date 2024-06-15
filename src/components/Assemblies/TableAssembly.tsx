@@ -21,6 +21,7 @@ import {
 import React from "react";
 import HandleCreateAssembly from "./HandleCreateAssembly";
 import HandleDeleteAssembly from "./HandleDeleteAssembly";
+import HandleEditAssembly from "./HandleEditAssembly";
 const INITIAL_VISIBLE_COLUMNS = ["description", "datetime", "isGeneral", "hasStarted", "actions"];
 
 const columns = [
@@ -136,15 +137,23 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
       case "actions":
         return (
           <div className="flex gap-2">
-            {/* <HandleEditMaterielModel materialModels={materialModels} setMaterialModels={setMaterialModels} materialModelToEdit={materialModel} />*/}
-            <HandleDeleteAssembly assemblies={assemblies} setAssemblies={setAssemblies} assemblyToDelete={assembly} /> 
+            <HandleEditAssembly
+              assemblies={assemblies}
+              setAssemblies={setAssemblies}
+              assemblyToEdit={assembly}
+            />
+            <HandleDeleteAssembly
+              assemblies={assemblies}
+              setAssemblies={setAssemblies}
+              assemblyToDelete={assembly}
+            />
           </div>
         );
         
       default:
         return cellValue;
     }
-  }, []);
+  }, [assemblies, setAssemblies]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
