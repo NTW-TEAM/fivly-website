@@ -40,7 +40,7 @@ const AssemblyPageComponent = () => {
         <Breadcrumb pageName="Model de matériel"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
-            <CardDataStats title="Model d'équipement" total={assemblies.length.toString()} rate="">
+            <CardDataStats title="Assemblées" total={assemblies.length.toString()} rate="">
                 <FaUsersCog className="fill-primary dark:fill-white" />
             </CardDataStats>
         </div>
