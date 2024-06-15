@@ -20,6 +20,7 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import HandleCreateAssembly from "./HandleCreateAssembly";
+import HandleDeleteAssembly from "./HandleDeleteAssembly";
 const INITIAL_VISIBLE_COLUMNS = ["description", "datetime", "isGeneral", "hasStarted", "actions"];
 
 const columns = [
@@ -117,7 +118,7 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
       case "datetime":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.datetime}</p>
+            <p className="text-bold text-small capitalize">{new Date(assembly.datetime).toLocaleDateString()}</p>
           </div>
         );
       case "quorum":
@@ -135,8 +136,8 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
       case "actions":
         return (
           <div className="flex gap-2">
-            {/* <HandleEditMaterielModel materialModels={materialModels} setMaterialModels={setMaterialModels} materialModelToEdit={materialModel} />
-            <HandleDeleteMaterialModel materialModels={materialModels} setMaterialModels={setMaterialModels} materialModelsToDelete={materialModel} /> */}
+            {/* <HandleEditMaterielModel materialModels={materialModels} setMaterialModels={setMaterialModels} materialModelToEdit={materialModel} />*/}
+            <HandleDeleteAssembly assemblies={assemblies} setAssemblies={setAssemblies} assemblyToDelete={assembly} /> 
           </div>
         );
         
@@ -235,7 +236,7 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, assemblies.length, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, assemblies, setAssemblies, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (
