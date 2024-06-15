@@ -39,10 +39,10 @@ const HandleCreateAssembly = ({assemblies, setAssemblies}: {assemblies: Assembly
         const formData = new FormData(e.currentTarget);
 
         const description = formData.get("description") as string;
-        const isGeneral = formData.get("isGeneral") as string;
-        const hasStarted = formData.get("hasStarted") as string;
-        const datetime = formData.get("datetime") as string;
-        const quorum = formData.get("quorum") as string;
+        const isGeneral = formData.get("isGeneral") === "";
+        const hasStarted = formData.get("hasStarted") === "";
+        const datetime = new Date(formData.get("datetime") as string).toISOString();
+        const quorum = parseInt(formData.get("quorum") as string, 10);
         const location = formData.get("location") as string;
 
         const body = {
@@ -64,7 +64,8 @@ const HandleCreateAssembly = ({assemblies, setAssemblies}: {assemblies: Assembly
                     ToastHandler.toast("L'assemblée a été ajoutée avec succès", "success");
                 }
                 else {
-                    ToastHandler.toast(response.data, "error");
+                    console.log(response.data);
+                    ToastHandler.toast(response.data.data, "error");
                 }
             })
             .catch((error) => {
@@ -78,69 +79,71 @@ const HandleCreateAssembly = ({assemblies, setAssemblies}: {assemblies: Assembly
     }
    
     return (
-        <div>
-            <Button onClick={onOpen} color="primary">
-                Ajouter une assemblée
-            </Button>
+      <div>
+        <Button onClick={onOpen} color="primary">
+          Ajouter une assemblée
+        </Button>
 
-            <Modal isOpen={isOpen} onClose={() => onOpenChange()} size="lg">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <ModalContent>
-                    <ModalHeader>
-                        Ajouter une assemblée
-                    </ModalHeader>
-                    <ModalBody>
-                        <Input
-                            name="description"
-                            label="Description"
-                            placeholder="Description"
-                            required
-                        />
-                        <Checkbox
-                            name="isGeneral"
-                            required
-                        />
-                        <Input
-                            name="hasStarted"
-                            label="A commencé"
-                            placeholder="A commencé"
-                            required
-                        />
-                        <Input
-                            name="datetime"
-                            label="Date et heure"
-                            placeholder="Date et heure"
-                            required
-                        />
-                        <Input
-                            name="quorum"
-                            label="Quorum"
-                            placeholder="Quorum"
-                            required
-                        />
-                        <Input
-                            name="location"
-                            label="Lieu"
-                            placeholder="Lieu"
-                            required
-                        />
-                    </ModalBody>    
-                    <ModalFooter>
-                    <Button
-                        color="danger"
-                        variant="light"
-                        onPress={() => onOpenChange()}
-                    >
-                        Fermer
-                    </Button>
-                    <Button color="success" variant="light" type="submit">
-                        Ajouter
-                    </Button>
-                    </ModalFooter>
-                </ModalContent>
-                </form>
-            </Modal>
-        </div>
+        <Modal isOpen={isOpen} onClose={() => onOpenChange()} size="lg">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <ModalContent>
+              <ModalHeader>Ajouter une assemblée</ModalHeader>
+              <ModalBody>
+                <Input
+                  name="description"
+                  label="Description"
+                  placeholder="Description"
+                  required
+                  defaultValue=""
+                />
+                <Input
+                  name="datetime"
+                  label="Date et heure"
+                  placeholder="Date et heure"
+                  type="datetime-local"
+                  required
+                  defaultValue=""
+                />
+                <Input
+                  name="quorum"
+                  label="Quorum"
+                  type="number"
+                  placeholder="Quorum"
+                  required
+                  defaultValue=""
+                />
+                <Input
+                  name="location"
+                  label="Lieu"
+                  placeholder="Lieu"
+                  required
+                  defaultValue=""
+                />
+                <div className="flex gap-4">
+                  <Checkbox name="isGeneral" required>
+                    Est générale
+                  </Checkbox>
+                  <Checkbox name="hasStarted" required>
+                    A commencé
+                  </Checkbox>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={() => onOpenChange()}
+                >
+                  Fermer
+                </Button>
+                <Button color="success" variant="light" type="submit">
+                  Ajouter
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </form>
+        </Modal>
+      </div>
     );
 };
 

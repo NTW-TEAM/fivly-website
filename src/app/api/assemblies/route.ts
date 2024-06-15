@@ -11,7 +11,8 @@ export async function POST(req: Request, res: NextApiResponse) {
 
     const response = await api.post("/assemblies", body);
 
-    const answer = { statusCode: response.status, data: response.data };
+
+    const answer = { statusCode: response.status, data: response.message };
 
     return Response.json(answer);
 }

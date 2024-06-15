@@ -19,15 +19,17 @@ import {
   SortDescriptor,
 } from "@nextui-org/react";
 import React from "react";
-const INITIAL_VISIBLE_COLUMNS = ["description", "hasStarted", "actions"];
+import HandleCreateAssembly from "./HandleCreateAssembly";
+const INITIAL_VISIBLE_COLUMNS = ["description", "datetime", "isGeneral", "hasStarted", "actions"];
 
 const columns = [
+  { name: "Identifiant", uid: "id", sortable: true },
   { name: "Description", uid: "description", sortable: true },
-  { name: "isGeneral", uid: "isGeneral", sortable: true },
-  { name: "hasStarted", uid: "hasStarted", sortable: true },
-  { name: "datetime", uid: "datetime", sortable: true },
-  { name: "quorum", uid: "quorum", sortable: true },
-  { name: "location", uid: "location", sortable: true },
+  { name: "Général", uid: "isGeneral", sortable: true },
+  { name: "A débuter", uid: "hasStarted", sortable: true },
+  { name: "Date", uid: "datetime", sortable: true },
+  { name: "Quorum", uid: "quorum", sortable: true },
+  { name: "Lieu", uid: "location", sortable: true },
   { name: "Actions", uid: "actions", sortable: false },
 ];
 
@@ -88,6 +90,12 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
     const cellValue = assembly[columnKey as keyof Assembly];
 
     switch (columnKey) {
+      case "id":
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small capitalize">{assembly.id}</p>
+          </div>
+        );
       case "description":
         return (
           <div className="flex flex-col">
@@ -203,7 +211,7 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
                 ))}
               </DropdownMenu>
             </Dropdown>
-            {/* <HandleCreateMaterialModel materialModels={materialModels} setMaterialModels={setMaterialModels} /> */}
+            <HandleCreateAssembly assemblies={assemblies} setAssemblies={setAssemblies} />
           </div>
         </div>
         <div className="flex items-center justify-between">
