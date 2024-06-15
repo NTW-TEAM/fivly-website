@@ -1,6 +1,5 @@
 "use client";
 import { Material } from "@/types/Material";
-import { MaterialModel } from "@/types/MaterialModel";
 import {
   Table,
   TableHeader,
@@ -20,12 +19,12 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import HandleCreateMaterial from "./HandleCreateMaterial";
-const INITIAL_VISIBLE_COLUMNS = ["name", "model", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["materialModelId", "local", "actions"];
 
 const columns = [
-  { name: "Nom", uid: "name", sortable: true },
-  { name: "Model", uid: "model", sortable: true },
-  { name: "image", uid: "image", sortable: true },
+  { name: "Numéro de série", uid: "serialNumber", sortable: true },
+  { name: "Model", uid: "materialModelId", sortable: true },
+  { name: "Local", uid: "local", sortable: true },
   { name: "Actions", uid: "actions", sortable: false },
 ];
 
@@ -56,7 +55,7 @@ const TableMaterial = ({ materials, setMaterials }: { materials: Material[]; set
 
     if (hasSearchFilter) {
       filteredMaterial = filteredMaterial.filter((material) =>
-        material.materialModelId.toLowerCase().includes(filterValue.toLowerCase())
+        material.materialModel.name.toLowerCase().includes(filterValue.toLowerCase())
       );
     }
 
@@ -95,16 +94,22 @@ const TableMaterial = ({ materials, setMaterials }: { materials: Material[]; set
       case "materialModelId":
         return (
           <div className="flex flex-col">
-            <p className="text-small text-default-400">{material.materialModelId}</p>
+            <p className="text-small text-default-400">{material.materialModel.name}</p>
+          </div>
+        );
+      case "local":
+        return (
+          <div className="flex flex-col">
+            <p className="text-small text-default-400">{material.local}</p>
           </div>
         );
       case "actions":
         return (
           <div className="flex gap-2">
-{/*             <HandleEditMaterielModel
-              materialModels={materialModels}
-              setMaterialModels={setMaterialModels}
-              materialModelToEdit={materialModel}
+            {/*<HandleEditMateriel
+              materials={materials}
+              setMaterials={setMaterials}
+              materialToEdit={material}
             />
             <HandleDeleteMaterialModel
               materialModels={materialModels}
@@ -209,7 +214,7 @@ const TableMaterial = ({ materials, setMaterials }: { materials: Material[]; set
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, materials.length, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, materials, setMaterials, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (

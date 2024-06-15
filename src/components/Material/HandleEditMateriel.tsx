@@ -11,13 +11,13 @@ import {
   Textarea,
   useDisclosure,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import { FaPen } from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { MaterialModel } from "@/types/MaterialModel";
+import { Material } from "@/types/Material";
 
-const HandleEditMaterielModel = ({materialModels, setMaterialModels, materialModelToEdit}: {materialModels: MaterialModel[]; setMaterialModels: React.Dispatch<React.SetStateAction<MaterialModel[]>>; materialModelToEdit: MaterialModel;}) => {
+const HandleEditMaterielModel = ({materials, setMaterials, materialToEdit}: {materials: Material[]; setMaterials: React.Dispatch<React.SetStateAction<Material[]>>; materialToEdit: Material;}) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const getAllMaterialModel = async () => {
@@ -25,16 +25,33 @@ const HandleEditMaterielModel = ({materialModels, setMaterialModels, materialMod
         localApi
             .get(`/api/materials/model/findall`)
             .then((response) => {
-            if (response.status === 200) {
-                resolve(response.data);
-            }
+                if (response.status === 200) {
+                    resolve(response.data);
+                }
             })
             .catch((error) => {
-            console.error("error", error);
-            reject([]);
+                console.error("error", error);
+                reject([]);
             });
         });
     };
+
+    const getAllMaterial = async () => {
+        return new Promise<Material[]>((resolve, reject) => {
+        localApi
+            .get(`/api/materials`)
+            .then((response) => {
+                if (response.status === 200) {
+                    resolve(response.data);
+                }
+            })
+            .catch((error) => {
+                console.error("error", error);
+                reject([]);
+            });
+        });
+    };
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
