@@ -1,12 +1,38 @@
 import Link from "next/link";
+
 interface BreadcrumbProps {
-  pageName: string;
+  pageName: string | string[];
 }
+
 const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
+  const renderBreadcrumbItems = () => {
+    if (Array.isArray(pageName)) {
+      return pageName.map((name, index) => (
+        <li
+          key={index}
+          className={`font-medium ${index === pageName.length - 1 ? "text-primary" : ""}`}
+        >
+          {index !== pageName.length - 1 ? (
+            <>
+              <Link href={`/${pageName.slice(0, index + 1).join("/")}`}>
+                {name}
+              </Link>
+              <span> / </span>
+            </>
+          ) : (
+            name
+          )}
+        </li>
+      ));
+    } else {
+      return <li className="font-medium text-primary">{pageName}</li>;
+    }
+  };
+
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <h2 className="text-title-md2 font-semibold text-black dark:text-white">
-        {pageName}
+        {Array.isArray(pageName) ? pageName[pageName.length - 1] : pageName}
       </h2>
 
       <nav>
@@ -16,7 +42,7 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
               Filvly /
             </Link>
           </li>
-          <li className="font-medium text-primary">{pageName}</li>
+          {renderBreadcrumbItems()}
         </ol>
       </nav>
     </div>
