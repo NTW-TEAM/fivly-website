@@ -11,3 +11,15 @@ export async function GET(req: NextApiRequest, {params}: {params: {assemblyId: s
 
     return Response.json(response);
 };
+
+export async function POST(req: Request, {params}: {params: {assemblyId: string}}) {
+    
+    const { assemblyId } = params;
+
+    const body = await req.json();
+
+    const data = await api.post(`/assemblies/${assemblyId}/vote-session`, body);
+    const response = { statusCode: data.status, data: data.message };
+
+    return Response.json(response);
+};

@@ -1,4 +1,4 @@
-export type VoteSession = {
+export type Vote = {
     id: number;
     question: string;
     description: string;

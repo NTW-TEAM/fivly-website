@@ -8,13 +8,14 @@ import localApi from "@/services/localAxiosApi";
 import LoadingSkeleton from "./LoadingSkeleton";
 import TableMembersAssembly from "./TableMembersAssembly";
 import TableMembersAssemblySkeleton from "./TableMembersAssemblySkeleton";
-import { VoteSession } from "@/types/VoteSession";
 import { Button } from "@nextui-org/react";
+import { Vote } from "@/types/Vote";
 
 const AssemblyIdPageComponent = () => {
   const { assemblyId } = useParams();
   const [assembly, setAssembly] = useState<Assembly | null>(null);
-  const [voteSessions, setVoteSessions] = useState<VoteSession[] | null>(null);
+  const [voteSessions, setVotes] = useState<Vote[] | null>(null);
+  const [electionSessions, setElectionSessions] = useState<Vote[] | null>(null);
 
   const getAssembly = async (id: string): Promise<Assembly> => {
     return new Promise<Assembly>((resolve, reject) => {
@@ -34,8 +35,8 @@ const AssemblyIdPageComponent = () => {
     });
   };
 
-  const getAllVoteSessions = async (id: string): Promise<VoteSession> => {
-    return new Promise<VoteSession>((resolve, reject) => {
+  const getAllVotes = async (id: string): Promise<Vote[]> => {
+    return new Promise<Vote[]>((resolve, reject) => {
       localApi
         .get(`/api/assemblies/${id}/vote-session`)     
         .then((response) => {
@@ -60,8 +61,8 @@ const AssemblyIdPageComponent = () => {
         console.error(error);
       });
 
-      getAllVoteSessions(assemblyId as string).then((data) => {
-        setVoteSessions(data);
+      getAllVotes(assemblyId as string).then((data) => {
+        setVotes(data);
       }).catch((error) => {
         console.error(error);
       });
@@ -98,18 +99,52 @@ const AssemblyIdPageComponent = () => {
             </div>
 
             <div className="w-full rounded-lg bg-white p-4 shadow-md">
-              <div className="flex justify-between items-center"> 
-                <Repart
-              </div>
+              <div className="flex items-center justify-between"></div>
 
               <ul className="list-inside list-disc">
-                {voteSessions?.map((voteSession) => (
-                  <li key={voteSession.id}>{voteSession.description}</li>
-                ))}
+                {voteSessions && voteSessions?.length > 0 ? (
+                  <>
+                    <p className="text-center">
+                      Il y a <strong>{voteSessions.length}</strong> sessions de
+                      vote en cours
+                    </p>
+                    <div className="flex h-full items-center justify-center">
+                      <a href={`/assemblies/${assemblyId}/vote-session`}>
+                        <Button>Accéder aux sessions de vote</Button>
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <p>
+                    <strong>Vote Session:</strong> Aucune session de vote
+                  </p>
+                )}
               </ul>
             </div>
 
-            <div className="w-full rounded-lg bg-white p-4 shadow-md"></div>
+            <div className="w-full rounded-lg bg-white p-4 shadow-md">
+              <div className="flex items-center justify-between"></div>
+
+              <ul className="list-inside list-disc">
+                {electionSessions && electionSessions?.length > 0 ? (
+                  <>
+                    <p className="text-center">
+                      Il y a <strong>{electionSessions.length}</strong> sessions
+                      d&apos;éléctions en cours
+                    </p>
+                    <div className="flex h-full items-center justify-center">
+                      <a href={`/assemblies/${assemblyId}/vote-session`}>
+                        <Button>Accéder aux sessions de vote</Button>
+                      </a>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-center">
+                    <strong>Aucune session d&apos;éléction</strong>
+                  </p>
+                )}
+              </ul>
+            </div>
           </div>
 
           <div className="mt-4 flex flex-col gap-10">
