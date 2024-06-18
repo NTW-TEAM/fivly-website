@@ -23,6 +23,7 @@ import { FaEye } from "react-icons/fa";
 import HandleAddVoteToAssembly from "./HandleAddVoteToAssembly";
 import HandleDeleteVoteAssembly from "./HandleDeleteVoteAssembly";
 import HandleToggleVoteAssembly from "./HandleToggleVoteAssembly";
+import SeeVoteResult from "./SeeVoteResult";
 const INITIAL_VISIBLE_COLUMNS = ["description", "beginDateTime", "canceled", "actions"];
 
 const columns = [
@@ -161,14 +162,7 @@ const TableVotes = ({
       case "actions":
         return (
           <div className="flex gap-2">
-            {/* <a href={`/assemblies/${assembly.id}`} className="text-gray-900">
-                <FaEye />
-              </a>
-              <HandleEditAssembly
-                assemblies={assemblies}
-                setAssemblies={setAssemblies}
-                assemblyToEdit={assembly}
-              />*/}
+            <SeeVoteResult setVotes={setVotes} voteToSee={vote} assemblyId={assemblyId} />
             <HandleToggleVoteAssembly setVotes={setVotes} voteToToggle={vote} assemblyId={assemblyId} />
             <HandleDeleteVoteAssembly setVotes={setVotes} voteToDelete={vote} assemblyId={assemblyId} />
           </div>
