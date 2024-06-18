@@ -1,6 +1,5 @@
 "use client";
-import { Assembly } from "@/types/Assembly";
-import { MaterialModel } from "@/types/MaterialModel";
+import { Vote } from "@/types/Vote";
 import {
   Table,
   TableHeader,
@@ -20,27 +19,40 @@ import {
   Link,
 } from "@nextui-org/react";
 import React from "react";
-import HandleCreateAssembly from "./HandleCreateAssembly";
-import HandleDeleteAssembly from "./HandleDeleteAssembly";
-import HandleEditAssembly from "./HandleEditAssembly";
 import { FaEye } from "react-icons/fa";
-const INITIAL_VISIBLE_COLUMNS = ["description", "datetime", "isGeneral", "hasStarted", "actions"];
+import HandleAddVoteToAssembly from "./HandleAddVoteToAssembly";
+import HandleDeleteVoteAssembly from "./HandleDeleteVoteAssembly";
+import HandleToggleVoteAssembly from "./HandleToggleVoteAssembly";
+import SeeVoteResult from "./SeeVoteResult";
+const INITIAL_VISIBLE_COLUMNS = ["description", "beginDateTime", "canceled", "actions"];
 
 const columns = [
   { name: "Identifiant", uid: "id", sortable: true },
   { name: "Description", uid: "description", sortable: true },
-  { name: "Général", uid: "isGeneral", sortable: true },
-  { name: "A débuter", uid: "hasStarted", sortable: true },
-  { name: "Date", uid: "datetime", sortable: true },
-  { name: "Quorum", uid: "quorum", sortable: true },
-  { name: "Lieu", uid: "location", sortable: true },
+  { name: "Date de début", uid: "beginDateTime", sortable: true },
+  { name: "Durée du vote", uid: "voteTimeInMinutes", sortable: true },
+  { name: "Type", uid: "type", sortable: true },
+  { name: "Anonyme", uid: "anonymous", sortable: true },
+  { name: "Annulé", uid: "canceled", sortable: true },
   { name: "Actions", uid: "actions", sortable: false },
 ];
 
-const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; setAssemblies: React.Dispatch<React.SetStateAction<Assembly[]>> }) => {
+const TableVotes = ({
+  votes,
+  setVotes,
+  assemblyId,
+}: {
+  votes: Vote[];
+  setVotes: React.Dispatch<React.SetStateAction<Vote[]>>;
+  assemblyId: string;
+}) => {
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]),);
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS),);
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
+    new Set([]),
+  );
+  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+    new Set(INITIAL_VISIBLE_COLUMNS),
+  );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "name",
@@ -60,16 +72,16 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredAssemblies = [...assemblies];
+    let filteredVotes = [...votes];
 
     if (hasSearchFilter) {
-      filteredAssemblies = filteredAssemblies.filter((assembly) =>
-        assembly.description.toLowerCase().includes(filterValue.toLowerCase()),
+      filteredVotes = filteredVotes.filter((vote) =>
+        vote.description.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
 
-    return filteredAssemblies;
-  }, [assemblies, hasSearchFilter, filterValue]);
+    return filteredVotes;
+  }, [votes, hasSearchFilter, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -81,82 +93,85 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: Assembly, b: Assembly) => {
-      const first = a[sortDescriptor.column as keyof Assembly] as string;
-      const second = b[sortDescriptor.column as keyof Assembly] as string;
+    return [...items].sort((a: Vote, b: Vote) => {
+      const first = a[sortDescriptor.column as keyof Vote] as string;
+      const second = b[sortDescriptor.column as keyof Vote] as string;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((assembly: Assembly, columnKey: React.Key) => {
-    const cellValue = assembly[columnKey as keyof Assembly];
+  const renderCell = React.useCallback((vote: Vote, columnKey: React.Key) => {
+    const cellValue = vote[columnKey as keyof Vote];
 
     switch (columnKey) {
       case "id":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.id}</p>
+            <p className="text-bold text-small capitalize">{vote.id}</p>
           </div>
         );
       case "description":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.description}</p>
+            <p className="text-bold text-small capitalize">
+              {vote.description}
+            </p>
           </div>
         );
-      case "isGeneral":
+      case "beginDateTime":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.isGeneral ? "Yes" : "No"}</p>
+            <p className="text-bold text-small capitalize">
+              {new Date(vote.beginDateTime).toLocaleString()}
+            </p>
           </div>
         );
-      case "hasStarted":
+      case "voteTimeInMinutes":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.hasStarted ? "Yes" : "No"}</p>
+            <p className="text-bold text-small capitalize">
+              {vote.voteTimeInMinutes} minutes
+            </p>
           </div>
         );
-      case "datetime":
+      case "type":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{new Date(assembly.datetime).toLocaleDateString()}</p>
+            <p className="text-bold text-small capitalize">{vote.type}</p>
           </div>
         );
-      case "quorum":
+      case "anonymous":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.quorum}</p>
+            <p className="text-bold text-small capitalize">
+              {vote.anonymous ? "Oui" : "Non"}
+            </p>
           </div>
         );
-      case "location":
+      case "canceled":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.location}</p>
+            <p className="text-bold text-small capitalize">
+              {vote.canceled ? "Oui" : "Non"}
+            </p>
           </div>
         );
+
       case "actions":
         return (
           <div className="flex gap-2">
-            <a href={`/assemblies/${assembly.id}`} className="text-gray-900"><FaEye /></a>
-            <HandleEditAssembly
-              assemblies={assemblies}
-              setAssemblies={setAssemblies}
-              assemblyToEdit={assembly}
-            />
-            <HandleDeleteAssembly
-              assemblies={assemblies}
-              setAssemblies={setAssemblies}
-              assemblyToDelete={assembly}
-            />
+            <SeeVoteResult setVotes={setVotes} voteToSee={vote} assemblyId={assemblyId} />
+            <HandleToggleVoteAssembly setVotes={setVotes} voteToToggle={vote} assemblyId={assemblyId} />
+            <HandleDeleteVoteAssembly setVotes={setVotes} voteToDelete={vote} assemblyId={assemblyId} />
           </div>
         );
-        
+
       default:
         return cellValue;
     }
-  }, [assemblies, setAssemblies]);
+  }, [assemblyId, setVotes]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -192,7 +207,7 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
     setPage(1);
   }, []);
 
-  const topContent = React.useMemo(() => {  
+  const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between gap-3">
@@ -224,12 +239,12 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <HandleCreateAssembly assemblies={assemblies} setAssemblies={setAssemblies} />
+            <HandleAddVoteToAssembly setVotes={setVotes} assemblyId={assemblyId} />
           </div>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            {assemblies.length} assemblées
+            {votes.length} sessions de votes
           </span>
           <label className="flex items-center text-small text-default-400">
             Lignes par page
@@ -248,14 +263,14 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, assemblies, setAssemblies, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, setVotes, assemblyId, votes.length, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
-            ? "Toutes les assemblées sélectionnées"
+            ? "Toutes les sessions de votes sélectionnées"
             : `${selectedKeys.size} sur ${filteredItems.length} assemblées sélectionnés`}
         </span>
         <Pagination
@@ -287,12 +302,19 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
         </div>
       </div>
     );
-  }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
+  }, [
+    selectedKeys,
+    filteredItems.length,
+    page,
+    pages,
+    onPreviousPage,
+    onNextPage,
+  ]);
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <Table
-        aria-label="Assemblées Table"
+        aria-label="Votes"
         isHeaderSticky
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
@@ -315,7 +337,10 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"Aucune assemblées"} items={sortedItems}>
+        <TableBody
+          emptyContent={"Aucune sessions de votes"}
+          items={sortedItems}
+        >
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (
@@ -329,4 +354,4 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
   );
 };
 
-export default TableAssembly;
+export default TableVotes;

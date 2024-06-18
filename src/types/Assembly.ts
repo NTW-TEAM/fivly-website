@@ -1,3 +1,5 @@
+import { AssemblyUser } from "./AssemblyUser";
+
 export type Assembly = {
     id: number;
     isGeneral: boolean;
@@ -6,5 +8,5 @@ export type Assembly = {
     description: string;
     quorum: number;
     location: string;
-    participants: [];
+    participants: AssemblyUser[];
 };

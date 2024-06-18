@@ -320,35 +320,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </Link>
               </li>
               {/* <!-- Menu Item AG --> */}
-
-              {/* <!-- Menu Item Votes --> */}
-              <li>
-                <Link
-                  href="/vote"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("vote") && "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <MdHowToVote />
-                  Votes
-                </Link>
-              </li>
-              {/* <!-- Menu Item Votes --> */}
-
-              {/* <!-- Menu Item Votes --> */}
-              <li>
-                <Link
-                  href="/elections"
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes("elections") && "bg-graydark dark:bg-meta-4"
-                  }`}
-                >
-                  <MdOutlineViewList />
-                  Elections
-                </Link>
-              </li>
-              {/* <!-- Menu Item Votes --> */}
-
             </ul>
           </div>
 

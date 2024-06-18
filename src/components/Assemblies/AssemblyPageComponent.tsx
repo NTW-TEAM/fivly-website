@@ -31,13 +31,12 @@ const AssemblyPageComponent = () => {
     React.useEffect(() => {
         getAllAssembly().then((data) => {
             setAssemblies(data);
-            console.log(data)
         });
     }, []);
 
     return (
         <DefaultLayout>
-        <Breadcrumb pageName="Model de matériel"/>
+        <Breadcrumb pageName="Assemblée" />
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
             <CardDataStats title="Assemblées" total={assemblies.length.toString()} rate="">
