@@ -38,7 +38,7 @@ const ActivityTypePageComponent = () => {
 
     return (
         <DefaultLayout>
-        <Breadcrumb pageName="Permissions"/>
+        <Breadcrumb pageName="Type d'activité"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
             <CardDataStats title="Type d'activité" total={activityTypes.length.toString()} rate="">

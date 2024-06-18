@@ -17,12 +17,13 @@ import {
   SortDescriptor,
 } from "@nextui-org/react";
 import React from "react";
-import { Activity } from "@/types/Activity";
+import { Activity } from "@/types/activity";
 import HandleDeleteActivities from "./HandleDeleteActivities";
 import HandleCreateActivities from "./HandleCreateActivities";
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
+  { name: "Id", uid: "id", sortable: true},
   { name: "Nom", uid: "name", sortable: true },
   { name: "Description", uid: "description", sortable: false },
   { name: "Date de début", uid: "dateDebut", sortable: true },
@@ -98,6 +99,12 @@ const TableActivities = ({
       const cellValue = activity[columnKey as keyof Activity];
 
       switch (columnKey) {
+        case "id":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">{activity.id}</p>
+            </div>
+          );
         case "name":
           return (
             <div className="flex flex-col">
@@ -116,14 +123,14 @@ const TableActivities = ({
           return (
             <div className="flex flex-col">
               <p className="text-small text-default-400">
-                {activity.beginDateTime}
+                {new Date(activity.beginDateTime).toLocaleDateString()}
               </p>
             </div>
           );
         case "dateFin":
           return (
             <div className="flex flex-col">
-              <p className="text-small text-default-400">{activity.endDateTime}</p>
+              <p className="text-small text-default-400">{new Date(activity.endDateTime).toLocaleDateString()}</p>
             </div>
           );
         case "actions":
