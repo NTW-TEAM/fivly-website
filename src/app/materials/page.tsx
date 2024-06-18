@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
 };
 
-const PermissionsPage = async () => {
+const MaterialPage = async () => {
   return <div />;
 };
 
-export default PermissionsPage;
+export default MaterialPage;
