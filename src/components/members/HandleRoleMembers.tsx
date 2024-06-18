@@ -2,7 +2,7 @@ import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
 import { Members } from "@/types/Members";
 import { Roles } from "@/types/Roles";
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from "@nextui-org/react";
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
 import { useState } from "react";
 import { FaPlus, FaPlusCircle, FaTimesCircle } from "react-icons/fa"; // Assurez-vous d'avoir installé react-icons
 
@@ -74,6 +74,8 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
     }
   };
 
+  const selectedKeys = roles.map((role) => role.name);
+
   return (
     <div className="flex items-center gap-1">
       {roles.map((role, i) =>
@@ -106,20 +108,17 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
                 Ajouter un rôle
               </ModalHeader>
               <ModalBody>
-                <select onChange={(e) => setRole(e.target.value)}>
-                  <option value="">Select a role</option>
+                <Select
+                  onChange={(e) => setRole(e.target.value)}
+                  defaultSelectedKeys={selectedKeys}
+                  label="Select a role"
+                >
                   {allRoles.map((role: Roles, i) => (
-                    <option
-                      key={role.name}
-                      value={role.name}
-                      {...(roles.find((r) => r.name === role.name)
-                        ? { disabled: true }
-                        : {})}
-                    >
+                    <SelectItem key={role.name} value={role.name}>
                       {role.name}
-                    </option>
+                    </SelectItem>
                   ))}
-                </select>
+                </Select>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>

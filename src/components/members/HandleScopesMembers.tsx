@@ -9,7 +9,7 @@ import { FaPlusCircle, FaTimesCircle } from "react-icons/fa";
 
 const HandleScopesMembers = ({ user }: { user: Members }) => {
   const [scopes, setScopes] = useState(user.scopes);
-  const [allScopes, setAllScopes] = useState([]);
+  const [allScopes, setAllScopes] = useState<Scopes[]>([]);
   const [scope, setScope] = useState("");
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -83,9 +83,12 @@ const HandleScopesMembers = ({ user }: { user: Members }) => {
 
     await updateUserScope(userId, scopesBody)();
 
-    setScopes([...scopes, { name: newScopes }]);
+    setScopes([...scopes, {
+      name: newScopes,
+      description: allScopes.find((s: Scopes) => s.name === newScopes)?.description as string
+    }]);
   };
-
+ const selectedKeys = scopes.map((scope) => scope.name);
   return (
     <div className="flex items-center gap-1">
       {scopes.map((scope, i) =>
@@ -119,20 +122,20 @@ const HandleScopesMembers = ({ user }: { user: Members }) => {
               </ModalHeader>
               <ModalBody>
                 <label htmlFor="permissions">Permissions</label>
-                <select onChange={(e) => setScope(e.target.value)}>
-                  <option value="">Select a permission</option>
+                <Select
+                  id="permissions"
+                  name="permissions"
+                  onChange={(e) => setScope(e.target.value)}
+                  required
+                  defaultSelectedKeys={selectedKeys}
+                  label="Permissions"
+                >
                   {allScopes.map((scope: Scopes, i) => (
-                    <option
-                      key={scope.name}  
-                      value={scope.name}
-                      {...(scopes.find((s) => s.name === scope.name)
-                        ? { disabled: true }
-                        : {})}
-                    >
+                    <SelectItem key={scope.name} value={scope.name}>
                       {scope.description}
-                    </option>
+                    </SelectItem>
                   ))}
-                </select>
+                </Select>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
