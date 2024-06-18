@@ -19,7 +19,7 @@ import {
 import React from "react";
 import HandleCreateActivityType from "./HandleCreateActivityType";
 import HandleDeleteActivityType from "./HandleDeleteActivityType";
-import { ActivityType } from "@/types/activityType";
+import { ActivityType } from "@/types/ActivityType";
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [

@@ -6,7 +6,7 @@ import { DESCRIPTION, TITLE } from "@/constant/metadata";
 import TableMembers from "@/components/members/TableMembers";
 import CardDataStats from "@/components/CardDataStats";
 import { FaUsers, FaUserShield } from "react-icons/fa";
-import { Members } from "@/types/members";
+import { Members } from "@/types/Members";
 import { getMembers } from "../../services/memberService";
 import React from "react";
 

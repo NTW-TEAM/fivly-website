@@ -1,9 +1,8 @@
-export type Activity = {
-    id: number;
+export type ActivityCreateDTO = {
     title: string;
     description: string;
     beginDateTime: string;
     endDateTime: string;
     activityType: string;
-    creator: string;
+    owner: number;
 };

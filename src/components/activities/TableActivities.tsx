@@ -1,5 +1,4 @@
 "use client";
-import { Roles } from "@/types/Roles";
 import {
   Table,
   TableHeader,
@@ -18,24 +17,34 @@ import {
   SortDescriptor,
 } from "@nextui-org/react";
 import React from "react";
-import DisplayScopesMembers from "../members/DisplayScopesMembers";
-import { FaPen, FaTrash } from "react-icons/fa";
-import HandleCreateRole from "./HandleCreateRole";
-import HandleDeleteRole from "./HandleDeleteRole";
-import HandleEditRole from "./HandleEditRole";
+import { Activity } from "@/types/activity";
+import HandleDeleteActivities from "./HandleDeleteActivities";
+import HandleCreateActivities from "./HandleCreateActivities";
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
+  { name: "Id", uid: "id", sortable: true},
   { name: "Nom", uid: "name", sortable: true },
-  { name: "Description", uid: "description", sortable: true },
-  { name: "Permissions", uid: "permissions", sortable: true },
+  { name: "Description", uid: "description", sortable: false },
+  { name: "Date de début", uid: "dateDebut", sortable: true },
+  { name: "Date de fin", uid: "dateFin", sortable: true },
   { name: "Actions", uid: "actions", sortable: false },
 ];
 
-const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispatch<React.SetStateAction<Roles[]>> }) => {
+const TableActivities = ({
+  activities,
+  setActivities,
+}: {
+  activities: Activity[];
+  setActivities: React.Dispatch<React.SetStateAction<Activity[]>>;
+}) => {
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]),);
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS),);
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
+    new Set([]),
+  );
+  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+    new Set(INITIAL_VISIBLE_COLUMNS),
+  );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "name",
@@ -55,16 +64,16 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredRoles = [...roles];
+    let filteredActivities = [...activities];
 
     if (hasSearchFilter) {
-      filteredRoles = filteredRoles.filter((role) =>
-        role.name.toLowerCase().includes(filterValue.toLowerCase()) || role.description.toLowerCase().includes(filterValue.toLowerCase())
+      filteredActivities = filteredActivities.filter((activityType) =>
+        activityType.title.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
 
-    return filteredRoles;
-  }, [roles, hasSearchFilter, filterValue]);
+    return filteredActivities;
+  }, [activities, hasSearchFilter, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -76,49 +85,71 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: Roles, b: Roles) => {
-      const first = a[sortDescriptor.column as keyof Roles] as number;
-      const second = b[sortDescriptor.column as keyof Roles] as number;
+    return [...items].sort((a: Activity, b: Activity) => {
+      const first = a[sortDescriptor.column as keyof Activity] as string;
+      const second = b[sortDescriptor.column as keyof Activity] as string;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((role: Roles, columnKey: React.Key) => {
-    const cellValue = role[columnKey as keyof Roles];
+  const renderCell = React.useCallback(
+    (activity: Activity, columnKey: React.Key) => {
+      const cellValue = activity[columnKey as keyof Activity];
 
-    switch (columnKey) {
-      case "name":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{role.name}</p>
-          </div>
-        );
-      case "description":
-        return (
-          <div className="flex flex-col">
-            <p className="text-small text-default-400">{role.description}</p>
-          </div>
-        );
-      case "permissions":
-        return (
-          <div className="flex flex-col">
-            <DisplayScopesMembers scopesData={role.scopes} />
-          </div>
-        );
-      case "actions":
-        return (
-          <div className="flex gap-2">
-            <HandleEditRole roles={roles} setRoles={setRoles} roleToEdit={role} />
-            <HandleDeleteRole roles={roles} setRoles={setRoles} roleToDelete={role} />
-          </div>
-        );
-        
-      default:
-        return cellValue;
-    }
-  }, []);
+      switch (columnKey) {
+        case "id":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">{activity.id}</p>
+            </div>
+          );
+        case "name":
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">
+                {activity.title}
+              </p>
+            </div>
+          );
+        case "description":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">{activity.description}</p>
+            </div>
+          );  
+        case "dateDebut":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">
+                {new Date(activity.beginDateTime).toLocaleDateString()}
+              </p>
+            </div>
+          );
+        case "dateFin":
+          return (
+            <div className="flex flex-col">
+              <p className="text-small text-default-400">{new Date(activity.endDateTime).toLocaleDateString()}</p>
+            </div>
+          );
+        case "actions":
+          return (
+            <div className="flex gap-2">
+              <HandleDeleteActivities
+                activities={activities}
+                setActivities={setActivities}
+                activitieDelete={activity}
+              />
+            </div>
+          );
+
+        default:
+          return cellValue;
+      }
+    },
+    [],
+  );
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -154,7 +185,7 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
     setPage(1);
   }, []);
 
-  const topContent = React.useMemo(() => {  
+  const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between gap-3">
@@ -186,12 +217,15 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <HandleCreateRole roles={roles} setRoles={setRoles} />
+                        <HandleCreateActivities
+              activities={activities}
+              setActivities={setActivities}
+            />
           </div>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            {roles.length} rôles
+            {activities.length} activité(s)
           </span>
           <label className="flex items-center text-small text-default-400">
             Lignes par page
@@ -210,15 +244,22 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, roles.length, onRowsPerPageChange, onClear]);
+  }, [
+    filterValue,
+    onSearchChange,
+    visibleColumns,
+    activities,
+    onRowsPerPageChange,
+    onClear,
+  ]);
 
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
-        <span className="text-small text-default-400 w-[30%]">
+        <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
-            ? "Tous les utilisateurs sélectionnés"
-            : `${selectedKeys.size} sur ${filteredItems.length} utilisateurs sélectionnés`}
+            ? "Activité sélectionnés"
+            : `${selectedKeys.size} sur ${filteredItems.length} activité(s) sélectionnés`}
         </span>
         <Pagination
           isCompact
@@ -249,12 +290,19 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
         </div>
       </div>
     );
-  }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
+  }, [
+    selectedKeys,
+    filteredItems.length,
+    page,
+    pages,
+    onPreviousPage,
+    onNextPage,
+  ]);
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <Table
-        aria-label="Roles Table"
+        aria-label="Activité Table"
         isHeaderSticky
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
@@ -277,9 +325,9 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
             </TableColumn>
           )}
         </TableHeader>
-        <TableBody emptyContent={"Aucun rôles"} items={sortedItems}>
+        <TableBody emptyContent={"Aucune activité"} items={sortedItems}>
           {(item) => (
-            <TableRow key={item.name}>
+            <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>{renderCell(item, columnKey)}</TableCell>
               )}
@@ -291,4 +339,4 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
   );
 };
 
-export default TableRoles;
+export default TableActivities;

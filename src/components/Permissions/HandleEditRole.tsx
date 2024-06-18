@@ -12,8 +12,8 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
-import { Roles } from "@/types/roles";
-import { Scopes } from "@/types/scopes";
+import { Roles } from "@/types/Roles";
+import { Scopes } from "@/types/Scopes";
 import axios from "axios";
 import ToastHandler from "@/tools/ToastHandler";
 import { FaPen } from "react-icons/fa";
