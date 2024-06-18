@@ -3,6 +3,8 @@ import { useState } from "react";
 
 const RoleMembersDisplay = ({ rolesData }: { rolesData: Roles[] }) => {
 
+  if (rolesData.length <= 0) return <div>Aucun Rôle</div>;
+
   return (
     <div className="flex items-center gap-1">
       {rolesData.map((role, i) =>
