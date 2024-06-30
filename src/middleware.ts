@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("auth_token");
   const pathname = request.nextUrl.pathname;
 
-  const ignorePaths = ["/auth/signin", "/auth/signout", "/auth/signup", "/donation/give"];
+  const ignorePaths = ["/auth/signin", "/auth/signout", "/auth/signup", "/donation/give", "/api/stripe/create-donation-session"];
 
   if (pathname.startsWith("/_next/static/") || pathname.startsWith("/images/")) {
     return NextResponse.next();
