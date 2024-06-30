@@ -1,4 +1,4 @@
-import { Roles } from "./Roles";
+import { Roles } from "./roles";
 import { Scopes } from "./Scopes";
 
 export type Members = {

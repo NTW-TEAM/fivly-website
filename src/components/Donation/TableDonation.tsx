@@ -1,4 +1,3 @@
-"use client";
 import {
   Table,
   TableHeader,
@@ -17,20 +16,25 @@ import {
   SortDescriptor,
 } from "@nextui-org/react";
 import React from "react";
-import HandleCreateActivityType from "./HandleCreateActivityType";
-import HandleDeleteActivityType from "./HandleDeleteActivityType";
-import { ActivityType } from "@/types/activityType";
-const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
+import { Donation } from "@/types/Donation";
+
+const INITIAL_VISIBLE_COLUMNS = ["amount", "datetime", "potentialUser"];
 
 const columns = [
-  { name: "Nom", uid: "name", sortable: true },
-  { name: "Actions", uid: "actions", sortable: false },
+  { name: "Identifiant", uid: "id", sortable: true },
+  { name: "Donateur", uid: "potentialUser", sortable: true },
+  { name: "Montant", uid: "amount", sortable: true },
+  { name: "Date", uid: "datetime", sortable: true },
 ];
 
-const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes: ActivityType[]; setActivityTypes: React.Dispatch<React.SetStateAction<ActivityType[]>> }) => {
+const TableDonation = ({ donations }: { donations: Donation[] }) => {
   const [filterValue, setFilterValue] = React.useState("");
-  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(new Set([]),);
-  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS),);
+  const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
+    new Set([]),
+  );
+  const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
+    new Set(INITIAL_VISIBLE_COLUMNS),
+  );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
     column: "name",
@@ -50,16 +54,16 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
   }, [visibleColumns]);
 
   const filteredItems = React.useMemo(() => {
-    let filteredActivityTypes = [...activityTypes];
+    let filteredDonations = [...donations];
 
     if (hasSearchFilter) {
-      filteredActivityTypes = filteredActivityTypes.filter((activityType) =>
-        activityType.name.toLowerCase().includes(filterValue.toLowerCase())
+      filteredDonations = filteredDonations.filter((donation) =>
+        donation.amount.toString().toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
 
-    return filteredActivityTypes;
-  }, [activityTypes, hasSearchFilter, filterValue]);
+    return filteredDonations;
+  }, [donations, hasSearchFilter, filterValue]);
 
   const pages = Math.ceil(filteredItems.length / rowsPerPage);
 
@@ -71,36 +75,61 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
   }, [page, filteredItems, rowsPerPage]);
 
   const sortedItems = React.useMemo(() => {
-    return [...items].sort((a: ActivityType, b: ActivityType) => {
-      const first = a[sortDescriptor.column as keyof ActivityType] as string;
-      const second = b[sortDescriptor.column as keyof ActivityType] as string;
+    return [...items].sort((a: Donation, b: Donation) => {
+      const first = a[sortDescriptor.column as keyof Donation] as string;
+      const second = b[sortDescriptor.column as keyof Donation] as string;
       const cmp = first < second ? -1 : first > second ? 1 : 0;
 
       return sortDescriptor.direction === "descending" ? -cmp : cmp;
     });
   }, [sortDescriptor, items]);
 
-  const renderCell = React.useCallback((activityType: ActivityType, columnKey: React.Key) => {
-    const cellValue = activityType[columnKey as keyof ActivityType];
-
-    switch (columnKey) {
-      case "name":
-        return (
-          <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{activityType.name}</p>
-          </div>
-        );
-      case "actions":
-        return (
-          <div className="flex gap-2">
-            <HandleDeleteActivityType activityTypes={activityTypes} setActivityTypes={setActivityTypes} activityTypeDelete={activityType} />
-          </div>
-        );
-        
-      default:
-        return cellValue;
-    }
-  }, []);
+  const renderCell = React.useCallback(
+    (donation: Donation, columnKey: React.Key) => {
+      const cellValue = donation[columnKey as keyof Donation];
+  
+      switch (columnKey) {
+        case "id":
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">
+                {donation.id}
+              </p>
+            </div>
+          );
+        case "amount":
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">
+                {donation.amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " €"}
+              </p>
+            </div>
+          );
+        case "datetime":
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">
+                {new Date(donation.datetime).toLocaleDateString()}
+              </p>
+            </div>
+          );
+        case "potentialUser":
+          return (
+            <div className="flex flex-col">
+              <p className="text-bold text-small capitalize">
+                {donation.potentialUser
+                  ? donation.potentialUser.firstName + " " + donation.potentialUser.lastName
+                  : "Donateur anonyme"}
+              </p>
+            </div>
+          );
+  
+        default:
+          return <>{cellValue}</>;
+      }
+    },
+    [],
+  );
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -136,14 +165,14 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
     setPage(1);
   }, []);
 
-  const topContent = React.useMemo(() => {  
+  const topContent = React.useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex items-end justify-between gap-3">
           <Input
             isClearable
             className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
+            placeholder="Search..."
             value={filterValue}
             onClear={() => onClear()}
             onValueChange={onSearchChange}
@@ -168,12 +197,11 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
                 ))}
               </DropdownMenu>
             </Dropdown>
-            <HandleCreateActivityType activityTypes={activityTypes} setActivityTypes={setActivityTypes} />
           </div>
         </div>
         <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
-            {activityTypes.length} types d&apos;activité
+            {donations.length} donations
           </span>
           <label className="flex items-center text-small text-default-400">
             Lignes par page
@@ -192,15 +220,22 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, activityTypes, onRowsPerPageChange, onClear]);
+  }, [
+    filterValue,
+    onSearchChange,
+    visibleColumns,
+    donations,
+    onRowsPerPageChange,
+    onClear,
+  ]);
 
   const bottomContent = React.useMemo(() => {
     return (
       <div className="flex items-center justify-between px-2 py-2">
-        <span className="text-small text-default-400 w-[30%]">
+        <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
-            ? "Tous les types d'activité sélectionnés"
-            : `${selectedKeys.size} sur ${filteredItems.length} types d'activité sélectionnés`}
+            ? "Toutes les donations sélectionnées"
+            : `${selectedKeys.size} sur ${filteredItems.length} donations sélectionnées`}
         </span>
         <Pagination
           isCompact
@@ -231,12 +266,19 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
         </div>
       </div>
     );
-  }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
+  }, [
+    selectedKeys,
+    filteredItems.length,
+    page,
+    pages,
+    onPreviousPage,
+    onNextPage,
+  ]);
 
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <Table
-        aria-label="Type d'activité Table"
+        aria-label="Donations Table"
         isHeaderSticky
         bottomContent={bottomContent}
         bottomContentPlacement="outside"
@@ -261,9 +303,9 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
         </TableHeader>
         <TableBody emptyContent={"Aucun type d'activité"} items={sortedItems}>
           {(item) => (
-            <TableRow key={item.name}>
+            <TableRow key={item.id}>
               {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
+                <TableCell key={columnKey}>{renderCell(item, columnKey)}</TableCell>
               )}
             </TableRow>
           )}
@@ -273,4 +315,4 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
   );
 };
 
-export default TableActivityType;
+export default TableDonation;
