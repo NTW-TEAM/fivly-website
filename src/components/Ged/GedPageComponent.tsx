@@ -1,4 +1,3 @@
-// components/GedPageComponent.tsx
 "use client";
 import React, { useState } from "react";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
@@ -18,7 +17,6 @@ const GedPageComponent: React.FC = () => {
 
   const handleFileSelect = (selectedFiles: TreeNode[]) => {
     setFiles(selectedFiles);
-    console.log("Selected Files:", selectedFiles); // Add console log here
   };
 
   return (

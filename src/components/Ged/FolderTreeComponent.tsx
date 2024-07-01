@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { FaFolder, FaFolderOpen } from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
+import { FcFolder, FcOpenedFolder } from "react-icons/fc";
 
 interface TreeNode {
   id?: number;
@@ -25,7 +25,6 @@ const FolderTreeComponent: React.FC<FolderTreeProps> = ({
     if (!response || !response.data) {
       throw new Error("Failed to fetch folder contents");
     }
-    console.log("API Response:", response.data); // Add console log here
     return response.data;
   };
 
@@ -105,9 +104,9 @@ const TreeNodeComponent: React.FC<TreeNodeComponentProps> = ({
     <div className="">
       <div className="flex cursor-pointer items-center" onClick={handleClick}>
         {isOpen ? (
-          <FaFolderOpen className="mr-2" />
+          <FcOpenedFolder className="mr-2" />
         ) : (
-          <FaFolder className="mr-2" />
+          <FcFolder className="mr-2" />
         )}
         <span>{node.name}</span>
       </div>
