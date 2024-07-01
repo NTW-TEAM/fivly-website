@@ -1,3 +1,4 @@
+// components/GedPageComponent.tsx
 "use client";
 import React, { useState } from "react";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
@@ -19,17 +20,21 @@ const GedPageComponent: React.FC = () => {
     setFiles(selectedFiles);
   };
 
-    const updateFileName = (oldPath: string, newName: string) => {
-        setFiles((prevFiles) =>
-        prevFiles.map((file) => {
-            if (file.path === oldPath) {
-            const newPath = file.path.replace(/[^/]*$/, newName);
-            return { ...file, name: newName, path: newPath };
-            }
-            return file;
-        })
-        );
-    };
+  const updateFileName = (oldPath: string, newName: string) => {
+    setFiles((prevFiles) =>
+      prevFiles.map((file) => {
+        if (file.path === oldPath) {
+          const newPath = file.path.replace(/[^/]*$/, newName);
+          return { ...file, name: newName, path: newPath };
+        }
+        return file;
+      }),
+    );
+  };
+
+  const deleteFile = (path: string) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file.path !== path));
+  };
 
   return (
     <DefaultLayout>
@@ -54,7 +59,12 @@ const GedPageComponent: React.FC = () => {
             </h1>
             <div className="mt-4 grid grid-cols-4 gap-4">
               {files.map((file) => (
-                <FileComponent key={file.path} file={file} updateFileName={updateFileName} />
+                <FileComponent
+                  key={file.path}
+                  file={file}
+                  updateFileName={updateFileName}
+                  deleteFile={deleteFile}
+                />
               ))}
             </div>
           </div>

@@ -27,11 +27,13 @@ interface TreeNode {
 interface FileComponentProps {
   file: TreeNode;
   updateFileName: (path: string, newName: string) => void;
+  deleteFile: (path: string) => void;
 }
 
 const FileComponent: React.FC<FileComponentProps> = ({
   file,
   updateFileName,
+  deleteFile,
 }) => {
   const handleDownload = async () => {
     try {
@@ -48,7 +50,7 @@ const FileComponent: React.FC<FileComponentProps> = ({
       document.body.appendChild(link);
       link.click();
       link.parentNode?.removeChild(link);
-      ToastHandler.toast("Fichier télécharger avec succés", "success");
+      ToastHandler.toast("Fichier télécharger avec succès", "success");
     } catch (error) {
       console.error("Error downloading file:", error);
       ToastHandler.toast("Erreur lors du téléchargement du fichier", "error");
@@ -59,15 +61,30 @@ const FileComponent: React.FC<FileComponentProps> = ({
     const newName = prompt("Enter new name for the file:", file.name);
     if (newName) {
       try {
-        const response = await localApi.put("/api/ged/file/rename", {
+        await localApi.put("/api/ged/file/rename", {
           path: file.path,
           newName,
         });
         updateFileName(file.path, newName);
-        ToastHandler.toast("Fichier renommer avec succés", "success");
+        ToastHandler.toast("Fichier renommé avec succès", "success");
       } catch (error) {
         console.error("Error renaming file:", error);
         ToastHandler.toast("Erreur lors du renommage du fichier", "error");
+      }
+    }
+  };
+
+  const handleDelete = async () => {
+    if (confirm(`Voulez vous vraiment supprimer le fichier ${file.name} ?`)) {
+      try {
+        await localApi.delete(`/api/ged/file`, {
+          params: { path: file.path },
+        });
+        deleteFile(file.path);
+        ToastHandler.toast("Fichier supprimé avec succès", "success");
+      } catch (error) {
+        console.error("Error deleting file:", error);
+        ToastHandler.toast("Erreur lors de la suppression du fichier", "error");
       }
     }
   };
@@ -97,7 +114,7 @@ const FileComponent: React.FC<FileComponentProps> = ({
 
         <ContextMenuSeparator />
 
-        <ContextMenuItem inset>
+        <ContextMenuItem inset onClick={handleDelete}>
           Supprimer
           <ContextMenuShortcut>
             <FaDeleteLeft />
