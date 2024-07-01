@@ -19,6 +19,18 @@ const GedPageComponent: React.FC = () => {
     setFiles(selectedFiles);
   };
 
+    const updateFileName = (oldPath: string, newName: string) => {
+        setFiles((prevFiles) =>
+        prevFiles.map((file) => {
+            if (file.path === oldPath) {
+            const newPath = file.path.replace(/[^/]*$/, newName);
+            return { ...file, name: newName, path: newPath };
+            }
+            return file;
+        })
+        );
+    };
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Gestion éléctronique des documents" />
@@ -42,7 +54,7 @@ const GedPageComponent: React.FC = () => {
             </h1>
             <div className="mt-4 grid grid-cols-4 gap-4">
               {files.map((file) => (
-                <FileComponent key={file.path} file={file} />
+                <FileComponent key={file.path} file={file} updateFileName={updateFileName} />
               ))}
             </div>
           </div>
