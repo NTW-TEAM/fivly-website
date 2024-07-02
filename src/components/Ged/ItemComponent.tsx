@@ -38,7 +38,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   deleteFile,
   onFolderSelect,
 }) => {
-  const handleDownload = async () => {
+  const handleDownloadFile = async () => {
     try {
       const response = await localApi.get(
         `/api/ged/file/download?path=${item.path}`,
@@ -60,7 +60,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
     }
   };
 
-  const handleRename = async () => {
+  const handleRenameFile = async () => {
     const newName = prompt("Enter new name for the file:", item.name);
     if (newName) {
       try {
@@ -77,7 +77,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
     }
   };
 
-  const handleDelete = async () => {
+  const handleDeleteFile = async () => {
     if (confirm(`Voulez vous vraiment supprimer le fichier ${item.name} ?`)) {
       try {
         await localApi.delete(`/api/ged/file`, {
@@ -113,14 +113,14 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
         {item.type === "file" && (
-          <ContextMenuItem inset onClick={handleDownload}>
+          <ContextMenuItem inset onClick={handleDownloadFile}>
             Télécharger
             <ContextMenuShortcut>
               <FaDownload />
             </ContextMenuShortcut>
           </ContextMenuItem>
         )}
-        <ContextMenuItem inset onClick={handleRename}>
+        <ContextMenuItem inset onClick={handleRenameFile}>
           Renommer
           <ContextMenuShortcut>
             <BiRename />
@@ -129,7 +129,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
 
         <ContextMenuSeparator />
 
-        <ContextMenuItem inset onClick={handleDelete}>
+        <ContextMenuItem inset onClick={handleDeleteFile}>
           Supprimer
           <ContextMenuShortcut>
             <FaDeleteLeft />

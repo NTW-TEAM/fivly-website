@@ -70,16 +70,17 @@ const GedPageComponent: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <PathComponent
-        currentPath={currentPath}
-        onFolderSelect={handleFolderSelect}
-      />
       <div className="grid grid-cols-5 gap-4">
         <div className="sm:display-none col-span-5 rounded-sm border border-stroke bg-white px-2 pb-2 pt-4.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-4.5">
           <div className="container">
             <h1 className="text-center text-2xl font-bold text-black dark:text-white">
               Files and Folders
             </h1>
+            <hr className="my-4" />
+            <PathComponent
+              currentPath={currentPath}
+              onFolderSelect={handleFolderSelect}
+            />
             <div className="mt-4 grid grid-cols-4 gap-4">
               {items.map((item) => (
                 <ItemComponent
