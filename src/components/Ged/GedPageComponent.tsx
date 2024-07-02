@@ -1,69 +1,93 @@
 // components/GedPageComponent.tsx
 "use client";
-import React, { useState } from "react";
-import Breadcrumb from "../Breadcrumbs/Breadcrumb";
+import React, { useState, useEffect } from "react";
 import DefaultLayout from "../Layouts/DefaultLayout";
-import FolderTreeComponent from "./FolderTreeComponent";
-import FileComponent from "./FileComponent";
+import ItemComponent from "./ItemComponent";
+import PathComponent from "./PathComponent";
+import localApi from "@/services/localAxiosApi";
 
 interface TreeNode {
   id?: number;
   name: string;
   path: string;
+  type: "file" | "folder";
   children?: TreeNode[];
 }
 
 const GedPageComponent: React.FC = () => {
-  const [files, setFiles] = useState<TreeNode[]>([]);
+  const [items, setItems] = useState<TreeNode[]>([]);
+  const [currentPath, setCurrentPath] = useState<string>("/");
 
-  const handleFileSelect = (selectedFiles: TreeNode[]) => {
-    setFiles(selectedFiles);
+  const fetchFolderContents = async (path: string) => {
+    const response = await localApi.post("/api/ged/folder/contents", { path });
+    if (!response || !response.data) {
+      throw new Error("Failed to fetch folder contents");
+    }
+    return response.data;
   };
 
-  const updateFileName = (oldPath: string, newName: string) => {
-    setFiles((prevFiles) =>
-      prevFiles.map((file) => {
-        if (file.path === oldPath) {
-          const newPath = file.path.replace(/[^/]*$/, newName);
-          return { ...file, name: newName, path: newPath };
+  const handleFolderSelect = async (path: string) => {
+      try {
+        if (!path.endsWith("/")) {
+          path += "/";
         }
-        return file;
+        const response = await fetchFolderContents(path);
+        const folders = response.folders.map((folder: any) => ({
+          ...folder,
+          type: 'folder'
+        }));
+        const files = response.files.map((file: any) => ({
+          ...file,
+          type: 'file'
+        }));
+        setItems([...folders, ...files]);
+        setCurrentPath(path);
+      } catch (error) {
+        console.error("Error fetching folder contents:", error);
+        alert("Error fetching folder contents: " + error.message);
+      }
+    };
+
+  useEffect(() => {
+    handleFolderSelect("/");
+  }, []);
+
+  const updateFileName = (oldPath: string, newName: string) => {
+    setItems((prevItems) =>
+      prevItems.map((item) => {
+        if (item.path === oldPath) {
+          const newPath = item.path.replace(/[^/]*$/, newName);
+          return { ...item, name: newName, path: newPath };
+        }
+        return item;
       }),
     );
   };
 
   const deleteFile = (path: string) => {
-    setFiles((prevFiles) => prevFiles.filter((file) => file.path !== path));
+    setItems((prevItems) => prevItems.filter((item) => item.path !== path));
   };
 
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Gestion éléctronique des documents" />
+      <PathComponent
+        currentPath={currentPath}
+        onFolderSelect={handleFolderSelect}
+      />
       <div className="grid grid-cols-5 gap-4">
-        <div className="sm:display-none col-span-1 rounded-sm border border-stroke bg-white px-2 pb-2 pt-4.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-4.5">
+        <div className="sm:display-none col-span-5 rounded-sm border border-stroke bg-white px-2 pb-2 pt-4.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-4.5">
           <div className="container">
             <h1 className="text-center text-2xl font-bold text-black dark:text-white">
-              GED
-            </h1>
-            <p className="mt-2 text-center text-xs dark:text-white">
-              Gestion éléctronique des documents
-            </p>
-            <hr className="mb-3 mt-3 border-stroke" />
-          </div>
-          <FolderTreeComponent initialPath="/" onFileSelect={handleFileSelect} />
-        </div>
-        <div className="sm:display-none col-span-4 rounded-sm border border-stroke bg-white px-2 pb-2 pt-4.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-4.5">
-          <div className="container">
-            <h1 className="text-center text-2xl font-bold text-black dark:text-white">
-              Files
+              Files and Folders
             </h1>
             <div className="mt-4 grid grid-cols-4 gap-4">
-              {files.map((file) => (
-                <FileComponent
-                  key={file.path}
-                  file={file}
+              {items.map((item) => (
+                <ItemComponent
+                  key={item.path}
+                  item={item}
                   updateFileName={updateFileName}
                   deleteFile={deleteFile}
+                  onFolderSelect={handleFolderSelect}
                 />
               ))}
             </div>
