@@ -6,7 +6,7 @@ export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
   const path = url.searchParams.get("path");
 
   if (!path) {
-    return res.status(400).json({ message: "Path is required" });
+    return new Response(null, { status: 400 });
   }
 
   try {
@@ -27,6 +27,7 @@ export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
     });
   } catch (error) {
     console.error("Error deleting file:", error);
-    res.status(500).json({ message: "Failed to delete file" });
+    return new Response(null, { status: 500 });
   }
 }
+

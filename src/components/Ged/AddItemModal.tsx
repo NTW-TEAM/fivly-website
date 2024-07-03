@@ -51,7 +51,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
       try {
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("path", `/${currentPath}`);
+        formData.append("path", currentPath);
         formData.append("name", name);
 
         await localApi.post("/api/ged/file", formData, {
