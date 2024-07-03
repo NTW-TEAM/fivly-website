@@ -1,4 +1,5 @@
-import React from "react";
+// components/ItemComponent.tsx
+import React, { useState } from "react";
 import { FaDownload, FaFile, FaFolder } from "react-icons/fa";
 import {
   ContextMenu,
@@ -14,30 +15,31 @@ import {
 import { FaLock, FaDeleteLeft } from "react-icons/fa6";
 import { BiRename } from "react-icons/bi";
 import { LuFolderInput } from "react-icons/lu";
-import axios from "axios";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
-
-interface TreeNode {
-  id?: number;
-  name: string;
-  path: string;
-  type: "file" | "folder";
-}
+import { FcFolder, FcFile, FcPlus } from "react-icons/fc";
+import AddItemModal from "./AddItemModal";
+import { TreeNode } from "@/types/TreeNode";
 
 interface ItemComponentProps {
   item: TreeNode;
-  updateFileName: (path: string, newName: string) => void;
-  deleteFile: (path: string) => void;
-  onFolderSelect: (path: string) => void;
+  updateFileName?: (path: string, newName: string) => void;
+  deleteFile?: (path: string) => void;
+  onFolderSelect?: (path: string) => void;
+  addItem?: (newItem: TreeNode) => void;
+  currentPath: string;
 }
 
 const ItemComponent: React.FC<ItemComponentProps> = ({
   item,
-  updateFileName,
-  deleteFile,
-  onFolderSelect,
+  updateFileName = () => {},
+  deleteFile = () => {},
+  onFolderSelect = () => {},
+  addItem = () => {},
+  currentPath,
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleDownloadFile = async () => {
     try {
       const response = await localApi.get(
@@ -63,24 +65,27 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   const handleRenameItem = async () => {
     const newName = prompt(
       `Enter new name for the ${item.type === "file" ? "file" : "folder"}:`,
-      item.name
+      item.name,
     );
     if (newName) {
       try {
-        const route = item.type === "file" ? "/api/ged/file/rename" : "/api/ged/folder/rename";
+        const route =
+          item.type === "file"
+            ? "/api/ged/file/rename"
+            : "/api/ged/folder/rename";
         await localApi.put(route, {
           path: item.path,
           newName,
         });
-        updateFileName(item.path, newName);
+        updateFileName?.(item.path, newName);
         ToastHandler.toast(
           `${item.type === "file" ? "Fichier" : "Dossier"} renommé avec succès`,
-          "success"
+          "success",
         );
       } catch (error) {
         ToastHandler.toast(
           `Erreur lors du renommage du ${item.type === "file" ? "fichier" : "dossier"}`,
-          "error"
+          "error",
         );
       }
     }
@@ -91,31 +96,60 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
       confirm(
         `Voulez vous vraiment supprimer le ${item.type === "file" ? "fichier" : "dossier"} ${
           item.name
-        } ?`
+        } ?`,
       )
     ) {
       try {
-        const route = item.type === "file" ? "/api/ged/file" : "/api/ged/folder";
+        const route =
+          item.type === "file" ? "/api/ged/file" : "/api/ged/folder";
         await localApi.delete(route, {
           params: { path: item.path },
         });
-        deleteFile(item.path);
+        deleteFile?.(item.path);
         ToastHandler.toast(
           `${item.type === "file" ? "Fichier" : "Dossier"} supprimé avec succès`,
-          "success"
+          "success",
         );
       } catch (error) {
         ToastHandler.toast(
           `Erreur lors de la suppression du ${item.type === "file" ? "fichier" : "dossier"}`,
-          "error"
+          "error",
         );
       }
     }
   };
 
   const handleFolderClick = () => {
-    onFolderSelect(item.path);
+    onFolderSelect?.(item.path);
   };
+
+  const handleAddItemClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  if (item.type === "add") {
+    return (
+      <>
+        <div
+          className="flex cursor-pointer flex-col items-center rounded border p-2 shadow-md"
+          onClick={handleAddItemClick}
+        >
+          <FcPlus className="mb-2 text-3xl" />
+          <span className="text-sm">Add Item</span>
+        </div>
+        <AddItemModal
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          addItem={addItem}
+          currentPath={currentPath}
+        />
+      </>
+    );
+  }
 
   return (
     <ContextMenu>
@@ -125,9 +159,9 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
           onClick={item.type === "folder" ? handleFolderClick : undefined}
         >
           {item.type === "file" ? (
-            <FaFile className="mb-2 text-3xl" />
+            <FcFile className="mb-2 text-3xl" />
           ) : (
-            <FaFolder className="mb-2 text-3xl" />
+            <FcFolder className="mb-2 text-3xl" />
           )}
           <span className="text-sm">{item.name}</span>
         </div>

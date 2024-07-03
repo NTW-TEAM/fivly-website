@@ -5,14 +5,8 @@ import DefaultLayout from "../Layouts/DefaultLayout";
 import ItemComponent from "./ItemComponent";
 import PathComponent from "./PathComponent";
 import localApi from "@/services/localAxiosApi";
-
-interface TreeNode {
-  id?: number;
-  name: string;
-  path: string;
-  type: "file" | "folder";
-  children?: TreeNode[];
-}
+import { TreeNode } from "@/types/TreeNode";
+import { v4 as uuidv4 } from "uuid";
 
 const GedPageComponent: React.FC = () => {
   const [items, setItems] = useState<TreeNode[]>([]);
@@ -70,6 +64,10 @@ const GedPageComponent: React.FC = () => {
     setItems((prevItems) => prevItems.filter((item) => item.path !== path));
   };
 
+  const addItem = (newItem: TreeNode) => {
+    setItems((prevItems) => [{ ...newItem, id: uuidv4() }, ...prevItems]);
+  };
+
   return (
     <DefaultLayout>
       <div className="grid grid-cols-5 gap-4">
@@ -83,14 +81,20 @@ const GedPageComponent: React.FC = () => {
               currentPath={currentPath}
               onFolderSelect={handleFolderSelect}
             />
-            <div className="mt-4 grid grid-cols-4 gap-4">
+            <div className="mt-4 grid grid-cols-8 gap-4">
+              <ItemComponent
+                item={{ name: "Add Item", path: "", type: "add" }}
+                addItem={addItem}
+                currentPath={currentPath}
+              />
               {items.map((item) => (
                 <ItemComponent
-                  key={item.path}
+                  key={item.id || item.path} // Ensure each key is unique
                   item={item}
                   updateFileName={updateFileName}
                   deleteFile={deleteFile}
                   onFolderSelect={handleFolderSelect}
+                  currentPath={currentPath}
                 />
               ))}
             </div>

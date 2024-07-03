@@ -30,3 +30,13 @@ export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
     return new Response("Failed to delete folder", { status: 500 });
   }
 }
+
+export async function POST(req: Request, res: NextApiResponse) {
+    const body = await req.json();
+
+    const response = await api.post("/ged/folder", body);
+
+    const answer = { statusCode: response.status, data: response.data };
+
+    return Response.json(answer);
+}
