@@ -11,7 +11,7 @@ export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const response = await api.delete(`/ged/file`, {
-      params: { path: decodeURIComponent(path as string) },
+      params: { path: path },
       responseType: "arraybuffer",
     });
 

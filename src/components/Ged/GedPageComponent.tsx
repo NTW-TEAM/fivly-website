@@ -27,26 +27,25 @@ const GedPageComponent: React.FC = () => {
   };
 
   const handleFolderSelect = async (path: string) => {
-      try {
-        if (!path.endsWith("/")) {
-          path += "/";
-        }
-        const response = await fetchFolderContents(path);
-        const folders = response.folders.map((folder: any) => ({
-          ...folder,
-          type: 'folder'
-        }));
-        const files = response.files.map((file: any) => ({
-          ...file,
-          type: 'file'
-        }));
-        setItems([...folders, ...files]);
-        setCurrentPath(path);
-      } catch (error) {
-        console.error("Error fetching folder contents:", error);
-        alert("Error fetching folder contents: " + error.message);
+    try {
+      if (!path.endsWith("/")) {
+        path += "/";
       }
-    };
+      const response = await fetchFolderContents(path);
+      const folders = response.folders.map((folder: any) => ({
+        ...folder,
+        type: "folder",
+      }));
+      const files = response.files.map((file: any) => ({
+        ...file,
+        type: "file",
+      }));
+      setItems([...folders, ...files]);
+      setCurrentPath(path);
+    } catch (error) {
+      console.error("Error fetching folder contents:", error);
+    }
+  };
 
   useEffect(() => {
     handleFolderSelect("/");
@@ -56,7 +55,10 @@ const GedPageComponent: React.FC = () => {
     setItems((prevItems) =>
       prevItems.map((item) => {
         if (item.path === oldPath) {
-          const newPath = item.path.replace(/[^/]*$/, newName);
+          const newPath = item.path.replace(
+            /[^/]*\/?$/,
+            newName + (item.type === "folder" ? "/" : ""),
+          );
           return { ...item, name: newName, path: newPath };
         }
         return item;

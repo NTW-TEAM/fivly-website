@@ -60,34 +60,55 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
     }
   };
 
-  const handleRenameFile = async () => {
-    const newName = prompt("Enter new name for the file:", item.name);
+  const handleRenameItem = async () => {
+    const newName = prompt(
+      `Enter new name for the ${item.type === "file" ? "file" : "folder"}:`,
+      item.name
+    );
     if (newName) {
       try {
-        await localApi.put("/api/ged/file/rename", {
+        const route = item.type === "file" ? "/api/ged/file/rename" : "/api/ged/folder/rename";
+        await localApi.put(route, {
           path: item.path,
           newName,
         });
         updateFileName(item.path, newName);
-        ToastHandler.toast("Fichier renommé avec succès", "success");
+        ToastHandler.toast(
+          `${item.type === "file" ? "Fichier" : "Dossier"} renommé avec succès`,
+          "success"
+        );
       } catch (error) {
-        console.error("Error renaming file:", error);
-        ToastHandler.toast("Erreur lors du renommage du fichier", "error");
+        ToastHandler.toast(
+          `Erreur lors du renommage du ${item.type === "file" ? "fichier" : "dossier"}`,
+          "error"
+        );
       }
     }
   };
 
-  const handleDeleteFile = async () => {
-    if (confirm(`Voulez vous vraiment supprimer le fichier ${item.name} ?`)) {
+  const handleDeleteItem = async () => {
+    if (
+      confirm(
+        `Voulez vous vraiment supprimer le ${item.type === "file" ? "fichier" : "dossier"} ${
+          item.name
+        } ?`
+      )
+    ) {
       try {
-        await localApi.delete(`/api/ged/file`, {
+        const route = item.type === "file" ? "/api/ged/file" : "/api/ged/folder";
+        await localApi.delete(route, {
           params: { path: item.path },
         });
         deleteFile(item.path);
-        ToastHandler.toast("Fichier supprimé avec succès", "success");
+        ToastHandler.toast(
+          `${item.type === "file" ? "Fichier" : "Dossier"} supprimé avec succès`,
+          "success"
+        );
       } catch (error) {
-        console.error("Error deleting file:", error);
-        ToastHandler.toast("Erreur lors de la suppression du fichier", "error");
+        ToastHandler.toast(
+          `Erreur lors de la suppression du ${item.type === "file" ? "fichier" : "dossier"}`,
+          "error"
+        );
       }
     }
   };
@@ -120,7 +141,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
             </ContextMenuShortcut>
           </ContextMenuItem>
         )}
-        <ContextMenuItem inset onClick={handleRenameFile}>
+        <ContextMenuItem inset onClick={handleRenameItem}>
           Renommer
           <ContextMenuShortcut>
             <BiRename />
@@ -129,7 +150,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
 
         <ContextMenuSeparator />
 
-        <ContextMenuItem inset onClick={handleDeleteFile}>
+        <ContextMenuItem inset onClick={handleDeleteItem}>
           Supprimer
           <ContextMenuShortcut>
             <FaDeleteLeft />
