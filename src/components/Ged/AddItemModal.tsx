@@ -14,6 +14,8 @@ import {
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
 import { TreeNode } from "@/types/TreeNode";
+import { v4 as uuidv4 } from "uuid";
+
 
 interface AddItemModalProps {
   isOpen: boolean;
@@ -39,7 +41,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
       try {
         const path = `${currentPath}`;
         await localApi.post("/api/ged/folder", { path, name });
-        addItem({ name, path, type: "folder" });
+        addItem({ id: uuidv4(), name, path, type: "folder" });
         ToastHandler.toast("Dossier ajouté avec succès", "success");
       } catch (error) {
         console.error("Error adding folder:", error);
