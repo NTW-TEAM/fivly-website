@@ -31,3 +31,15 @@ export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
+export async function POST(req: Request, res: NextApiResponse) {
+  try {
+    const body = await req.json();
+
+    await api.post(`/ged/file`, body);
+    return new Response(null, { status: 200 });
+  } catch (error) {
+    console.error("Error adding folder:", error);
+    return new Response(null, { status: 500 });
+  }
+}
+
