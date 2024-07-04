@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.2.10",
+    "@types/fs-extra": "^11.0.4",
     "apexcharts": "^3.45.2",
     "axios": "^1.6.8",
     "cookies-next": "^4.1.1",
     "flatpickr": "^4.6.13",
     "framer-motion": "^11.0.28",
+    "fs-extra": "^11.2.0",
     "jsonwebtoken": "^9.0.2",
     "jsvectormap": "^1.5.3",
     "next": "^14.2.3",

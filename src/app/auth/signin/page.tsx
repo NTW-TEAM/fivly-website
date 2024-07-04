@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
 import SignInForm from "@/components/Auth/SignInForm";
 import AuthLayout from "@/components/Layouts/AuthLayout";
