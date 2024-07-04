@@ -6,7 +6,7 @@ import ItemComponent from "./ItemComponent";
 import PathComponent from "./PathComponent";
 import localApi from "@/services/localAxiosApi";
 import { TreeNode } from "@/types/TreeNode";
-import { v4 as uuidv4 } from "uuid";
+import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 
 const GedPageComponent: React.FC = () => {
   const [items, setItems] = useState<TreeNode[]>([]);
@@ -65,18 +65,15 @@ const GedPageComponent: React.FC = () => {
   };
 
   const addItem = (newItem: TreeNode) => {
-    setItems((prevItems) => [{ ...newItem, id: uuidv4() }, ...prevItems]);
+    setItems((prevItems) => [{ ...newItem }, ...prevItems]);
   };
 
   return (
     <DefaultLayout>
+      <Breadcrumb pageName={"GED"} />
       <div className="grid grid-cols-5 gap-4">
         <div className="sm:display-none col-span-5 rounded-sm border border-stroke bg-white px-2 pb-2 pt-4.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-4.5">
           <div className="container">
-            <h1 className="text-center text-2xl font-bold text-black dark:text-white">
-              Files and Folders
-            </h1>
-            <hr className="my-4" />
             <PathComponent
               currentPath={currentPath}
               onFolderSelect={handleFolderSelect}

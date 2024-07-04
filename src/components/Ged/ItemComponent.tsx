@@ -157,13 +157,14 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
         <div
           className="flex cursor-pointer flex-col items-center rounded border p-2 shadow-md"
           onClick={item.type === "folder" ? handleFolderClick : undefined}
+          title={item.name}
         >
           {item.type === "file" ? (
             <FcFile className="mb-2 text-3xl" />
           ) : (
             <FcFolder className="mb-2 text-3xl" />
           )}
-          <span className="text-sm">{item.name}</span>
+          <span className={`text-sm ${item.name.length > 9 ? 'overflow-hidden' : ''}`}>{item.name.length > 9 ? `${item.name.substring(0, 9)}...` : item.name}</span>
         </div>
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
