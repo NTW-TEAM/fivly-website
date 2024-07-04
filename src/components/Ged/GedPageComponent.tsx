@@ -89,7 +89,7 @@ const GedPageComponent: React.FC = () => {
               />
               {items.map((item) => (
                 <ItemComponent
-                  key={item.id || item.path} // Ensure each key is unique
+                  key={item.id + item.type}
                   item={item}
                   updateFileName={updateFileName}
                   deleteFile={deleteFile}
