@@ -9,8 +9,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
 };
 
-const PermissionsPage = async () => {
-  const user = getUser();
+const MaterialPage = async () => {
   return <MaterialPageComponent />;
 };
 

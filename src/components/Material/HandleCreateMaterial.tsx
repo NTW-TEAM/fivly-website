@@ -1,6 +1,5 @@
 import {
   Button,
-  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -8,7 +7,6 @@ import {
   ModalHeader,
   Select,
   SelectItem,
-  Textarea,
   useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
@@ -107,7 +105,7 @@ const HandleCreateMaterial = ({materials, setMaterials}: {materials: Material[];
                         Ajout d&apos;un matériel
                     </ModalHeader>
                     <ModalBody>
-                        <Select name="materialModelId" placeholder="Modèle de matériel" required>
+                        <Select name="materialModelId" placeholder="Modèle de matériel" required label="Modèle de matériel">
                             {materialModels.map((materialModel) => (
                                 <SelectItem key={materialModel.name} value={materialModel.name}>
                                     {materialModel.name} ({materialModel.model})
