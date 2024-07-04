@@ -119,6 +119,36 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
     }
   };
 
+  const handleMoveItem = async () => {
+    const newPath = prompt("Enter new path for the item:", item.path);
+    if (newPath) {
+      try {
+        const route =
+          item.type === "file"
+            ? "/api/ged/file/move"
+            : "/api/ged/folder/move";
+        await localApi.put(route, {
+          oldPath: item.path,
+          newPath,
+        }).then((response) => {
+          if (response.status === 200) {
+            deleteFile?.(item.path);
+            ToastHandler.toast(
+              `${item.type === "file" ? "Fichier" : "Dossier"} déplacé avec succès`,
+              "success",
+            );
+          }
+        });
+      } catch (error) {
+        ToastHandler.toast(
+          `Erreur lors du déplacement du ${item.type === "file" ? "fichier" : "dossier"}`,
+          "error",
+        );
+      }
+    }
+  }
+
+
   const handleFolderClick = () => {
     onFolderSelect?.(item.path);
   };
@@ -197,7 +227,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
         <ContextMenuSub>
           <ContextMenuSubTrigger inset>Autres</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
-            <ContextMenuItem>
+            <ContextMenuItem inset onClick={handleMoveItem}>
               Déplacer
               <ContextMenuShortcut>
                 <LuFolderInput />
