@@ -2,6 +2,8 @@
 import { Button, Input, Spacer } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import localApi from "@/services/localAxiosApi";
+import ToastHandler from "@/tools/ToastHandler";
 
 type OrganisationData = {
   name: string;
@@ -34,8 +36,66 @@ const StartUpPageComponent = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    let startupOk = {
+      association: false,
+      admin: false,
+    }
+
+    try {
+
+    await localApi
+      .post(`/api/association`, {
+        name: formData.name,
+        domainName: formData.domainName,
+        stripeKey: formData.stripeKey,
+        stripeWebhookSecret: formData.stripeWebhookSecret,
+      })
+      .then(async (response) => {
+        if (response.data.statusCode === 201) {
+          startupOk.association = true;
+          ToastHandler.toast("L'organisation a été créée avec succès", "success");
+        }
+        else {
+          ToastHandler.toast(response.data, "error");
+        }
+      })
+      .catch((error) => {
+        ToastHandler.toast("Erreur lors de la création de l'organisation", "error");
+        console.error("error", error);
+      });
+
+    await localApi.post(`api/users/register-admin`, {
+      email: formData.emailAdmin,
+      password: formData.passwordAdmin,
+    })
+      .then(async (response) => {
+        if (response.data.statusCode === 201) {
+          startupOk.admin = true;
+          ToastHandler.toast("L'administrateur a été créé avec succès", "success");
+        }
+        else {
+          ToastHandler.toast(response.data, "error");
+        }
+      })
+      .catch((error) => {
+        ToastHandler.toast("Erreur lors de la création de l'administrateur", "error");
+        console.error("error", error);
+      });
+
+      if (startupOk.association && startupOk.admin) window.location.href = "/auth/signin";
+
+    }
+    catch (error) {
+      console.error("error", error);
+      ToastHandler.toast("Une erreur c'est produite pendant l'initialisation du site", "error");
+    }
+    
+
+
+
   };
 
   return (
