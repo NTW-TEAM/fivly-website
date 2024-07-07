@@ -1,4 +1,3 @@
-// components/AddItemModal.tsx (Updated)
 import React, { useState } from 'react';
 import {
   Modal,
@@ -72,7 +71,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <ModalContent>
-          <ModalHeader>Ajouter un nouveau local</ModalHeader>
+          <ModalHeader>Ajouter un élément</ModalHeader>
           <ModalBody>
             <Input
               label="Name"

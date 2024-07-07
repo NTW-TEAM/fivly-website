@@ -19,6 +19,7 @@ import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
 import { FcFolder, FcFile, FcPlus } from "react-icons/fc";
 import AddItemModal from "./AddItemModal";
+import PermissionModal from "./PermissionModal";
 import { TreeNode } from "@/types/TreeNode";
 
 interface ItemComponentProps {
@@ -32,13 +33,14 @@ interface ItemComponentProps {
 
 const ItemComponent: React.FC<ItemComponentProps> = ({
   item,
-  updateFileName = () => {},
-  deleteFile = () => {},
-  onFolderSelect = () => {},
-  addItem = () => {},
+  updateFileName = () => { },
+  deleteFile = () => { },
+  onFolderSelect = () => { },
+  addItem = () => { },
   currentPath,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
 
   const handleDownloadFile = async () => {
     try {
@@ -46,7 +48,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
         `/api/ged/file/download?path=${item.path}`,
         {
           responseType: "blob",
-        },
+        }
       );
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -65,7 +67,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   const handleRenameItem = async () => {
     const newName = prompt(
       `Enter new name for the ${item.type === "file" ? "file" : "folder"}:`,
-      item.name,
+      item.name
     );
     if (newName) {
       try {
@@ -80,12 +82,13 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
         updateFileName?.(item.path, newName);
         ToastHandler.toast(
           `${item.type === "file" ? "Fichier" : "Dossier"} renommé avec succès`,
-          "success",
+          "success"
         );
       } catch (error) {
         ToastHandler.toast(
-          `Erreur lors du renommage du ${item.type === "file" ? "fichier" : "dossier"}`,
-          "error",
+          `Erreur lors du renommage du ${item.type === "file" ? "fichier" : "dossier"
+          }`,
+          "error"
         );
       }
     }
@@ -94,9 +97,8 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   const handleDeleteItem = async () => {
     if (
       confirm(
-        `Voulez vous vraiment supprimer le ${item.type === "file" ? "fichier" : "dossier"} ${
-          item.name
-        } ?`,
+        `Voulez vous vraiment supprimer le ${item.type === "file" ? "fichier" : "dossier"
+        } ${item.name} ?`
       )
     ) {
       try {
@@ -108,12 +110,13 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
         deleteFile?.(item.path);
         ToastHandler.toast(
           `${item.type === "file" ? "Fichier" : "Dossier"} supprimé avec succès`,
-          "success",
+          "success"
         );
       } catch (error) {
         ToastHandler.toast(
-          `Erreur lors de la suppression du ${item.type === "file" ? "fichier" : "dossier"}`,
-          "error",
+          `Erreur lors de la suppression du ${item.type === "file" ? "fichier" : "dossier"
+          }`,
+          "error"
         );
       }
     }
@@ -124,30 +127,30 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
     if (newPath) {
       try {
         const route =
-          item.type === "file"
-            ? "/api/ged/file/move"
-            : "/api/ged/folder/move";
-        await localApi.put(route, {
-          oldPath: item.path,
-          newPath,
-        }).then((response) => {
-          if (response.status === 200) {
-            deleteFile?.(item.path);
-            ToastHandler.toast(
-              `${item.type === "file" ? "Fichier" : "Dossier"} déplacé avec succès`,
-              "success",
-            );
-          }
-        });
+          item.type === "file" ? "/api/ged/file/move" : "/api/ged/folder/move";
+        await localApi
+          .put(route, {
+            oldPath: item.path,
+            newPath,
+          })
+          .then((response) => {
+            if (response.status === 200) {
+              deleteFile?.(item.path);
+              ToastHandler.toast(
+                `${item.type === "file" ? "Fichier" : "Dossier"} déplacé avec succès`,
+                "success"
+              );
+            }
+          });
       } catch (error) {
         ToastHandler.toast(
-          `Erreur lors du déplacement du ${item.type === "file" ? "fichier" : "dossier"}`,
-          "error",
+          `Erreur lors du déplacement du ${item.type === "file" ? "fichier" : "dossier"
+          }`,
+          "error"
         );
       }
     }
-  }
-
+  };
 
   const handleFolderClick = () => {
     onFolderSelect?.(item.path);
@@ -157,8 +160,16 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
     setIsModalOpen(true);
   };
 
+  const handlePermissionClick = () => {
+    setIsPermissionModalOpen(true);
+  };
+
   const handleModalClose = () => {
     setIsModalOpen(false);
+  };
+
+  const handlePermissionModalClose = () => {
+    setIsPermissionModalOpen(false);
   };
 
   if (item.type === "add") {
@@ -182,67 +193,80 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   }
 
   return (
-    <ContextMenu>
-      <ContextMenuTrigger>
-        <div
-          className="flex cursor-pointer flex-col items-center rounded border p-2 shadow-md"
-          onClick={item.type === "folder" ? handleFolderClick : undefined}
-          title={item.name}
-        >
-          {item.type === "file" ? (
-            <FcFile className="mb-2 text-3xl" />
-          ) : (
-            <FcFolder className="mb-2 text-3xl" />
+    <>
+      <ContextMenu>
+        <ContextMenuTrigger>
+          <div
+            className="flex cursor-pointer flex-col items-center rounded border p-2 shadow-md"
+            onClick={item.type === "folder" ? handleFolderClick : undefined}
+            title={item.name}
+          >
+            {item.type === "file" ? (
+              <FcFile className="mb-2 text-3xl" />
+            ) : (
+              <FcFolder className="mb-2 text-3xl" />
+            )}
+            <span
+              className={`text-sm ${item.name.length > 9 ? "overflow-hidden" : ""}`}
+            >
+              {item.name.length > 9
+                ? `${item.name.substring(0, 9)}...`
+                : item.name}
+            </span>
+          </div>
+        </ContextMenuTrigger>
+        <ContextMenuContent className="w-64">
+          {item.type === "file" && (
+            <ContextMenuItem inset onClick={handleDownloadFile}>
+              Télécharger
+              <ContextMenuShortcut>
+                <FaDownload />
+              </ContextMenuShortcut>
+            </ContextMenuItem>
           )}
-          <span className={`text-sm ${item.name.length > 9 ? 'overflow-hidden' : ''}`}>{item.name.length > 9 ? `${item.name.substring(0, 9)}...` : item.name}</span>
-        </div>
-      </ContextMenuTrigger>
-      <ContextMenuContent className="w-64">
-        {item.type === "file" && (
-          <ContextMenuItem inset onClick={handleDownloadFile}>
-            Télécharger
+          <ContextMenuItem inset onClick={handleRenameItem}>
+            Renommer
             <ContextMenuShortcut>
-              <FaDownload />
+              <BiRename />
             </ContextMenuShortcut>
           </ContextMenuItem>
-        )}
-        <ContextMenuItem inset onClick={handleRenameItem}>
-          Renommer
-          <ContextMenuShortcut>
-            <BiRename />
-          </ContextMenuShortcut>
-        </ContextMenuItem>
 
-        <ContextMenuSeparator />
+          <ContextMenuSeparator />
 
-        <ContextMenuItem inset onClick={handleDeleteItem}>
-          Supprimer
-          <ContextMenuShortcut>
-            <FaDeleteLeft />
-          </ContextMenuShortcut>
-        </ContextMenuItem>
+          <ContextMenuItem inset onClick={handleDeleteItem}>
+            Supprimer
+            <ContextMenuShortcut>
+              <FaDeleteLeft />
+            </ContextMenuShortcut>
+          </ContextMenuItem>
 
-        <ContextMenuSeparator />
+          <ContextMenuSeparator />
 
-        <ContextMenuSub>
-          <ContextMenuSubTrigger inset>Autres</ContextMenuSubTrigger>
-          <ContextMenuSubContent className="w-48">
-            <ContextMenuItem inset onClick={handleMoveItem}>
-              Déplacer
-              <ContextMenuShortcut>
-                <LuFolderInput />
-              </ContextMenuShortcut>
-            </ContextMenuItem>
-            <ContextMenuItem>
-              Permission
-              <ContextMenuShortcut>
-                <FaLock />
-              </ContextMenuShortcut>
-            </ContextMenuItem>
-          </ContextMenuSubContent>
-        </ContextMenuSub>
-      </ContextMenuContent>
-    </ContextMenu>
+          <ContextMenuSub>
+            <ContextMenuSubTrigger inset>Autres</ContextMenuSubTrigger>
+            <ContextMenuSubContent className="w-48">
+              <ContextMenuItem inset onClick={handleMoveItem}>
+                Déplacer
+                <ContextMenuShortcut>
+                  <LuFolderInput />
+                </ContextMenuShortcut>
+              </ContextMenuItem>
+              <ContextMenuItem inset onClick={handlePermissionClick}>
+                Permission
+                <ContextMenuShortcut>
+                  <FaLock />
+                </ContextMenuShortcut>
+              </ContextMenuItem>
+            </ContextMenuSubContent>
+          </ContextMenuSub>
+        </ContextMenuContent>
+      </ContextMenu>
+      <PermissionModal
+        isOpen={isPermissionModalOpen}
+        onClose={handlePermissionModalClose}
+        item={item}
+      />
+    </>
   );
 };
 

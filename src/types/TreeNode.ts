@@ -4,4 +4,7 @@ export interface TreeNode {
   path: string;
   type: "file" | "folder" | "add";
   children?: TreeNode[];
+  userPermissions?: any[];
+  rolePermissions?: any[];
+  requesterAccess?: number;
 }

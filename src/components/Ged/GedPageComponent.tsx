@@ -8,7 +8,11 @@ import localApi from "@/services/localAxiosApi";
 import { TreeNode } from "@/types/TreeNode";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 
-const GedPageComponent: React.FC = () => {
+interface GedPageComponentProps {
+  user: any;
+}
+
+const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
   const [items, setItems] = useState<TreeNode[]>([]);
   const [currentPath, setCurrentPath] = useState<string>("/");
 
@@ -26,13 +30,19 @@ const GedPageComponent: React.FC = () => {
         path += "/";
       }
       const response = await fetchFolderContents(path);
-      const folders = response.folders.map((folder: any) => ({
-        ...folder,
+      const folders = response.folders.map((folderData: any) => ({
+        ...folderData.folder,
         type: "folder",
+        userPermissions: folderData.userPermissions.filter((permission: any) => permission.id && permission.access >= 1),
+        rolePermissions: folderData.rolePermissions,
+        requesterAccess: folderData.requesterAccess,
       }));
-      const files = response.files.map((file: any) => ({
-        ...file,
+      const files = response.files.map((fileData: any) => ({
+        ...fileData.file,
         type: "file",
+        userPermissions: fileData.userPermissions,
+        rolePermissions: fileData.rolePermissions,
+        requesterAccess: fileData.requesterAccess,
       }));
       setItems([...folders, ...files]);
       setCurrentPath(path);
@@ -51,12 +61,12 @@ const GedPageComponent: React.FC = () => {
         if (item.path === oldPath) {
           const newPath = item.path.replace(
             /[^/]*\/?$/,
-            newName + (item.type === "folder" ? "/" : ""),
+            newName + (item.type === "folder" ? "/" : "")
           );
           return { ...item, name: newName, path: newPath };
         }
         return item;
-      }),
+      })
     );
   };
 
