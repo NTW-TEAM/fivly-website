@@ -51,6 +51,10 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
     }
   };
 
+  const refreshFolderContents = () => {
+    handleFolderSelect(currentPath);
+  }
+
   useEffect(() => {
     handleFolderSelect("/");
   }, []);
@@ -102,6 +106,7 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
                   deleteFile={deleteFile}
                   onFolderSelect={handleFolderSelect}
                   currentPath={currentPath}
+                  refreshFolderContents={refreshFolderContents}
                 />
               ))}
             </div>

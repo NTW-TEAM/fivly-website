@@ -29,6 +29,7 @@ interface ItemComponentProps {
   onFolderSelect?: (path: string) => void;
   addItem?: (newItem: TreeNode) => void;
   currentPath: string;
+  refreshFolderContents: () => void;
 }
 
 const ItemComponent: React.FC<ItemComponentProps> = ({
@@ -38,6 +39,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   onFolderSelect = () => { },
   addItem = () => { },
   currentPath,
+  refreshFolderContents,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
@@ -265,6 +267,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
         isOpen={isPermissionModalOpen}
         onClose={handlePermissionModalClose}
         item={item}
+        refreshFolderContents={refreshFolderContents}
       />
     </>
   );
