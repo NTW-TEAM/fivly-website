@@ -21,6 +21,8 @@ import { FcFolder, FcFile, FcPlus } from "react-icons/fc";
 import AddItemModal from "./AddItemModal";
 import PermissionModal from "./PermissionModal";
 import { TreeNode } from "@/types/TreeNode";
+import { UserJwt } from "@/types/UserJwt";
+import { ACCESS_HANDLE, ACCESS_READ_WRITE } from "@/constant/access";
 
 interface ItemComponentProps {
   item: TreeNode;
@@ -29,7 +31,8 @@ interface ItemComponentProps {
   onFolderSelect?: (path: string) => void;
   addItem?: (newItem: TreeNode) => void;
   currentPath: string;
-  refreshFolderContents: () => void;
+  refreshFolderContents?: () => void;
+  user: UserJwt;
 }
 
 const ItemComponent: React.FC<ItemComponentProps> = ({
@@ -40,7 +43,11 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   addItem = () => { },
   currentPath,
   refreshFolderContents,
+  user,
 }) => {
+  const userAccess = item.userPermissions.find(permission => permission.user.id === user.id)?.access;
+  const userAccessViaRole = Math.max(...item.rolePermissions.map(permission => user.roles.some(role => permission.role.name.includes(role.name)) ? permission.access : 0));
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPermissionModalOpen, setIsPermissionModalOpen] = useState(false);
 
@@ -211,8 +218,8 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
             <span
               className={`text-sm ${item.name.length > 9 ? "overflow-hidden" : ""}`}
             >
-              {item.name.length > 9
-                ? `${item.name.substring(0, 9)}...`
+              {item.name.length > 7
+                ? `${item.name.substring(0, 7)}...`
                 : item.name}
             </span>
           </div>
@@ -226,42 +233,49 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
               </ContextMenuShortcut>
             </ContextMenuItem>
           )}
-          <ContextMenuItem inset onClick={handleRenameItem}>
-            Renommer
-            <ContextMenuShortcut>
-              <BiRename />
-            </ContextMenuShortcut>
-          </ContextMenuItem>
 
+          {
+            ((userAccess ?? 0) >= ACCESS_READ_WRITE || userAccessViaRole >= ACCESS_READ_WRITE ) && (
+              <>
+                <ContextMenuItem inset onClick={handleRenameItem}>
+                  Renommer
+                  <ContextMenuShortcut>
+                    <BiRename />
+                  </ContextMenuShortcut>
+                </ContextMenuItem>
+                <ContextMenuSeparator />
+                <ContextMenuItem inset onClick={handleDeleteItem}>
+                  Supprimer
+                  <ContextMenuShortcut>
+                    <FaDeleteLeft />
+                  </ContextMenuShortcut>
+                </ContextMenuItem>
+              </>
+            )
+          }
+          
           <ContextMenuSeparator />
+          {
+            ((userAccess ?? 0) >= ACCESS_READ_WRITE || userAccessViaRole >= ACCESS_READ_WRITE) && (
 
-          <ContextMenuItem inset onClick={handleDeleteItem}>
-            Supprimer
-            <ContextMenuShortcut>
-              <FaDeleteLeft />
-            </ContextMenuShortcut>
-          </ContextMenuItem>
-
-          <ContextMenuSeparator />
-
-          <ContextMenuSub>
-            <ContextMenuSubTrigger inset>Autres</ContextMenuSubTrigger>
-            <ContextMenuSubContent className="w-48">
               <ContextMenuItem inset onClick={handleMoveItem}>
                 Déplacer
                 <ContextMenuShortcut>
                   <LuFolderInput />
                 </ContextMenuShortcut>
-              </ContextMenuItem>
+              </ContextMenuItem>)}
+          {
+            ((userAccess ?? 0) >= ACCESS_HANDLE || userAccessViaRole >= ACCESS_READ_WRITE) && (
               <ContextMenuItem inset onClick={handlePermissionClick}>
                 Permission
                 <ContextMenuShortcut>
                   <FaLock />
                 </ContextMenuShortcut>
               </ContextMenuItem>
-            </ContextMenuSubContent>
-          </ContextMenuSub>
-        </ContextMenuContent>
+
+            )
+          }
+          </ContextMenuContent>
       </ContextMenu>
       <PermissionModal
         isOpen={isPermissionModalOpen}
@@ -270,7 +284,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
         refreshFolderContents={refreshFolderContents}
       />
     </>
-  );
+  )
 };
 
 export default ItemComponent;

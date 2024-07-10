@@ -1,4 +1,3 @@
-// components/GedPageComponent.tsx
 "use client";
 import React, { useState, useEffect } from "react";
 import DefaultLayout from "../Layouts/DefaultLayout";
@@ -7,9 +6,10 @@ import PathComponent from "./PathComponent";
 import localApi from "@/services/localAxiosApi";
 import { TreeNode } from "@/types/TreeNode";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
+import { UserJwt } from "@/types/UserJwt";
 
 interface GedPageComponentProps {
-  user: any;
+  user: UserJwt;
 }
 
 const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
@@ -94,9 +94,10 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
             />
             <div className="mt-4 grid grid-cols-8 gap-4">
               <ItemComponent
-                item={{ name: "Add Item", path: "", type: "add" }}
+                item={{ name: "Add Item", path: "", type: "add" , userPermissions: [], rolePermissions: [], requesterAccess: 0}}
                 addItem={addItem}
                 currentPath={currentPath}
+                user={user}
               />
               {items.map((item) => (
                 <ItemComponent
@@ -107,6 +108,7 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
                   onFolderSelect={handleFolderSelect}
                   currentPath={currentPath}
                   refreshFolderContents={refreshFolderContents}
+                  user={user}
                 />
               ))}
             </div>
