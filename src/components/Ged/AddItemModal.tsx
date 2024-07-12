@@ -38,7 +38,12 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
       try {
         const path = `${currentPath}`;
         await localApi.post('/api/ged/folder', { path, name });
-        addItem({ name, path, type: 'folder' });
+        addItem({
+          name, path, type: 'folder',
+          userPermissions: [],
+          rolePermissions: [],
+          requesterAccess: 0
+        });
         ToastHandler.toast('Dossier ajouté avec succès', 'success');
       } catch (error) {
         console.error('Error adding folder:', error);
@@ -56,7 +61,12 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
             'Content-Type': 'multipart/form-data',
           },
         });
-        addItem({ name: file.name, path: `/${file.name}`, type: 'file' });
+        addItem({
+          name: file.name, path: `/${file.name}`, type: 'file',
+          userPermissions: [],
+          rolePermissions: [],
+          requesterAccess: 0
+        });
         ToastHandler.toast('Fichier ajouté avec succès', 'success');
       } catch (error) {
         console.error('Error adding file:', error);
