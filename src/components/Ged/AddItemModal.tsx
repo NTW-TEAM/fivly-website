@@ -56,6 +56,8 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
         formData.append('path', currentPath);
         formData.append('name', name);
 
+        console.log("======== DEBUG FILE =====:", file);
+
         await localApi.post('/api/ged/file', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -79,7 +81,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4" encType="multipart/form-data">
         <ModalContent>
           <ModalHeader>Ajouter un élément</ModalHeader>
           <ModalBody>
