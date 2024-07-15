@@ -1,11 +1,9 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-
+// pages/documents.tsx
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { DESCRIPTION, TITLE } from "@/constant/metadata";
-import SideBarGed from "@/components/Ged/SideBarGed";
-import MainPage from "@/components/Ged/MainPage";
-
+import GedPageComponent from "@/components/Ged/GedPageComponent";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
   title: TITLE + " - Gestion éléctronique des documents",
@@ -13,21 +11,15 @@ export const metadata: Metadata = {
 };
 
 const DocumentsPage = () => {
-  return (
-    <DefaultLayout>
-      <Breadcrumb pageName="Gestion éléctronique des documents" />
+  const cookieStore = cookies();
+  const authToken = cookieStore.get("auth_token");
 
-      <div className="grid grid-cols-5 gap-4">
-
-        <SideBarGed />
-
-        <MainPage />
-
-
-
-      </div>
-    </DefaultLayout>
-  );
+  if (authToken) {
+    const user = jwt.verify(authToken.value, process.env.JWT_SECRET!);
+    return <GedPageComponent user={user} />;
+  } else {
+    return <>Erreur</>;
+  }
 };
 
 export default DocumentsPage;
