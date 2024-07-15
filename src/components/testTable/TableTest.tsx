@@ -1,27 +1,27 @@
 "use client";
 import React from "react";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Chip,
-  User,
-  Pagination,
-  Selection,
-  ChipProps,
-  SortDescriptor,
+    Button,
+    Chip,
+    ChipProps,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
+    User,
 } from "@nextui-org/react";
-import { columns, users, statusOptions } from "./data";
-import { FaEllipsisV } from "react-icons/fa";
+import {columns, statusOptions, users} from "./data";
+import {FaEllipsisV} from "react-icons/fa";
 
 const statusColorMap: Record<string, ChipProps["color"]> = {
   active: "success",

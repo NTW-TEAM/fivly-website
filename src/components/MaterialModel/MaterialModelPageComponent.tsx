@@ -1,11 +1,11 @@
 "use client";
-import { FaUsersCog, FaUserShield } from "react-icons/fa";
+import {FaUsersCog} from "react-icons/fa";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
 import localApi from "@/services/localAxiosApi";
-import { MaterialModel } from "@/types/MaterialModel";
+import {MaterialModel} from "@/types/MaterialModel";
 import TableMaterialModel from "./TableMaterialModel";
 
 const MaterialModelPageComponent = () => {

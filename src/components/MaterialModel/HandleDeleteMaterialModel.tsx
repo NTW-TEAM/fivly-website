@@ -1,21 +1,8 @@
-import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
-} from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaTrash } from "react-icons/fa";
+import {FaTrash} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { MaterialModel } from "@/types/MaterialModel";
+import {MaterialModel} from "@/types/MaterialModel";
 
 const HandleDeleteMaterialModel = ({materialModels, setMaterialModels, materialModelsToDelete}: {materialModels: MaterialModel[]; setMaterialModels: React.Dispatch<React.SetStateAction<MaterialModel[]>>; materialModelsToDelete: MaterialModel;}) => {
 

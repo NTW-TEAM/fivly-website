@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function DELETE(req: NextApiRequest, {params}: {params: {activityTypeName: string}}) {
+export async function DELETE(req: NextRequest, {params}: {params: {activityTypeName: string}}) {
 
     const { activityTypeName } = params;
 
@@ -12,7 +12,7 @@ export async function DELETE(req: NextApiRequest, {params}: {params: {activityTy
     return Response.json(response);
 };
 
-export async function POST(req: NextApiRequest, {params}: {params: {activityTypeName: string}}) {
+export async function POST(req: NextRequest, {params}: {params: {activityTypeName: string}}) {
 
     const { activityTypeName } = params;
 

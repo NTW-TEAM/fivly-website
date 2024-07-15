@@ -1,25 +1,25 @@
 "use client";
-import { AssemblyUser } from "@/types/AssemblyUser";
+import {AssemblyUser} from "@/types/AssemblyUser";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Pagination,
-  Selection,
-  SortDescriptor,
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
 } from "@nextui-org/react";
 import React from "react";
 import HandleAddUserToAssembly from "./HandleAddUserToAssembly";
-import { Assembly } from "@/types/Assembly";
+import {Assembly} from "@/types/Assembly";
 import HandleDeleteUserAssembly from "./HandleDeleteUserAssembly";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions"];

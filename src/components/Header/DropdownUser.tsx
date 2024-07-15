@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import Link from "next/link";
-import { FaUserCircle } from "react-icons/fa";
+import {FaUserCircle} from "react-icons/fa";
 import LogoutButton from "./LogoutButton";
 
 const DropdownUser = () => {

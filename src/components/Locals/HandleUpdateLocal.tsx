@@ -1,22 +1,19 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
-import { local } from "@/types/local";
-import { localCreateDto } from "@/types/localCreateDto";
-import { FaEdit } from "react-icons/fa";
+import {local} from "@/types/local";
+import {localCreateDto} from "@/types/localCreateDto";
+import {FaEdit} from "react-icons/fa";
 
 const HandleUpdateLocal = ({locals, setLocals, local}: {locals: local[]; setLocals: React.Dispatch<React.SetStateAction<local[]>>; local: local;}) => {
 

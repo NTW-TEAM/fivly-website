@@ -1,18 +1,18 @@
 import {
-  Button,
-  Checkbox,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
+    Button,
+    Checkbox,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
-import { Assembly } from "@/types/Assembly";
+import {Assembly} from "@/types/Assembly";
 
 const HandleCreateAssembly = ({assemblies, setAssemblies}: {assemblies: Assembly[]; setAssemblies: React.Dispatch<React.SetStateAction<Assembly[]>>;}) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();

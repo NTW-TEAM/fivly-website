@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function GET(req: NextApiRequest, {params}: {params: {assemblyId: string, voteSessionId: string}}) {       
+export async function GET(req: NextRequest, {params}: {params: {assemblyId: string, voteSessionId: string}}) {
     
     const { assemblyId, voteSessionId } = params;
 

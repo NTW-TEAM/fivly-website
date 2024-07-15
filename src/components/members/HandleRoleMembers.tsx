@@ -1,10 +1,20 @@
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
-import { Members } from "@/types/Members";
-import { Roles } from "@/types/Roles";
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
-import { useState } from "react";
-import { FaPlus, FaPlusCircle, FaTimesCircle } from "react-icons/fa"; // Assurez-vous d'avoir installé react-icons
+import {Members} from "@/types/members";
+import {Roles} from "@/types/roles";
+import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    useDisclosure
+} from "@nextui-org/react";
+import {useState} from "react";
+import {FaPlusCircle, FaTimesCircle} from "react-icons/fa"; // Assurez-vous d'avoir installé react-icons
 
 const HandleRoleMembers = ({ user }: { user: Members }) => {
   const [roles, setRoles] = useState(user.roles);
@@ -36,10 +46,7 @@ const HandleRoleMembers = ({ user }: { user: Members }) => {
         .delete(`/api/users/${userId}/role/${roleName}`)
         .then((response) => {
           if (response.status !== 200) {
-            ToastHandler.toast(
-              "Erreur lors de la suppression du rôle",
-              "error",
-            );
+            ToastHandler.toast("Erreur lors de la suppression du rôle", "error");
             return;
           }
 

@@ -1,15 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { Assembly } from "@/types/Assembly";
+import React, {useEffect, useState} from "react";
+import {useParams} from "next/navigation";
+import {Assembly} from "@/types/Assembly";
 import localApi from "@/services/localAxiosApi";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import TableVotes from "./TableVote";
-import { Vote } from "@/types/Vote";
+import {Vote} from "@/types/Vote";
 
 const AssemblyVoteSessionPageComponent = () => {
-  const { assemblyId } = useParams();
+  const { assemblyId} = useParams() as { assemblyId: string };
   const [assembly, setAssembly] = useState<Assembly | null>(null);
   const [votes, setVotes] = useState<Vote[]>([]);
 

@@ -1,26 +1,27 @@
 "use client";
-import { MaterialModel } from "@/types/MaterialModel";
+import {MaterialModel} from "@/types/MaterialModel";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Pagination,
-  Selection,
-  SortDescriptor,
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
 } from "@nextui-org/react";
 import React from "react";
 import HandleCreateMaterialModel from "./HandleCreateMaterialModel";
 import HandleDeleteMaterialModel from "./HandleDeleteMaterialModel";
 import HandleEditMaterielModel from "./HandleEditMaterielModel";
+
 const INITIAL_VISIBLE_COLUMNS = ["name", "model", "actions"];
 
 const columns = [

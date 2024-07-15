@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function DELETE(req: NextApiRequest, {params}: {params: {materialModelName: string}}) {
+export async function DELETE(req: NextRequest, {params}: {params: {materialModelName: string}}) {
 
     const { materialModelName } = params;
 

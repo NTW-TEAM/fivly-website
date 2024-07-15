@@ -1,13 +1,12 @@
 "use client";
-import { FaUsersCog, FaUserShield } from "react-icons/fa";
+import {FaUsersCog, FaUserShield} from "react-icons/fa";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
-import { Roles } from "@/types/Roles";
-import axios from "axios";
-import { Scopes } from "@/types/Scopes";
-import { MdVerifiedUser } from "react-icons/md";
+import {Roles} from "@/types/roles";
+import {Scopes} from "@/types/scopes";
+import {MdVerifiedUser} from "react-icons/md";
 import TableRoles from "./TableRoles";
 import localApi from "@/services/localAxiosApi";
 

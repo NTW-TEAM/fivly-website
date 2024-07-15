@@ -1,20 +1,19 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    Textarea,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
-import { Roles } from "@/types/Roles";
-import { Scopes } from "@/types/Scopes";
-import axios from "axios";
+import {Roles} from "@/types/roles";
+import {Scopes} from "@/types/scopes";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
 

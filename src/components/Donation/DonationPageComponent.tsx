@@ -3,11 +3,10 @@ import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
-import { MdOutlineTypeSpecimen } from "react-icons/md";
 import localApi from "@/services/localAxiosApi";
-import { Donation } from "@/types/Donation";
-import { GiReceiveMoney } from "react-icons/gi";
-import { FaEuroSign, FaRegStar } from "react-icons/fa";
+import {Donation} from "@/types/Donation";
+import {GiReceiveMoney} from "react-icons/gi";
+import {FaEuroSign, FaRegStar} from "react-icons/fa";
 import TableDonation from "./TableDonation";
 
 const DonationPageComponent = () => {

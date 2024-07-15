@@ -1,5 +1,14 @@
-import { BRAND } from "@/types/brand";
 import Image from "next/image";
+
+interface BRAND {
+  logo: string;
+  name: string;
+  visitors: number;
+  revenues: string;
+  sales: number;
+  conversion: number;
+}
+
 
 const brandData: BRAND[] = [
   {

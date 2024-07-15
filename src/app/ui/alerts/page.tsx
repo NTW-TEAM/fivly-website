@@ -1,5 +1,5 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
+import {Metadata} from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import AlertError from "@/components/Alerts/AlertError";
 import AlertAttention from "@/components/Alerts/AlertAttention";

@@ -1,21 +1,18 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    useDisclosure,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaPen } from "react-icons/fa";
+import {FaPen} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { MaterialModel } from "@/types/MaterialModel";
+import {MaterialModel} from "@/types/MaterialModel";
 
 const HandleEditMaterielModel = ({materialModels, setMaterialModels, materialModelToEdit}: {materialModels: MaterialModel[]; setMaterialModels: React.Dispatch<React.SetStateAction<MaterialModel[]>>; materialModelToEdit: MaterialModel;}) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();

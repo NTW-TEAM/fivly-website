@@ -1,9 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import jwt from "jsonwebtoken";
+import {NextApiResponse} from "next";
+import jwt, {JwtPayload} from "jsonwebtoken";
 import api from "@/services/axios";
-import { cookies } from "next/headers";
+import {cookies} from "next/headers";
+import {NextRequest} from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextApiResponse) {
     const data = api.get("/stripe/crowdfunding");
     return Response.json((await data).data);
 }
@@ -19,8 +20,9 @@ export async function POST(req: Request, res: NextApiResponse) {
         return Response.json({ statusCode: 401, message: "Unauthorized" });
     }
 
-    const user = jwt.verify(authToken.value, process.env.JWT_SECRET!);
-    body = { ...body, creator: user.id };
+    const user = jwt.verify(authToken.value, process.env.JWT_SECRET!) as JwtPayload;
+
+    body = { ...body, userId: user.id };
 
     const response = await api.post("/stripe/crowdfunding", body);
 
@@ -31,7 +33,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         sessionUrl: response.data.sessionUrl,
       };
     } else {
-      answer = { statusCode: response.status, data: response.message };
+      answer = { statusCode: response.status, data: response.data.message };
     }
 
     return Response.json(answer);

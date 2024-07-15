@@ -1,22 +1,19 @@
 import {
-  Button,
-  Checkbox,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
+    Button,
+    Checkbox,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    useDisclosure,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaPen } from "react-icons/fa";
+import {FaPen} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { Assembly } from "@/types/Assembly";
+import {Assembly} from "@/types/Assembly";
 
 const HandleEditAssembly = ({
   assemblies,
@@ -73,19 +70,13 @@ const HandleEditAssembly = ({
           getAllAssembly().then((data) => {
             setAssemblies(data);
           });
-          ToastHandler.toast(
-            "L'assemblée a été modifiée avec succès",
-            "success",
-          );
+          ToastHandler.toast("L'assemblée a été modifiée avec succès", "success");
         } else {
           ToastHandler.toast(response.data, "error");
         }
       })
       .catch((error) => {
-        ToastHandler.toast(
-          "Erreur lors de la modification de l'assemblée",
-          "error",
-        );
+        ToastHandler.toast("Erreur lors de la modification de l'assemblée", "error");
         console.error("error", error);
       })
       .finally(() => {

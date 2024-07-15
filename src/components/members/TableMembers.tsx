@@ -1,29 +1,27 @@
 "use client";
-import { Members } from "@/types/Members";
+import {Members} from "@/types/members";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Chip,
-  Pagination,
-  Selection,
-  SortDescriptor,
-  Link,
-  Spinner,
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
 } from "@nextui-org/react";
-import React from "react";
+import React, {ReactNode} from "react";
 import HandleRoleMembers from "./HandleRoleMembers";
 import HandleEditMembers from "./HandleEditMembers";
 import HandleScopesMembers from "./HandleScopesMembers";
+
 const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions", "scopes"];
 
 const columns = [
@@ -130,7 +128,7 @@ const TableMembers = ({ users }: { users: Members[]}) => {
         return <HandleEditMembers user={user as Members} userState={user} setUsersState={setUsersState} />;
         
       default:
-        return cellValue;
+        return cellValue as ReactNode;
     }
   }, []);
 

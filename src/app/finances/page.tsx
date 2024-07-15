@@ -1,13 +1,5 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import { DESCRIPTION, TITLE } from "@/constant/metadata";
-import CardDataStats from "@/components/CardDataStats";
-import { FaHandsHelping } from "react-icons/fa";
-import { AiFillFund } from "react-icons/ai";
-import { GiReceiveMoney } from "react-icons/gi";
-import DashboardChart from "@/components/Finances/DashboardChart";
+import {Metadata} from "next";
+import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import FinancePageComponent from "@/components/Finances/FinancePageComponent";
 
 export const metadata: Metadata = {

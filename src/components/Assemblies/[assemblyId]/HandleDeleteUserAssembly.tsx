@@ -1,23 +1,9 @@
-import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
-} from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaTrash } from "react-icons/fa";
+import {FaTrash} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { Assembly } from "@/types/Assembly";
-import { Members } from "@/types/members";
-import { AssemblyUser } from "@/types/AssemblyUser";
+import {Assembly} from "@/types/Assembly";
+import {AssemblyUser} from "@/types/AssemblyUser";
 
 const HandleDeleteUserAssembly = ({
   assembly,
@@ -52,10 +38,7 @@ const HandleDeleteUserAssembly = ({
       .delete(`/api/assemblies/${assembly?.id}/participate/${assemblyUserToDelete.id}`)
       .then((response) => {
         if (response.status === 200) {
-          ToastHandler.toast(
-            "L'assemblée a été supprimée avec succès",
-            "success",
-          );
+          ToastHandler.toast("L'assemblée a été supprimée avec succès", "success");
           getAssembly(assembly?.id).then((data) => {
             setAssembly(data);
           });
@@ -63,10 +46,7 @@ const HandleDeleteUserAssembly = ({
       })
       .catch((error) => {
         console.error("error", error);
-        ToastHandler.toast(
-          "Erreur lors de la suppression de l'assemblée",
-          "error",
-        );
+        ToastHandler.toast("Erreur lors de la suppression de l'assemblée", "error");
       });
   }
 

@@ -1,14 +1,14 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 
-import { Metadata } from "next";
+import {Metadata} from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import { DESCRIPTION, TITLE } from "@/constant/metadata";
+import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import TableMembers from "@/components/members/TableMembers";
 import CardDataStats from "@/components/CardDataStats";
-import { FaUsers, FaUserShield } from "react-icons/fa";
-import { Members } from "@/types/Members";
-import { getMembers } from "../../services/memberService";
+import {FaUsers, FaUserShield} from "react-icons/fa";
+import {getMembers} from "@/services/memberService";
 import React from "react";
+import {Members} from "@/types/members";
 
 export const metadata: Metadata = {
   title: TITLE + " - Membres",

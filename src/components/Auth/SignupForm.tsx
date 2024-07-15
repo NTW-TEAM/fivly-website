@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { register } from "@/app/auth/signup/actions/register";
+import {useState} from "react";
+import {register} from "@/app/auth/signup/actions/register";
 import ToastHandler from "@/tools/ToastHandler";
 
 function SignUpForm() {

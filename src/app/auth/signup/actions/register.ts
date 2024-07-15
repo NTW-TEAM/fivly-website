@@ -1,6 +1,6 @@
 "use server";
 
-import { signUp, signUpMember } from "@/services/authService";
+import {signUp, signUpMember} from "@/services/authService";
 
 export async function register(formData: FormData) {
 
@@ -25,7 +25,7 @@ export async function register(formData: FormData) {
     } else {
       return {
         status: "error",
-        message: response.message,
+        message: response.data.message,
       };
     }
 }

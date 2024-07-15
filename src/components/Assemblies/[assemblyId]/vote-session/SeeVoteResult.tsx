@@ -1,18 +1,10 @@
-import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from "@nextui-org/react";
-import React, { useEffect } from "react";
+import {Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure,} from "@nextui-org/react";
+import React, {useEffect} from "react";
 import localApi from "@/services/localAxiosApi";
-import { Vote } from "@/types/Vote";
-import { VoteResult } from "@/types/VoteResult";
-import { Assembly } from "@/types/Assembly";
-import { FaChartBar, FaEye } from "react-icons/fa";
+import {Vote} from "@/types/Vote";
+import {VoteResult} from "@/types/VoteResult";
+import {Assembly} from "@/types/Assembly";
+import {FaChartBar} from "react-icons/fa";
 
 const SeeVoteResult = ({
   setVotes,

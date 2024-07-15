@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function GET(req: NextApiRequest, {params}: {params: {assemblyId: string, voteSessionId: string}}) {       
+export async function GET(req: NextRequest, {params}: {params: {assemblyId: string, voteSessionId: string}}) {
     
     const { assemblyId, voteSessionId } = params;
 
@@ -12,7 +12,7 @@ export async function GET(req: NextApiRequest, {params}: {params: {assemblyId: s
     return Response.json(response);
 };
 
-export async function DELETE(req: NextApiRequest, {params}: {params: {assemblyId: string, voteSessionId: string}}) {       
+export async function DELETE(req: NextRequest, {params}: {params: {assemblyId: string, voteSessionId: string}}) {
     
     const { assemblyId, voteSessionId } = params;
 
@@ -23,7 +23,7 @@ export async function DELETE(req: NextApiRequest, {params}: {params: {assemblyId
     return Response.json(response);
 }
 
-export async function PATCH(req: NextApiRequest, {params, body}: {params: {assemblyId: string, voteSessionId: string}, body: any}) {       
+export async function PATCH(req: NextRequest, {params, body}: {params: {assemblyId: string, voteSessionId: string}, body: any}) {
     
     const { assemblyId, voteSessionId } = params;
 

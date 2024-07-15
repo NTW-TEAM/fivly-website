@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import { DESCRIPTION, TITLE } from "@/constant/metadata";
+import {Metadata} from "next";
+import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import React from "react";
 import ActivityTypePageComponent from "@/components/ActivityType/ActivityTypePageComponent";
 

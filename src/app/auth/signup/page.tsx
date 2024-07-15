@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { Metadata } from "next";
-import { DESCRIPTION, TITLE } from "@/constant/metadata";
+import {Metadata} from "next";
+import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import AuthLayout from "@/components/Layouts/AuthLayout";
 import SignUpForm from "@/components/Auth/SignupForm";
 

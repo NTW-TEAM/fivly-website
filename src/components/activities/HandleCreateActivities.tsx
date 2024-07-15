@@ -1,23 +1,22 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
-import { Activity } from "@/types/activity";
-import { ActivityType } from "@/types/activityType";
-import { ActivityCreateDTO } from "@/types/ActivityCreateDTO";
-import { Members } from "@/types/Members";
-import { get } from "http";
+import {Activity} from "@/types/activity";
+import {ActivityType} from "@/types/activityType";
+import {ActivityCreateDTO} from "@/types/ActivityCreateDTO";
+import {Members} from "@/types/members";
 
 const HandleCreateActivities = ({activities, setActivities}: {activities: Activity[]; setActivities: React.Dispatch<React.SetStateAction<Activity[]>>;}) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -122,13 +121,13 @@ const HandleCreateActivities = ({activities, setActivities}: {activities: Activi
     return (
       <div>
         <Button onClick={onOpen} color="primary">
-          Ajouter un type d&apos;activité
+          Ajouter une activité
         </Button>
 
         <Modal isOpen={isOpen} onClose={() => onOpenChange()} size="lg">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <ModalContent>
-              <ModalHeader>Ajouter une nouvel activité</ModalHeader>
+              <ModalHeader>Ajouter une nouvelle activité</ModalHeader>
               <ModalBody>
                 <Input
                   label="Titre de l'activité"
@@ -159,7 +158,7 @@ const HandleCreateActivities = ({activities, setActivities}: {activities: Activi
                   isRequired
                 />
                 <Select label="Type d'activité" name="activityType" isRequired>
-                  {activityTypes.map((activityType) => (
+                  {activityTypes && activityTypes.map((activityType) => (
                     <SelectItem
                       key={activityType.name}
                       value={activityType.name}

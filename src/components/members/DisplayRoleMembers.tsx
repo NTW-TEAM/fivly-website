@@ -1,5 +1,4 @@
-import { Roles } from "@/types/Roles";
-import { useState } from "react";
+import {Roles} from "@/types/roles";
 
 const RoleMembersDisplay = ({ rolesData }: { rolesData: Roles[] }) => {
 

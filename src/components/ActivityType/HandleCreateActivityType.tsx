@@ -1,19 +1,16 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { ActivityType } from "@/types/ActivityType";
+import {ActivityType} from "@/types/activityType";
 import localApi from "@/services/localAxiosApi";
 
 const HandleCreateActivityType = ({activityTypes, setActivityTypes}: {activityTypes: ActivityType[]; setActivityTypes: React.Dispatch<React.SetStateAction<ActivityType[]>>;}) => {

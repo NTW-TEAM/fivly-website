@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function DELETE(req: NextApiRequest, {params}: {params: {userId: string, roleName: string}}) {
+export async function DELETE(req: NextRequest, {params}: {params: {userId: string, roleName: string}}) {
 
     const { userId, roleName } = params;
 
@@ -12,7 +12,7 @@ export async function DELETE(req: NextApiRequest, {params}: {params: {userId: st
     return Response.json(response);
 };
 
-export async function PUT(req: NextApiRequest, {params}: {params: {userId: string, roleName: string}}) {
+export async function PUT(req: NextRequest, {params}: {params: {userId: string, roleName: string}}) {
 
     const { userId, roleName } = params;
 

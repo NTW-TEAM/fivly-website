@@ -1,26 +1,14 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation";
+import React, {useEffect, useRef, useState} from "react";
+import {usePathname} from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import SidebarLinkGroup from "./SidebarLinkGroup";
-import {
-  FaBuilding,
-  FaChartPie,
-  FaHandsHelping,
-  FaList,
-  FaMonero,
-  FaRegCalendar,
-  FaRegCalendarAlt,
-  FaShieldAlt,
-  FaUsers,
-  FaWallet,
-} from "react-icons/fa";
-import { GiReceiveMoney } from "react-icons/gi";
-import { SiCrowdsource, SiGooglemeet } from "react-icons/si";
-import { FaB, FaFileShield } from "react-icons/fa6";
-import { MdHowToVote, MdOutlineChairAlt, MdOutlineTypeSpecimen, MdOutlineViewList } from "react-icons/md";
+import {FaBuilding, FaChartPie, FaRegCalendarAlt, FaShieldAlt, FaUsers,} from "react-icons/fa";
+import {GiReceiveMoney} from "react-icons/gi";
+import {SiCrowdsource, SiGooglemeet} from "react-icons/si";
+import {FaFileShield} from "react-icons/fa6";
+import {MdOutlineChairAlt, MdOutlineTypeSpecimen} from "react-icons/md";
 
 interface SidebarProps {
   sidebarOpen: boolean;

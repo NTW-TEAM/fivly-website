@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import {NextApiResponse} from "next";
 import api from "@/services/axios";
 
 export async function POST(req: Request, res: NextApiResponse) {

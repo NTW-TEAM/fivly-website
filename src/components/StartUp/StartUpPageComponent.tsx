@@ -1,6 +1,6 @@
 "use client";
-import { Button, Input, Spacer } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
+import {Button, Input, Spacer} from "@nextui-org/react";
+import React, {useState} from "react";
 import Image from "next/image";
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";

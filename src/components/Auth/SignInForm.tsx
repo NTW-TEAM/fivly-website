@@ -1,13 +1,10 @@
 "use client";
 
-import { login } from "@/app/auth/signin/actions/login";
+import {login} from "@/app/auth/signin/actions/login";
 import ToastHandler from "@/tools/ToastHandler";
 import Link from "next/link";
-import { FaLock } from "react-icons/fa6";
-import { LuMail } from "react-icons/lu";
-import { MdOutlineEmail } from "react-icons/md";
-import { TfiEmail } from "react-icons/tfi";
-import { toast } from "react-toastify";
+import {FaLock} from "react-icons/fa6";
+import {LuMail} from "react-icons/lu";
 
 const SignInForm = () => {
 

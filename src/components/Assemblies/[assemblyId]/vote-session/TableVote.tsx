@@ -1,29 +1,28 @@
 "use client";
-import { Vote } from "@/types/Vote";
+import {Vote} from "@/types/Vote";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Pagination,
-  Selection,
-  SortDescriptor,
-  Link,
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
 } from "@nextui-org/react";
 import React from "react";
-import { FaEye } from "react-icons/fa";
 import HandleAddVoteToAssembly from "./HandleAddVoteToAssembly";
 import HandleDeleteVoteAssembly from "./HandleDeleteVoteAssembly";
 import HandleToggleVoteAssembly from "./HandleToggleVoteAssembly";
 import SeeVoteResult from "./SeeVoteResult";
+
 const INITIAL_VISIBLE_COLUMNS = ["description", "beginDateTime", "canceled", "actions"];
 
 const columns = [

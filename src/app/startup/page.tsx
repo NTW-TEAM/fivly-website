@@ -1,5 +1,5 @@
-import { Metadata } from "next";
-import { DESCRIPTION, TITLE } from "@/constant/metadata";
+import {Metadata} from "next";
+import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import StartUpPageComponent from "@/components/StartUp/StartUpPageComponent";
 
 export const metadata: Metadata = {

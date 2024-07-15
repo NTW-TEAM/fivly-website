@@ -1,8 +1,8 @@
 "use server";
 
-import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
-import { signIn, signInMember } from "@/services/authService";
+import {cookies} from "next/headers";
+import jwt, {JwtPayload} from "jsonwebtoken";
+import {signIn, signInMember} from "@/services/authService";
 
 export async function login(formData: FormData) {
 
@@ -26,7 +26,7 @@ export async function login(formData: FormData) {
     const data = response.data;
     const token = data.access_token;
 
-    const user = jwt.verify(token, process.env.JWT_SECRET!);
+    const user = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
     cookies().set("auth_token", token, {
       secure: process.env.NODE_ENV === "production",

@@ -1,7 +1,7 @@
-import { deleteCookie, getCookie, getCookies } from "cookies-next";
+import {deleteCookie, getCookie} from "cookies-next";
 import Link from "next/link";
-import { RxExit } from "react-icons/rx";
-import { toast } from "react-toastify";
+import {RxExit} from "react-icons/rx";
+import {toast} from "react-toastify";
 
 
 const LogoutButton = () => {

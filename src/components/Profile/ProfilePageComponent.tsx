@@ -2,13 +2,11 @@
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import Image from "next/image";
 import DefaultLayout from "../Layouts/DefaultLayout";
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { Members } from "@/types/members";
+import React, {useEffect, useState} from "react";
+import {Members} from "@/types/members";
 import localApi from "@/services/localAxiosApi";
-import { FaP, FaPencil } from "react-icons/fa6";
 import Loader from "../common/Loader";
-import { FaUserCircle } from "react-icons/fa";
+import {FaUserCircle} from "react-icons/fa";
 import RoleMembersDisplay from "../members/DisplayRoleMembers";
 import ScopesMembersDisplay from "../members/DisplayScopesMembers";
 

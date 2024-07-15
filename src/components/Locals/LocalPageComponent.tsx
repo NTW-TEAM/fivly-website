@@ -3,9 +3,9 @@ import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
-import { FaBuilding } from "react-icons/fa";
+import {FaBuilding} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { local } from "@/types/local";
+import {local} from "@/types/local";
 import TableLocals from "./TableLocals";
 
 const LocalPageComponent = () => {

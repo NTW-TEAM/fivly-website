@@ -1,8 +1,8 @@
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaTrash } from "react-icons/fa";
+import {FaTrash} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { local } from "@/types/local";
+import {local} from "@/types/local";
 
 const HandleDeleteLocal = ({locals, setLocals, local}: {locals: local[]; setLocals: React.Dispatch<React.SetStateAction<local[]>>; local: local;}) => {
     const getAllLocals = async () => {

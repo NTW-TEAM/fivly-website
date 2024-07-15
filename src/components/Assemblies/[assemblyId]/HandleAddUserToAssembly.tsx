@@ -1,20 +1,19 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  useDisclosure,
+    Button,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
-import { Assembly } from "@/types/Assembly";
-import { Members } from "@/types/members";
+import {Assembly} from "@/types/Assembly";
+import {Members} from "@/types/members";
 
 const HandleAddUserToAssembly = ({
   setAssembly,
@@ -74,10 +73,7 @@ const HandleAddUserToAssembly = ({
           getAssembly(assemblyId).then((data) => {
             setAssembly(data);
           });
-          ToastHandler.toast(
-            "Membre ajouté à l'assemblée avec succès",
-            "success",
-          );
+          ToastHandler.toast("Membre ajouté à l'assemblée avec succès", "success");
         } else {
           ToastHandler.toast(response.data.data, "error");
         }

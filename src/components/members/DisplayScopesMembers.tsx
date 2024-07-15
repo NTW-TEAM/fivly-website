@@ -1,6 +1,5 @@
-import { Members } from "@/types/Members";
-import { Scopes } from "@/types/Scopes";
-import { useState } from "react";
+import {Scopes} from "@/types/scopes";
+import {useState} from "react";
 
 const ScopesMembersDisplay = ({ scopesData }: { scopesData: Scopes[] }) => {
   const [scopes, setScopes] = useState(scopesData);

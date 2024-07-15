@@ -1,5 +1,5 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
+import {Metadata} from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import TableTest from "@/components/testTable/TableTest";
 

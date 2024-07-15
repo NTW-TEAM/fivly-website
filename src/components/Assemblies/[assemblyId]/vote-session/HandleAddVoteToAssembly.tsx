@@ -1,19 +1,19 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
-import { Vote } from "@/types/Vote";
+import {Vote} from "@/types/Vote";
 
 const HandleAddVoteToAssembly = ({
   setVotes,
@@ -65,10 +65,7 @@ const HandleAddVoteToAssembly = ({
           getAllVotes(assemblyId as string).then((data) => {
             setVotes(data);
           })
-          ToastHandler.toast(
-            "La session de vote a été ajoutée avec succès",
-            "success",
-          );
+          ToastHandler.toast("La session de vote a été ajoutée avec succès", "success");
         } else {
           ToastHandler.toast(response.data.data, "error");
         }

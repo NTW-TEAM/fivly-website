@@ -1,11 +1,20 @@
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
-import { Members } from "@/types/Members";
-import { Scopes } from "@/types/Scopes";
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Select, SelectItem, useDisclosure } from "@nextui-org/react";
-import axios from "axios";
-import { useState } from "react";
-import { FaPlusCircle, FaTimesCircle } from "react-icons/fa";
+import {Members} from "@/types/members";
+import {Scopes} from "@/types/scopes";
+import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    useDisclosure
+} from "@nextui-org/react";
+import {useState} from "react";
+import {FaPlusCircle, FaTimesCircle} from "react-icons/fa";
 
 const HandleScopesMembers = ({ user }: { user: Members }) => {
   const [scopes, setScopes] = useState(user.scopes);

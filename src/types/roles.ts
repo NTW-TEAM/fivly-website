@@ -1,4 +1,4 @@
-import { Scopes } from "./Scopes";
+import {Scopes} from "./scopes";
 
 export type Roles = {
   id: string | number | undefined;

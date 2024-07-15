@@ -1,22 +1,21 @@
 import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    Select,
+    SelectItem,
+    Textarea,
+    useDisclosure,
 } from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import { Roles } from "@/types/Roles";
-import { Scopes } from "@/types/Scopes";
-import axios from "axios";
+import React from "react";
+import {Roles} from "@/types/roles";
+import {Scopes} from "@/types/scopes";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaPen } from "react-icons/fa";
+import {FaPen} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
 
 const HandleEditRole = ({roles, setRoles, roleToEdit}: {roles: Roles[]; setRoles: React.Dispatch<React.SetStateAction<Roles[]>>; roleToEdit: Roles;}) => {

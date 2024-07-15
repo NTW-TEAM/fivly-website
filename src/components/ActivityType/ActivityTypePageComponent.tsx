@@ -3,10 +3,10 @@ import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
-import { MdOutlineTypeSpecimen } from "react-icons/md";
-import { ActivityType } from "@/types/ActivityType";
+import {MdOutlineTypeSpecimen} from "react-icons/md";
 import TableActivityType from "./TableActivityType";
 import localApi from "@/services/localAxiosApi";
+import {ActivityType} from "@/types/activityType";
 
 const ActivityTypePageComponent = () => {
     const getAllActivityType = async () => {

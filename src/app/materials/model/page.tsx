@@ -1,7 +1,5 @@
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-
-import { Metadata } from "next";
-import { DESCRIPTION, TITLE } from "@/constant/metadata";
+import {Metadata} from "next";
+import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import React from "react";
 import MaterialModelPageComponent from "@/components/MaterialModel/MaterialModelPageComponent";
 

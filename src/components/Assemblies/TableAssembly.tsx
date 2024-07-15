@@ -1,29 +1,28 @@
 "use client";
-import { Assembly } from "@/types/Assembly";
-import { MaterialModel } from "@/types/MaterialModel";
+import {Assembly} from "@/types/Assembly";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Pagination,
-  Selection,
-  SortDescriptor,
-  Link,
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
 } from "@nextui-org/react";
-import React from "react";
+import React, {ReactNode} from "react";
 import HandleCreateAssembly from "./HandleCreateAssembly";
 import HandleDeleteAssembly from "./HandleDeleteAssembly";
 import HandleEditAssembly from "./HandleEditAssembly";
-import { FaEye } from "react-icons/fa";
+import {FaEye} from "react-icons/fa";
+
 const INITIAL_VISIBLE_COLUMNS = ["description", "datetime", "isGeneral", "hasStarted", "actions"];
 
 const columns = [
@@ -154,7 +153,7 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
         );
         
       default:
-        return cellValue;
+        return cellValue as ReactNode;
     }
   }, [assemblies, setAssemblies]);
 

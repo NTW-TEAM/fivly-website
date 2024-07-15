@@ -1,8 +1,7 @@
 "use client";
-import { Button } from "@nextui-org/react";
-import React, { useState } from "react";
-import { FaDonate } from "react-icons/fa";
-import axios from "axios";
+import {Button} from "@nextui-org/react";
+import React, {useState} from "react";
+import {FaDonate} from "react-icons/fa";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
 
@@ -27,17 +26,11 @@ const GiveDonationPageComponent = () => {
             ToastHandler.toast("Redirection vers la page de paiement...", "info");
             window.location.href = response.data.sessionUrl;
         } else {
-          ToastHandler.toast(
-            response.data.data || "Erreur lors de la création de la session de donation",
-            "error",
-          );
+          ToastHandler.toast(response.data.data || "Erreur lors de la création de la session de donation", "error");
         }
       })
       .catch((error) => {
-        ToastHandler.toast(
-          "Erreur lors de la création de la session de donation",
-          "error",
-        );
+        ToastHandler.toast("Erreur lors de la création de la session de donation", "error");
         console.error("error", error);
       })
       .finally(() => {

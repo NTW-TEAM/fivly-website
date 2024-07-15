@@ -1,15 +1,15 @@
 "use client";
 import Breadcrumb from "../../Breadcrumbs/Breadcrumb";
 import DefaultLayout from "../../Layouts/DefaultLayout";
-import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { Assembly } from "@/types/Assembly";
+import React, {useEffect, useState} from "react";
+import {useParams} from "next/navigation";
+import {Assembly} from "@/types/Assembly";
 import localApi from "@/services/localAxiosApi";
 import LoadingSkeleton from "./LoadingSkeleton";
 import TableMembersAssembly from "./TableMembersAssembly";
 import TableMembersAssemblySkeleton from "./TableMembersAssemblySkeleton";
-import { Button } from "@nextui-org/react";
-import { Vote } from "@/types/Vote";
+import {Button} from "@nextui-org/react";
+import {Vote} from "@/types/Vote";
 
 const AssemblyIdPageComponent = () => {
   const { assemblyId } = useParams();

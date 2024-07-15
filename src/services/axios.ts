@@ -63,6 +63,12 @@ api.interceptors.request.use(
     },
 );
 
+// create fivly response with status and message
+interface FivlyResponse {
+    status: string;
+    message: string;
+}
+
 api.interceptors.response.use(
     function (response) {
         return response;

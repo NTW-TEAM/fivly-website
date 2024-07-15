@@ -1,21 +1,8 @@
-import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
-} from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaTrash } from "react-icons/fa";
+import {FaTrash} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { Vote } from "@/types/Vote";
+import {Vote} from "@/types/Vote";
 
 const HandleDeleteVoteAssembly = ({
   setVotes,
@@ -52,10 +39,7 @@ const HandleDeleteVoteAssembly = ({
       )
       .then((response) => {
         if (response.status === 200) {
-          ToastHandler.toast(
-            "La session de vote a été supprimée avec succès",
-            "success",
-          );
+          ToastHandler.toast("La session de vote a été supprimée avec succès", "success");
           getAllVotes(assemblyId as string).then((data) => {
             setVotes(data);
           });
@@ -63,10 +47,7 @@ const HandleDeleteVoteAssembly = ({
       })
       .catch((error) => {
         console.error("error", error);
-        ToastHandler.toast(
-          "Erreur lors de la suppression de la session de vote",
-          "error",
-        );
+        ToastHandler.toast("Erreur lors de la suppression de la session de vote", "error");
       });
   }
 

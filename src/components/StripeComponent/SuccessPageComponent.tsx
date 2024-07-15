@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import {FaCheckCircle} from "react-icons/fa";
 
 const SuccessPageComponent: React.FC = () => {
   return (

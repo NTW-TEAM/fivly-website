@@ -1,5 +1,5 @@
 import React from "react";
-import { FaTimesCircle } from "react-icons/fa";
+import {FaTimesCircle} from "react-icons/fa";
 
 const ErrorPageComponent: React.FC = () => {
   return (

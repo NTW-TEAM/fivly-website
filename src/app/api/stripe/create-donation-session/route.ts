@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import {NextApiResponse} from "next";
 import jwt from "jsonwebtoken";
 import api from "@/services/axios";
-import { cookies } from "next/headers";
+import {cookies} from "next/headers";
 
 export async function POST(req: Request, res: NextApiResponse) {
  try {
@@ -12,7 +12,11 @@ export async function POST(req: Request, res: NextApiResponse) {
 
     if (authToken) {
       const user = jwt.verify(authToken.value, process.env.JWT_SECRET!);
-      body = { ...body, userId: user.id };
+      if(typeof user === "string") {
+        return Response.json({ statusCode: 401, message: "Unauthorized" });
+      } else {
+        body = { ...body, userId: user.id };
+      }
     }
 
     const response = await api.post("/stripe/create-donation-session", body);
@@ -24,7 +28,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         sessionUrl: response.data.sessionUrl,
       };
     } else {
-      answer = { statusCode: response.status, data: response.message };
+      answer = { statusCode: response.status, data: response.data.message };
     }
 
     return Response.json(answer);

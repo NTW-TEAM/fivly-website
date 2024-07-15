@@ -1,9 +1,8 @@
-import { Console } from "console";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 
 
 class ToastHandler {
-    static toast(value: string | Array<String>, type: "success" | "error" | "info" | "warning" | String) {
+    static toast(value: string | Array<String>, type: string | number) {
         switch (type) {
             case "success":
                 if (typeof value !== "object") {

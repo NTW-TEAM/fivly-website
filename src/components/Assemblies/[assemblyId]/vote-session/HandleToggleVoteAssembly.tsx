@@ -1,21 +1,8 @@
-import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  Select,
-  SelectItem,
-  Textarea,
-  useDisclosure,
-} from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
-import { FaToggleOff } from "react-icons/fa";
+import {FaToggleOff} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
-import { Vote } from "@/types/Vote";
+import {Vote} from "@/types/Vote";
 
 const HandleToggleVoteAssembly = ({
   setVotes,
@@ -49,10 +36,7 @@ const HandleToggleVoteAssembly = ({
       .patch(`/api/assemblies/${assemblyId}/vote-session/${voteToToggle.id}`)
       .then((response) => {
         if (response.status === 200) {
-          ToastHandler.toast(
-            "La session de vote a été désactivée avec succès",
-            "success",
-          );
+          ToastHandler.toast("La session de vote a été désactivée avec succès", "success");
           getAllVotes(assemblyId as string).then((data) => {
             setVotes(data);
           });
@@ -60,10 +44,7 @@ const HandleToggleVoteAssembly = ({
       })
       .catch((error) => {
         console.error("error", error);
-        ToastHandler.toast(
-          "Erreur lors de la désactivation de la session de vote",
-          "error",
-        );
+        ToastHandler.toast("Erreur lors de la désactivation de la session de vote", "error");
       });
   }
 

@@ -1,4 +1,4 @@
-import { AssemblyUser } from "./AssemblyUser";
+import {AssemblyUser} from "./AssemblyUser";
 
 export type Assembly = {
     id: number;

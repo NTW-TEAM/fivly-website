@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import jwt from "jsonwebtoken";
+import {NextApiResponse} from "next";
+import jwt, {JwtPayload} from "jsonwebtoken";
 import api from "@/services/axios";
-import { cookies } from "next/headers";
+import {cookies} from "next/headers";
 
 export async function POST(req: Request, res: NextApiResponse) {
   try {
@@ -14,8 +14,10 @@ export async function POST(req: Request, res: NextApiResponse) {
       return Response.json({ statusCode: 401, message: "Unauthorized" });
     }
 
-    const user = jwt.verify(authToken.value, process.env.JWT_SECRET!);
+    const user = jwt.verify(authToken.value, process.env.JWT_SECRET!) as JwtPayload;
+
     body = { ...body, userId: user.id };
+
 
     console.log("body", body)
 
@@ -28,7 +30,7 @@ export async function POST(req: Request, res: NextApiResponse) {
         sessionUrl: response.data.sessionUrl,
       };
     } else {
-      answer = { statusCode: response.status, data: response.message };
+      answer = { statusCode: response.status, data: response.data.message };
     }
 
     return Response.json(answer);

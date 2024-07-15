@@ -4,8 +4,8 @@ import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
 import localApi from "@/services/localAxiosApi";
-import { Crowdfunding } from "@/types/Crowdfunding";
-import { SiCrowdsource } from "react-icons/si";
+import {Crowdfunding} from "@/types/Crowdfunding";
+import {SiCrowdsource} from "react-icons/si";
 import TableCrowdfunding from "./TableCrowdfunding";
 
 const CrowdfundingPageComponent = () => {

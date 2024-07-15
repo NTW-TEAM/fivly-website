@@ -1,13 +1,12 @@
-
-import { ApexOptions } from "apexcharts";
-import React, { useEffect, useState } from "react";
+import {ApexOptions} from "apexcharts";
+import React from "react";
 import ReactApexChart from "react-apexcharts";
 
 interface ChartRepartitionProps {
-  title: string;
-  labels: string[];
-  series: number[];
-  colors: string[];
+  title?: string;
+  labels?: string[];
+  series?: number[];
+  colors?: string[];
 }
 
 const ChartRepartition: React.FC<ChartRepartitionProps> = ({ title, labels, series, colors }) => {
@@ -53,6 +52,9 @@ const ChartRepartition: React.FC<ChartRepartitionProps> = ({ title, labels, seri
     ],
   };
 
+  if(!series || !labels || !colors) {
+    return null;
+  }
   const total = series.reduce((acc, value) => acc + value, 0);
   const percentages = series.map((value) => (value / total) * 100);
 

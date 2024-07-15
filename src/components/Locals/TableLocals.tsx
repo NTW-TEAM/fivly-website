@@ -1,26 +1,27 @@
 "use client";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Pagination,
-  Selection,
-  SortDescriptor,
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
 } from "@nextui-org/react";
 import React from "react";
-import { local } from "@/types/local";
+import {local} from "@/types/local";
 import HandleCreateLocal from "./HandleCreateLocal";
 import HandleDeleteLocal from "./HandleDeleteLocal";
 import HandleUpdateLocal from "./HandleUpdateLocal";
+
 const INITIAL_VISIBLE_COLUMNS = ["name", "address", "actions"];
 
 const columns = [

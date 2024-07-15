@@ -1,20 +1,18 @@
 import {
-  Button,
-  Checkbox,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
+    Button,
+    Input,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    useDisclosure,
 } from "@nextui-org/react";
 import React from "react";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
-import { Assembly } from "@/types/Assembly";
-import { Crowdfunding } from "@/types/Crowdfunding";
-import { SiCrowdsource } from "react-icons/si";
+import {Crowdfunding} from "@/types/Crowdfunding";
+import {SiCrowdsource} from "react-icons/si";
 
 const HandleGiveCrowdfunding = ({crowdfunding}: {crowdfunding: Crowdfunding; }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -38,10 +36,7 @@ const HandleGiveCrowdfunding = ({crowdfunding}: {crowdfunding: Crowdfunding; }) 
                   ToastHandler.toast("Redirection vers la page de paiement...", "info");
                   window.location.href = response.data.sessionUrl;
                 } else {
-                  ToastHandler.toast(
-                    response.data.data || "Erreur lors de la création de la page de paiement",
-                    "error",
-                  );
+                  ToastHandler.toast(response.data.data || "Erreur lors de la création de la page de paiement", "error");
                 }
             })
             .catch((error) => {

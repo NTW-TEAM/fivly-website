@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import {Metadata} from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import { DESCRIPTION, TITLE } from "@/constant/metadata";
+import {DESCRIPTION, TITLE} from "@/constant/metadata";
 
 
 export const metadata: Metadata = {

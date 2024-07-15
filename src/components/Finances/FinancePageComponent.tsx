@@ -1,14 +1,14 @@
 "use client";
 import React from "react";
 import ChartRepartition from "./ChartRepartition";
-import { Donation } from "@/types/Donation";
+import {Donation} from "@/types/Donation";
 import localApi from "@/services/localAxiosApi";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import CardDataStats from "../CardDataStats";
-import { GiReceiveMoney } from "react-icons/gi";
-import { FaEuroSign, FaRegStar } from "react-icons/fa";
-import { Crowdfunding } from "@/types/Crowdfunding";
+import {GiReceiveMoney} from "react-icons/gi";
+import {FaEuroSign, FaRegStar} from "react-icons/fa";
+import {Crowdfunding} from "@/types/Crowdfunding";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 

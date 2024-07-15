@@ -1,28 +1,28 @@
 "use client";
-import { Roles } from "@/types/Roles";
+import {Roles} from "@/types/roles";
 import {
-  Table,
-  TableHeader,
-  TableColumn,
-  TableBody,
-  TableRow,
-  TableCell,
-  Input,
-  Button,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
-  Pagination,
-  Selection,
-  SortDescriptor,
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+    Input,
+    Pagination,
+    Selection,
+    SortDescriptor,
+    Table,
+    TableBody,
+    TableCell,
+    TableColumn,
+    TableHeader,
+    TableRow,
 } from "@nextui-org/react";
-import React from "react";
+import React, {ReactNode} from "react";
 import DisplayScopesMembers from "../members/DisplayScopesMembers";
-import { FaPen, FaTrash } from "react-icons/fa";
 import HandleCreateRole from "./HandleCreateRole";
 import HandleDeleteRole from "./HandleDeleteRole";
 import HandleEditRole from "./HandleEditRole";
+
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
 const columns = [
@@ -116,7 +116,7 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
         );
         
       default:
-        return cellValue;
+        return cellValue as ReactNode;
     }
   }, []);
 

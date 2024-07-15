@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function GET(req: NextApiRequest, {params}: {params: {assemblyId: string}}) {
+export async function GET(req: NextRequest, {params}: {params: {assemblyId: string}}) {
     
     const { assemblyId } = params;
 
@@ -18,8 +18,8 @@ export async function POST(req: Request, {params}: {params: {assemblyId: string}
 
     const body = await req.json();
 
-    const data = await api.post(`/assemblies/${assemblyId}/vote-session`, body);
-    const response = { statusCode: data.status, data: data.message };
+    const response = await api.post(`/assemblies/${assemblyId}/vote-session`, body);
+    const answer = { statusCode: response.status, data: response.data.message };
 
-    return Response.json(response);
+    return Response.json(answer);
 };
