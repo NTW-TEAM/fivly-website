@@ -45,7 +45,7 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
   refreshFolderContents,
   user,
 }) => {
-  const userAccess = item.userPermissions.find(permission => permission.user.id === user.id)?.access;
+  let userAccess = item.requesterAccess;
   const userAccessViaRole = Math.max(...item.rolePermissions.map(permission => user.roles.some(role => permission.role.name.includes(role.name)) ? permission.access : 0));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
