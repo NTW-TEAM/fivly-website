@@ -1,50 +1,7 @@
 import {NextApiRequest, NextApiResponse} from 'next';
-import formidable, {IncomingForm, Fields, Files} from 'formidable';
-import fs from 'fs';
-import axios from 'axios';
-import path from 'path';
 import FormData from 'form-data';
 import api, {apiFormData} from '@/services/axios';
-import {NextRequest, NextResponse} from "next/server";
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
-
-const parseForm = (req: NextApiRequest): Promise<{ fields: Fields; files: Files }> => {
-    return new Promise((resolve, reject) => {
-        console.log('Parsing form data...');
-        const form = new IncomingForm();
-        console.log('Form:', form);
-        form.parse(req, (err, fields, files) => {
-            if (err) {
-                console.error('Error parsing form:', err);
-                reject(err);
-            } else {
-                console.log('Parsed fields:', fields);
-                console.log('Parsed files:', files);
-                resolve({fields, files});
-            }
-        });
-    });
-};
-
-const saveFile = async (file: formidable.File): Promise<string> => {
-    try {
-        console.log('Saving file:', file.originalFilename);
-        const data = fs.readFileSync(file.filepath);
-        const filePath = path.join(process.cwd(), '/tmp', file.originalFilename || 'tempfile');
-        fs.writeFileSync(filePath, data);
-        await fs.unlinkSync(file.filepath);
-        console.log('File saved to:', filePath);
-        return filePath;
-    } catch (error) {
-        console.error('Error saving file:', error);
-        throw error;
-    }
-};
+import {NextRequest} from "next/server";
 
 export async function POST(req: NextRequest, res: NextApiResponse) {
     const data = await req.formData();
@@ -72,7 +29,7 @@ export async function POST(req: NextRequest, res: NextApiResponse) {
         return Response.json(response.data);
     } catch (error) {
         console.error("Error uploading file to external API:", error);
-        return Response.json({ message: "Error uploading file" });
+        return Response.json({message: "Error uploading file"});
     }
 }
 
