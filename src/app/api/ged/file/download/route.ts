@@ -1,9 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import {NextApiResponse} from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const url = new URL(req.url || "", `http://${req.headers.host}`);
-  const path = url.searchParams.get("path");
+export async function GET(req: NextRequest, res: NextApiResponse) {
+
+  const path = req.nextUrl.searchParams.get("path");
+
 
   if (!path) {
     return res.status(400).json({ message: "Path is required" });

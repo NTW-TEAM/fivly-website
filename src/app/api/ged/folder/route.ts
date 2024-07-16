@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
+import {NextRequest} from "next/server";
 
-export async function DELETE(req: NextApiRequest, res: NextApiResponse) {
-  const url = new URL(req.url || "", `http://${req.headers.host}`);
-  const path = url.searchParams.get("path");
+export async function DELETE(req: NextRequest, res: NextApiResponse) {
+  const path = req.nextUrl.searchParams.get("path");
 
   if (!path) {
     return new Response("Path is required", { status: 400 });
