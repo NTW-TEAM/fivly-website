@@ -117,7 +117,7 @@ const TableMaterialModel = ({ materialModels, setMaterialModels }: { materialMod
       default:
         return cellValue;
     }
-  }, []);
+  }, [materialModels, setMaterialModels]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -209,7 +209,7 @@ const TableMaterialModel = ({ materialModels, setMaterialModels }: { materialMod
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, materialModels.length, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, materialModels, setMaterialModels, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (

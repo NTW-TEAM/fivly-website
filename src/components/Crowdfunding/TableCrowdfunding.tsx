@@ -282,7 +282,7 @@ const TableCrowdfunding = ({ crowdfundings, setCrowdfundings }: { crowdfundings:
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, crowdfundings.length, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, crowdfundings, setCrowdfundings, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (

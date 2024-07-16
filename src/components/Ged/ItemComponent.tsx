@@ -37,12 +37,12 @@ interface ItemComponentProps {
 
 const ItemComponent: React.FC<ItemComponentProps> = ({
   item,
-  updateFileName = () => { },
-  deleteFile = () => { },
-  onFolderSelect = () => { },
-  addItem = () => { },
+  updateFileName = () => {},
+  deleteFile = () => {},
+  onFolderSelect = () => {},
+  addItem = () => {},
   currentPath,
-  refreshFolderContents,
+  refreshFolderContents = () => undefined, // Provide a default no-op function
   user,
 }) => {
   let userAccess = item.requesterAccess;

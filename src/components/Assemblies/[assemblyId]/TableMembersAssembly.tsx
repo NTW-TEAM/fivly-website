@@ -127,7 +127,7 @@ const TableMembersAssembly = ({
           return cellValue;
       }
     },
-    []
+    [assembly, setAssembly]
   );
 
   const onNextPage = React.useCallback(() => {

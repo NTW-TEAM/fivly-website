@@ -113,7 +113,7 @@ const TableLocals = ({ locals, setLocals }: { locals: local[]; setLocals: React.
       default:
         return cellValue;
     }
-  }, []);
+  }, [locals, setLocals]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -205,7 +205,7 @@ const TableLocals = ({ locals, setLocals }: { locals: local[]; setLocals: React.
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, locals, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, locals, setLocals, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (

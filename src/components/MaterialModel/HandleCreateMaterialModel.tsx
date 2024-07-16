@@ -37,7 +37,7 @@ const HandleCreateMaterialModel = ({materialModels, setMaterialModels}: {materia
         getAllMaterialModel().then((data) => {
             setMaterialModels(data);
         });
-    }, []);
+    }, [setMaterialModels]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

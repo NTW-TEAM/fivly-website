@@ -5,7 +5,7 @@ import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStats from "../CardDataStats";
 import React from "react";
 import {Roles} from "@/types/roles";
-import {Scopes} from "@/types/scopes";
+import {Scopes} from "@/types/Scopes";
 import {MdVerifiedUser} from "react-icons/md";
 import TableRoles from "./TableRoles";
 import localApi from "@/services/localAxiosApi";

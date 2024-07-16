@@ -40,9 +40,8 @@ const SeeVoteResult = ({
       const response = await localApi.get(`/api/assemblies/${id}`);
       if (response.status === 200) {
         return response.data.data;
-      } else {
-        throw new Error("Failed to fetch assembly");
       }
+       return response.data.data;
     } catch (error) {
       console.error("Error fetching assembly:", error);
       throw new Error("Failed to fetch assembly");
@@ -67,7 +66,7 @@ const SeeVoteResult = ({
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [assemblyId, getVotesResult]);
 
   return (
     <div>

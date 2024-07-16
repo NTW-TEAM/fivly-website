@@ -1,7 +1,7 @@
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
 import {Members} from "@/types/members";
-import {Scopes} from "@/types/scopes";
+import {Scopes} from "@/types/Scopes";
 import {
     Button,
     Modal,

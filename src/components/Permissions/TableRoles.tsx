@@ -118,7 +118,7 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
       default:
         return cellValue as ReactNode;
     }
-  }, []);
+  }, [roles, setRoles]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -210,7 +210,7 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, roles.length, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, roles, setRoles, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (

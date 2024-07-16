@@ -101,7 +101,7 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
       default:
         return cellValue;
     }
-  }, []);
+  }, [activityTypes, setActivityTypes]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {
@@ -193,7 +193,7 @@ const TableActivityType = ({ activityTypes, setActivityTypes }: { activityTypes:
         </div>
       </div>
     );
-  }, [filterValue, onSearchChange, visibleColumns, activityTypes, onRowsPerPageChange, onClear]);
+  }, [filterValue, onSearchChange, visibleColumns, activityTypes, setActivityTypes, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (

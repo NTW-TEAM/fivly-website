@@ -125,12 +125,12 @@ const TableMembers = ({ users }: { users: Members[]}) => {
       case "scopes":
         return <HandleScopesMembers user={user} />;
       case "actions":
-        return <HandleEditMembers user={user as Members} userState={user} setUsersState={setUsersState} />;
+        return <HandleEditMembers user={user as Members} usersState={users} setUsersState={setUsersState} />;
         
       default:
         return cellValue as ReactNode;
     }
-  }, []);
+  }, [users]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {

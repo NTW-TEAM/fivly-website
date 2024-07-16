@@ -1,5 +1,5 @@
 import {Roles} from "./roles";
-import {Scopes} from "./scopes";
+import {Scopes} from "./Scopes";
 
 export type Members = {
   id: number;

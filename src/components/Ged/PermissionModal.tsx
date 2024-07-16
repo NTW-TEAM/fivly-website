@@ -19,20 +19,20 @@ import localApi from '@/services/localAxiosApi';
 import ToastHandler from '@/tools/ToastHandler';
 import { ACCESS_READ_WRITE } from '@/constant/access';
 import { Roles } from '@/types/roles';
-import { Members } from '@/types/Members';
+import { Members } from '@/types/members';
 
 interface PermissionModalProps {
     isOpen: boolean;
     onClose: () => void;
     item: TreeNode;
-    refreshFolderContents: () => undefined;
+    refreshFolderContents?: () => void;
 }
 
 const PermissionModal: React.FC<PermissionModalProps> = ({
     isOpen,
     onClose,
     item,
-    refreshFolderContents,
+    refreshFolderContents = () => undefined,
 }) => {
     const [search, setSearch] = useState('');
     const [userPermissions, setUserPermissions] = useState(item.userPermissions);

@@ -13,7 +13,7 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import {Roles} from "@/types/roles";
-import {Scopes} from "@/types/scopes";
+import {Scopes} from "@/types/Scopes";
 import ToastHandler from "@/tools/ToastHandler";
 import localApi from "@/services/localAxiosApi";
 

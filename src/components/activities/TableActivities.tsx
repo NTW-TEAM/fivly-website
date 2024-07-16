@@ -149,7 +149,7 @@ const TableActivities = ({
           return cellValue;
       }
     },
-    [],
+    [activities, setActivities],
   );
 
   const onNextPage = React.useCallback(() => {
@@ -245,14 +245,7 @@ const TableActivities = ({
         </div>
       </div>
     );
-  }, [
-    filterValue,
-    onSearchChange,
-    visibleColumns,
-    activities,
-    onRowsPerPageChange,
-    onClear,
-  ]);
+  }, [filterValue, onSearchChange, visibleColumns, activities, setActivities, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (
