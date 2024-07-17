@@ -5,6 +5,7 @@ import GedPageComponent from "@/components/Ged/GedPageComponent";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import {UserJwt} from "@/types/UserJwt";
+import {getUser} from "@/tools/GetUser";
 
 export const metadata: Metadata = {
   title: TITLE + " - Gestion éléctronique des documents",
@@ -12,15 +13,8 @@ export const metadata: Metadata = {
 };
 
 const DocumentsPage = () => {
-  const cookieStore = cookies();
-  const authToken = cookieStore.get("auth_token");
-
-  if (authToken) {
-    const user = jwt.verify(authToken.value, process.env.JWT_SECRET!) as UserJwt;
-    return <GedPageComponent user={user} />;
-  } else {
-    return <>Erreur</>;
-  }
+  const user = getUser();
+  return <GedPageComponent user={user} />;
 };
 
 export default DocumentsPage;

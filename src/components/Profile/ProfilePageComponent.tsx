@@ -9,8 +9,9 @@ import Loader from "../common/Loader";
 import {FaUserCircle} from "react-icons/fa";
 import RoleMembersDisplay from "../members/DisplayRoleMembers";
 import ScopesMembersDisplay from "../members/DisplayScopesMembers";
+import {UserJwt} from "@/types/UserJwt";
 
-const ProfilePageComponent = () => {
+const ProfilePageComponent = ({user}: {user: UserJwt}) => {
 
     const getUserInfo = async () => {
     return new Promise<Members>((resolve, reject) => {
@@ -43,7 +44,7 @@ const ProfilePageComponent = () => {
 
 
   return (
-    <DefaultLayout>
+    <DefaultLayout user={user}>
       <div className="mx-auto max-w-242.5">
         <Breadcrumb pageName="Profile" />
 

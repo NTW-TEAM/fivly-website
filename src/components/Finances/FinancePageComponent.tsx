@@ -11,8 +11,9 @@ import {FaEuroSign, FaRegStar} from "react-icons/fa";
 import {Crowdfunding} from "@/types/Crowdfunding";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import {UserJwt} from "@/types/UserJwt";
 
-const FinancePageComponent: React.FC = () => {
+const FinancePageComponent = ({user}: {user: UserJwt}) => {
   const [donations, setDonations] = React.useState<Donation[]>([]);
   const [crowdfundings, setCrowdfundings] = React.useState<Crowdfunding[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -88,7 +89,7 @@ const FinancePageComponent: React.FC = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    <DefaultLayout user={user}>
       <Breadcrumb pageName="Dashboard Finances" />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

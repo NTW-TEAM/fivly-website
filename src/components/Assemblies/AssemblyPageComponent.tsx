@@ -7,8 +7,9 @@ import React from "react";
 import localApi from "@/services/localAxiosApi";
 import {Assembly} from "@/types/Assembly";
 import TableAssembly from "./TableAssembly";
+import {UserJwt} from "@/types/UserJwt";
 
-const AssemblyPageComponent = () => {
+const AssemblyPageComponent = ({user}: {user: UserJwt}) => {
 
     const [assemblies, setAssemblies] = React.useState<Assembly[]>([]);
 
@@ -35,7 +36,7 @@ const AssemblyPageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Assemblée" />
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

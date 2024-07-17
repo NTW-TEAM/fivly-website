@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import React from "react";
 import CrowdfundingPageComponent from "@/components/Crowdfunding/CrowdfundingPageComponent";
+import {getUser} from "@/tools/GetUser";
 
 export const metadata: Metadata = {
   title: TITLE + " - Crowdfunding",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 const CrowdFundingPage = async () => {
-  return <CrowdfundingPageComponent />;
+  const user = getUser();
+
+  return <CrowdfundingPageComponent user={user} />;
 };
 
 export default CrowdFundingPage;

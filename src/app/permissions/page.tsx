@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import React from "react";
 import PermissionsPageComponent from "@/components/Permissions/PermissionsPageComponent";
+import {getUser} from "@/tools/GetUser";
 
 export const metadata: Metadata = {
   title: TITLE + " - Permissions",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 const PermissionsPage = async () => {
-  return <PermissionsPageComponent />;
+  const user = getUser();
+
+  return <PermissionsPageComponent user={user}/>;
 };
 
 export default PermissionsPage;

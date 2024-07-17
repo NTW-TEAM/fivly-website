@@ -7,8 +7,9 @@ import {MdOutlineTypeSpecimen} from "react-icons/md";
 import TableActivityType from "./TableActivityType";
 import localApi from "@/services/localAxiosApi";
 import {ActivityType} from "@/types/activityType";
+import {UserJwt} from "@/types/UserJwt";
 
-const ActivityTypePageComponent = () => {
+const ActivityTypePageComponent = ({user}: {user: UserJwt}) => {
     const getAllActivityType = async () => {
         return new Promise<ActivityType[]>((resolve, reject) => {
         localApi
@@ -37,7 +38,7 @@ const ActivityTypePageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Type d'activité"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

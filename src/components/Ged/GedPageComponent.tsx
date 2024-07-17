@@ -83,7 +83,7 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultLayout user={user}>
       <Breadcrumb pageName={"GED"} />
       <div className="grid grid-cols-5 gap-4">
         <div className="sm:display-none col-span-5 rounded-sm border border-stroke bg-white px-2 pb-2 pt-4.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-4.5">

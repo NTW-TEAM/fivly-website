@@ -1,9 +1,14 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import {FaUserCircle} from "react-icons/fa";
 import LogoutButton from "./LogoutButton";
+import {UserJwt} from "@/types/UserJwt";
 
-const DropdownUser = () => {
+const DropdownUser = ({
+                        user,
+                      }: {
+  user: UserJwt;
+}) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -45,9 +50,9 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas LPB
+            {user.firstName} {user.lastName}
           </span>
-          <span className="block text-xs">Admin</span>
+          <span className="block text-xs">{user.email}</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">

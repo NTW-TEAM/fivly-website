@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import React from "react";
 import MaterialModelPageComponent from "@/components/MaterialModel/MaterialModelPageComponent";
+import {getUser} from "@/tools/GetUser";
 
 export const metadata: Metadata = {
   title: TITLE + " - Model d'équipement",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 const PermissionsPage = async () => {
-  return <MaterialModelPageComponent />;
+  const user = getUser();
+
+  return <MaterialModelPageComponent user={user} />;
 };
 
 export default PermissionsPage;

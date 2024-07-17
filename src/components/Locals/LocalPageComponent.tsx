@@ -7,8 +7,9 @@ import {FaBuilding} from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
 import {local} from "@/types/local";
 import TableLocals from "./TableLocals";
+import {UserJwt} from "@/types/UserJwt";
 
-const LocalPageComponent = () => {
+const LocalPageComponent = ({user}: {user: UserJwt}) => {
     const getAllLocals = async () => {
         return new Promise<local[]>((resolve, reject) => {
         localApi
@@ -37,7 +38,7 @@ const LocalPageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Locaux"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
