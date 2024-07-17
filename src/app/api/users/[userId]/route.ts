@@ -1,4 +1,6 @@
 import api from "@/services/axios";
+import jwt, {JwtPayload} from "jsonwebtoken";
+import {cookies} from "next/headers";
 
 export async function PATCH(req: Request, {params}: {params: {userId: string}}) {
 
@@ -10,6 +12,14 @@ export async function PATCH(req: Request, {params}: {params: {userId: string}}) 
         const response = await api.patch(`/users/${userId}`, body)
 
         const answer = { statusCode: response.status, data: response.data };
+        console.log(answer);
+
+        const token = response.data.access_token;
+
+        cookies().set("auth_token", token, {
+            secure: process.env.NODE_ENV === "production",
+        });
+
         return Response.json(answer);
     }
     catch (error) {
