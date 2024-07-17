@@ -9,8 +9,9 @@ import { MaterialModel } from "@/types/MaterialModel";
 import { Material } from "@/types/Material";
 import { MdOutlineChairAlt } from "react-icons/md";
 import TableMaterial from "./TableMaterial";
+import {UserJwt} from "@/types/UserJwt";
 
-const MaterialPageComponent = () => {
+const MaterialPageComponent = ({user}: {user: UserJwt}) => {
     const getAllMaterialModel = async () => {
         return new Promise<MaterialModel[]>((resolve, reject) => {
         localApi
@@ -58,7 +59,7 @@ const MaterialPageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Model de matériel"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

@@ -17,8 +17,9 @@ import {
   Selection,
   SortDescriptor,
 } from "@nextui-org/react";
-import React from "react";
+import React, {ReactNode} from "react";
 import HandleCreateMaterial from "./HandleCreateMaterial";
+import HandleDeleteMaterial from "@/components/Material/HandleDeleteMaterial";
 const INITIAL_VISIBLE_COLUMNS = ["materialModelId", "local", "actions"];
 
 const columns = [
@@ -110,19 +111,19 @@ const TableMaterial = ({ materials, setMaterials }: { materials: Material[]; set
               materials={materials}
               setMaterials={setMaterials}
               materialToEdit={material}
+            />*/}
+            <HandleDeleteMaterial
+              materials={materials}
+              setMaterials={setMaterials}
+              materialToDelete={material}
             />
-            <HandleDeleteMaterialModel
-              materialModels={materialModels}
-              setMaterialModels={setMaterialModels}
-              materialModelsToDelete={materialModel}
-            /> */}
           </div>
         );
 
       default:
-        return cellValue;
+        return cellValue as ReactNode;
     }
-  }, []);
+  }, [materials, setMaterials]);
 
   const onNextPage = React.useCallback(() => {
     if (page < pages) {

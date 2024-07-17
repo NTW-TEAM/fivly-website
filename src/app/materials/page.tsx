@@ -10,7 +10,8 @@ export const metadata: Metadata = {
 };
 
 const MaterialPage = async () => {
-  return <MaterialPageComponent />;
+  const user = getUser();
+  return <MaterialPageComponent user={user}/>;
 };
 
 export default MaterialPage;
