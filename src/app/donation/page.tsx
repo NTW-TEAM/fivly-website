@@ -2,6 +2,7 @@ import {Metadata} from "next";
 import {DESCRIPTION, TITLE} from "@/constant/metadata";
 import React from "react";
 import DonationPageComponent from "@/components/Donation/DonationPageComponent";
+import {getUser} from "@/tools/GetUser";
 
 export const metadata: Metadata = {
   title: TITLE + " - Donations",
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
 };
 
 const DonationPage = async () => {
-  return <DonationPageComponent />;
+  const user = getUser();
+  return <DonationPageComponent user={user}/>;
 };
 
 export default DonationPage;

@@ -9,8 +9,9 @@ import {Scopes} from "@/types/Scopes";
 import {MdVerifiedUser} from "react-icons/md";
 import TableRoles from "./TableRoles";
 import localApi from "@/services/localAxiosApi";
+import {UserJwt} from "@/types/UserJwt";
 
-const PermissionsPageComponent = () => {
+const PermissionsPageComponent = ({user}: {user: UserJwt}) => {
     const getAllRoles = async () => {
         return new Promise<Roles[]>((resolve, reject) => {
         localApi
@@ -56,7 +57,7 @@ const PermissionsPageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Permissions"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

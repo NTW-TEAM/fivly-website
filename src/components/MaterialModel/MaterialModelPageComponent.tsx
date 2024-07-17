@@ -7,8 +7,9 @@ import React from "react";
 import localApi from "@/services/localAxiosApi";
 import {MaterialModel} from "@/types/MaterialModel";
 import TableMaterialModel from "./TableMaterialModel";
+import {UserJwt} from "@/types/UserJwt";
 
-const MaterialModelPageComponent = () => {
+const MaterialModelPageComponent = ({user}: {user: UserJwt}) => {
     const getAllMaterialModel = async () => {
         return new Promise<MaterialModel[]>((resolve, reject) => {
         localApi
@@ -34,7 +35,7 @@ const MaterialModelPageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Model de matériel"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

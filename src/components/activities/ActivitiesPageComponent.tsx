@@ -9,8 +9,9 @@ import localApi from "@/services/localAxiosApi";
 import {Activity} from "@/types/activity";
 import {FaRegCalendarAlt} from "react-icons/fa";
 import TableActivities from "./TableActivities";
+import {UserJwt} from "@/types/UserJwt";
 
-const ActivitiesPageComponent = () => {
+const ActivitiesPageComponent = ({user}: {user: UserJwt}) => {
     const getAllActivityType = async () => {
         return new Promise<ActivityType[]>((resolve, reject) => {
         localApi
@@ -63,7 +64,7 @@ const ActivitiesPageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Activité"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

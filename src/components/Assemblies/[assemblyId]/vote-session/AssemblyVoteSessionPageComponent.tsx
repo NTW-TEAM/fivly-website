@@ -7,8 +7,9 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import TableVotes from "./TableVote";
 import {Vote} from "@/types/Vote";
+import {UserJwt} from "@/types/UserJwt";
 
-const AssemblyVoteSessionPageComponent = () => {
+const AssemblyVoteSessionPageComponent = ({user}: {user: UserJwt}) => {
   const { assemblyId} = useParams() as { assemblyId: string };
   const [assembly, setAssembly] = useState<Assembly | null>(null);
   const [votes, setVotes] = useState<Vote[]>([]);
@@ -67,7 +68,7 @@ const AssemblyVoteSessionPageComponent = () => {
   }, [assemblyId]);
 
   return (
-    <DefaultLayout>
+    <DefaultLayout user={user}>
       <Breadcrumb pageName={["Assemblies", assembly?.description || "", "Sessions de vote"]} />
           <div className="mt-4 flex flex-col gap-10">
             <TableVotes votes={votes} setVotes={setVotes} assemblyId={assemblyId} />

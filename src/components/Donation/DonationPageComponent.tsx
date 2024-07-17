@@ -8,8 +8,9 @@ import {Donation} from "@/types/Donation";
 import {GiReceiveMoney} from "react-icons/gi";
 import {FaEuroSign, FaRegStar} from "react-icons/fa";
 import TableDonation from "./TableDonation";
+import {UserJwt} from "@/types/UserJwt";
 
-const DonationPageComponent = () => {
+const DonationPageComponent = ({user}: {user: UserJwt}) => {
     const getAllDonations = async () => {
         return new Promise<Donation[]>((resolve, reject) => {
         localApi
@@ -52,7 +53,7 @@ const DonationPageComponent = () => {
     }, []);
 
     return (
-        <DefaultLayout>
+        <DefaultLayout user={user}>
         <Breadcrumb pageName="Gestion des dons"/>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

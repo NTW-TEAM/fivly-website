@@ -7,8 +7,9 @@ import localApi from "@/services/localAxiosApi";
 import {Crowdfunding} from "@/types/Crowdfunding";
 import {SiCrowdsource} from "react-icons/si";
 import TableCrowdfunding from "./TableCrowdfunding";
+import {UserJwt} from "@/types/UserJwt";
 
-const CrowdfundingPageComponent = () => {
+const CrowdfundingPageComponent = ({user}: {user: UserJwt}) => {
     const getAllCrowdfunding = async () => {
         return new Promise<Crowdfunding[]>((resolve, reject) => {
         localApi
@@ -37,7 +38,7 @@ const CrowdfundingPageComponent = () => {
     }, []);
 
     return (
-      <DefaultLayout>
+      <DefaultLayout user={user}>
         <Breadcrumb pageName="Gestion des dons" />
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">

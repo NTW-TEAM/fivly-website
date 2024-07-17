@@ -10,8 +10,9 @@ import TableMembersAssembly from "./TableMembersAssembly";
 import TableMembersAssemblySkeleton from "./TableMembersAssemblySkeleton";
 import {Button} from "@nextui-org/react";
 import {Vote} from "@/types/Vote";
+import {UserJwt} from "@/types/UserJwt";
 
-const AssemblyIdPageComponent = () => {
+const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
   const { assemblyId } = useParams();
   const [assembly, setAssembly] = useState<Assembly | null>(null);
   const [voteSessions, setVotes] = useState<Vote[] | null>(null);
@@ -71,7 +72,7 @@ const AssemblyIdPageComponent = () => {
   }, [assemblyId]);
 
   return (
-    <DefaultLayout>
+    <DefaultLayout user={user}>
       <Breadcrumb pageName={["Assemblies", assembly?.description || ""]} />
       {assembly ? (
         <>

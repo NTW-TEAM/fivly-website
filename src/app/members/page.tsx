@@ -9,18 +9,21 @@ import {FaUsers, FaUserShield} from "react-icons/fa";
 import {getMembers} from "@/services/memberService";
 import React from "react";
 import {Members} from "@/types/members";
+import {getUser} from "@/tools/GetUser";
 
 export const metadata: Metadata = {
   title: TITLE + " - Membres",
   description: DESCRIPTION,
 };
 
-const MembresPage = async () => {  
+const MembersPage = async () => {
   
   let users: Members[] = await getMembers();
+  const user = getUser();
+
 
   return (
-    <DefaultLayout>
+    <DefaultLayout user={user}>
       <Breadcrumb pageName="Membres" />
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
@@ -42,4 +45,4 @@ const MembresPage = async () => {
   );
 };
 
-export default MembresPage;
+export default MembersPage;
