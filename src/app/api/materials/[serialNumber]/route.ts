@@ -20,8 +20,6 @@ export async function PUT(req: Request, {params}: {params: {serialNumber: string
 
     const response = await api.put(`/materials/${serialNumber}`, body);
 
-    console.log(response);
-
     const answer = { statusCode: response.status, data: response.data };
 
     return Response.json(answer);

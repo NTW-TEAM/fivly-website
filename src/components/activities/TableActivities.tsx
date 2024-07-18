@@ -20,6 +20,7 @@ import React from "react";
 import {Activity} from "@/types/activity";
 import HandleDeleteActivities from "./HandleDeleteActivities";
 import HandleCreateActivities from "./HandleCreateActivities";
+import HandleAssignMaterialsToActivity from "@/components/activities/HandleAssignMaterialsToActivity";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
@@ -137,6 +138,10 @@ const TableActivities = ({
         case "actions":
           return (
             <div className="flex gap-2">
+              <HandleAssignMaterialsToActivity
+                  activity={activity}
+                  setActivities={setActivities}
+              />
               <HandleDeleteActivities
                 activities={activities}
                 setActivities={setActivities}

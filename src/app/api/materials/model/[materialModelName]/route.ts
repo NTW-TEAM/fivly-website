@@ -20,8 +20,6 @@ export async function PUT(req: Request, {params}: {params: {materialModelName: s
 
     const response = await api.put(`/materials/model/${materialModelName}`, body);
 
-    console.log(response);
-
     const answer = { statusCode: response.status, data: response.data };
 
     return Response.json(answer);

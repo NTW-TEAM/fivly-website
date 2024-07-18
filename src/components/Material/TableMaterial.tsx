@@ -20,6 +20,7 @@ import {
 import React, {ReactNode} from "react";
 import HandleCreateMaterial from "./HandleCreateMaterial";
 import HandleDeleteMaterial from "@/components/Material/HandleDeleteMaterial";
+import HandleAssignMaterialToLocal from "@/components/Material/HandleAssignMaterialToLocal";
 const INITIAL_VISIBLE_COLUMNS = ["materialModelId", "local", "actions"];
 
 const columns = [
@@ -101,22 +102,20 @@ const TableMaterial = ({ materials, setMaterials }: { materials: Material[]; set
       case "local":
         return (
           <div className="flex flex-col">
-            <p className="text-small text-default-400">{material.local}</p>
+            {
+                material.local ? (
+                    <p className="text-small text-default-400">{material.local.name}</p>
+                ) : (
+                    <p className="text-small text-default-400">Non assigné</p>
+                )
+            }
           </div>
         );
       case "actions":
         return (
           <div className="flex gap-2">
-            {/*<HandleEditMateriel
-              materials={materials}
-              setMaterials={setMaterials}
-              materialToEdit={material}
-            />*/}
-            <HandleDeleteMaterial
-              materials={materials}
-              setMaterials={setMaterials}
-              materialToDelete={material}
-            />
+            <HandleAssignMaterialToLocal material={material} setMaterials={setMaterials} />
+            <HandleDeleteMaterial materials={materials} setMaterials={setMaterials} materialToDelete={material} />
           </div>
         );
 
