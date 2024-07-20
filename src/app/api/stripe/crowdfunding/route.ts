@@ -22,7 +22,7 @@ export async function POST(req: Request, res: NextApiResponse) {
 
     const user = jwt.verify(authToken.value, process.env.JWT_SECRET!) as JwtPayload;
 
-    body = { ...body, userId: user.id };
+    body = { ...body, creator: user.id };
 
     const response = await api.post("/stripe/crowdfunding", body);
 
