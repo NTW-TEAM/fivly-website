@@ -55,7 +55,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, user }: SidebarProps) => {
         });
 
         setCombinedScopes(allScopes);
-        console.log('Combined scopes:', allScopes);
       } catch (error) {
         console.error('Error fetching roles:', error);
       }
