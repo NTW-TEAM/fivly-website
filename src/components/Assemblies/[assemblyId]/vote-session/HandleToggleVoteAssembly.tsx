@@ -9,7 +9,7 @@ const HandleToggleVoteAssembly = ({
   voteToToggle,
   assemblyId,
 }: {
-  setVotes: React.Dispatch<React.SetStateAction<Vote[]>>;
+  setVotes: React.Dispatch<React.SetStateAction<Vote[] | null>>;
   voteToToggle: Vote;
   assemblyId: string | string[];
 }) => {

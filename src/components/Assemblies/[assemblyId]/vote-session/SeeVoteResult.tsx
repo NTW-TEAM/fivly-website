@@ -11,7 +11,7 @@ const SeeVoteResult = ({
                            voteToSee,
                            assemblyId,
                        }: {
-    setVotes: React.Dispatch<React.SetStateAction<Vote[]>>;
+    setVotes: React.Dispatch<React.SetStateAction<Vote[] | null>>;
     voteToSee: Vote;
     assemblyId: string;
 }) => {
@@ -65,7 +65,7 @@ const SeeVoteResult = ({
         }
 
 
-    },[]);
+    },[assemblyId, voteToSee.id]);
 
     return (
         <div>

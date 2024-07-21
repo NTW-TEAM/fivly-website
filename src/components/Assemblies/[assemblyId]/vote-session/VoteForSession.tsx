@@ -14,7 +14,7 @@ const VoteForSession = ({
     userId: number;
     sessionId: number;
     assemblyId: string;
-    setVotes: React.Dispatch<React.SetStateAction<Vote[]>>;
+    setVotes: React.Dispatch<React.SetStateAction<Vote[] | null>>;
 }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 

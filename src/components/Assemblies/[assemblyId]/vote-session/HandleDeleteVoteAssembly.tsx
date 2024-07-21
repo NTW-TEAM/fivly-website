@@ -9,7 +9,7 @@ const HandleDeleteVoteAssembly = ({
   voteToDelete,
   assemblyId,
 }: {
-  setVotes: React.Dispatch<React.SetStateAction<Vote[]>>;
+  setVotes: React.Dispatch<React.SetStateAction<Vote[] | null>>;
   voteToDelete: Vote;
   assemblyId: string | string[];
 }) => {

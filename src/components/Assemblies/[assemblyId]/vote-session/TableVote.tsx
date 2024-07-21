@@ -45,8 +45,8 @@ const TableVotes = ({
                         assemblyId,
                         user,
                     }: {
-    votes: Vote[];
-    setVotes: React.Dispatch<React.SetStateAction<Vote[]>>;
+    votes: Vote[] | null;
+    setVotes: React.Dispatch<React.SetStateAction<Vote[] | null>>;
     assemblyId: string;
     user: UserJwt;
 }) => {
@@ -54,20 +54,20 @@ const TableVotes = ({
 
     const checkUserScope = (scopes: Scopes[], requiredScope: string) => {
         return (
-            scopes.some(scope => scope.name === requiredScope) ||
-            scopes.some(scope => scope.name === 'super:admin')
+            scopes.some((scope) => scope.name === requiredScope) ||
+            scopes.some((scope) => scope.name === "super:admin")
         );
     };
 
     useEffect(() => {
         const fetchRolesAndCombineScopes = async () => {
             try {
-                const response = await fetch('/api/roles');
+                const response = await fetch("/api/roles");
                 const roles = await response.json();
                 const userRoles = user.roles;
                 let allScopes = [...user.scopes];
 
-                userRoles.forEach(userRole => {
+                userRoles.forEach((userRole) => {
                     const role = roles.find((role: any) => role.name === userRole.name);
                     if (role) {
                         allScopes = [...allScopes, ...role.scopes];
@@ -76,16 +76,18 @@ const TableVotes = ({
 
                 setCombinedScopes(allScopes);
             } catch (error) {
-                console.error('Error fetching roles:', error);
+                console.error("Error fetching roles:", error);
             }
         };
 
         fetchRolesAndCombineScopes();
-    }, []);
+    }, [user.roles, user.scopes]);
 
     const [filterValue, setFilterValue] = useState("");
     const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]));
-    const [visibleColumns, setVisibleColumns] = useState<Selection>(new Set(INITIAL_VISIBLE_COLUMNS));
+    const [visibleColumns, setVisibleColumns] = useState<Selection>(
+        new Set(INITIAL_VISIBLE_COLUMNS)
+    );
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
         column: "name",
@@ -101,10 +103,10 @@ const TableVotes = ({
     }, [visibleColumns]);
 
     const filteredItems = React.useMemo(() => {
-        let filteredVotes = [...votes];
+        let filteredVotes = votes ? [...votes] : [];
         if (hasSearchFilter) {
             filteredVotes = filteredVotes.filter((vote) =>
-                vote.description.toLowerCase().includes(filterValue.toLowerCase()),
+                vote.description.toLowerCase().includes(filterValue.toLowerCase())
             );
         }
         return filteredVotes;
@@ -127,76 +129,96 @@ const TableVotes = ({
         });
     }, [sortDescriptor, items]);
 
-    const renderCell = React.useCallback((vote: Vote, columnKey: React.Key) => {
-        const cellValue = vote[columnKey as keyof Vote];
-        switch (columnKey) {
-            case "id":
-                return (
-                    <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize">{vote.id}</p>
-                    </div>
-                );
-            case "description":
-                return (
-                    <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize">{vote.description}</p>
-                    </div>
-                );
-            case "beginDateTime":
-                return (
-                    <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize">
-                            {new Date(vote.beginDateTime).toLocaleString()}
-                        </p>
-                    </div>
-                );
-            case "voteTimeInMinutes":
-                return (
-                    <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize">
-                            {vote.voteTimeInMinutes} minutes
-                        </p>
-                    </div>
-                );
-            case "type":
-                return (
-                    <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize">{vote.type}</p>
-                    </div>
-                );
-            case "anonymous":
-                return (
-                    <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize">
-                            {vote.anonymous ? "Oui" : "Non"}
-                        </p>
-                    </div>
-                );
-            case "canceled":
-                return (
-                    <div className="flex flex-col">
-                        <p className="text-bold text-small capitalize">
-                            {vote.canceled ? "Oui" : "Non"}
-                        </p>
-                    </div>
-                );
-            case "actions":
-                return (
-                    <div className="flex gap-2">
-                        {checkUserScope(combinedScopes, 'assemblies:manage') && (
-                            <>
-                                <SeeVoteResult setVotes={setVotes} voteToSee={vote} assemblyId={assemblyId} />
-                                <HandleToggleVoteAssembly setVotes={setVotes} voteToToggle={vote} assemblyId={assemblyId} />
-                                <HandleDeleteVoteAssembly setVotes={setVotes} voteToDelete={vote} assemblyId={assemblyId} />
-                            </>
-                        )}
-                        <VoteForSession userId={user.id} sessionId={vote.id} assemblyId={assemblyId} setVotes={setVotes} />
-                    </div>
-                );
-            default:
-                return cellValue;
-        }
-    }, [assemblyId, combinedScopes, setVotes, user.id]);
+    const renderCell = React.useCallback(
+        (vote: Vote, columnKey: React.Key) => {
+            const cellValue = vote[columnKey as keyof Vote];
+            switch (columnKey) {
+                case "id":
+                    return (
+                        <div className="flex flex-col">
+                            <p className="text-bold text-small capitalize">{vote.id}</p>
+                        </div>
+                    );
+                case "description":
+                    return (
+                        <div className="flex flex-col">
+                            <p className="text-bold text-small capitalize">{vote.description}</p>
+                        </div>
+                    );
+                case "beginDateTime":
+                    return (
+                        <div className="flex flex-col">
+                            <p className="text-bold text-small capitalize">
+                                {new Date(vote.beginDateTime).toLocaleString()}
+                            </p>
+                        </div>
+                    );
+                case "voteTimeInMinutes":
+                    return (
+                        <div className="flex flex-col">
+                            <p className="text-bold text-small capitalize">
+                                {vote.voteTimeInMinutes} minutes
+                            </p>
+                        </div>
+                    );
+                case "type":
+                    return (
+                        <div className="flex flex-col">
+                            <p className="text-bold text-small capitalize">{vote.type}</p>
+                        </div>
+                    );
+                case "anonymous":
+                    return (
+                        <div className="flex flex-col">
+                            <p className="text-bold text-small capitalize">
+                                {vote.anonymous ? "Oui" : "Non"}
+                            </p>
+                        </div>
+                    );
+                case "canceled":
+                    return (
+                        <div className="flex flex-col">
+                            <p className="text-bold text-small capitalize">
+                                {vote.canceled ? "Oui" : "Non"}
+                            </p>
+                        </div>
+                    );
+                case "actions":
+                    return (
+                        <div className="flex gap-2">
+                            {checkUserScope(combinedScopes, "assemblies:manage") && (
+                                <>
+                                    <SeeVoteResult
+                                        setVotes={setVotes}
+                                        voteToSee={vote}
+                                        assemblyId={assemblyId}
+                                    />
+                                    <HandleToggleVoteAssembly
+                                        setVotes={setVotes}
+                                        voteToToggle={vote}
+                                        assemblyId={assemblyId}
+                                    />
+                                    <HandleDeleteVoteAssembly
+                                        setVotes={setVotes}
+                                        voteToDelete={vote}
+                                        assemblyId={assemblyId}
+                                    />
+                                </>
+                            )}
+                            <VoteForSession
+                                userId={user.id}
+                                sessionId={vote.id}
+                                assemblyId={assemblyId}
+                                setVotes={setVotes}
+                            />
+                        </div>
+                    );
+                default:
+                    return cellValue;
+            }
+        },
+        [assemblyId, combinedScopes, setVotes, user.id]
+    );
 
     const onNextPage = React.useCallback(() => {
         if (page < pages) {
@@ -210,13 +232,10 @@ const TableVotes = ({
         }
     }, [page]);
 
-    const onRowsPerPageChange = React.useCallback(
-        (e: React.ChangeEvent<HTMLSelectElement>) => {
-            setRowsPerPage(Number(e.target.value));
-            setPage(1);
-        },
-        [],
-    );
+    const onRowsPerPageChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+        setRowsPerPage(Number(e.target.value));
+        setPage(1);
+    }, []);
 
     const onSearchChange = React.useCallback((value?: string) => {
         if (value) {
@@ -264,15 +283,13 @@ const TableVotes = ({
                                 ))}
                             </DropdownMenu>
                         </Dropdown>
-                        {checkUserScope(combinedScopes, 'assemblies:manage') && (
-                            <HandleAddVoteToAssembly setVotes={setVotes} assemblyId={assemblyId} />)
-                        }
+                        {checkUserScope(combinedScopes, "assemblies:manage") && (
+                            <HandleAddVoteToAssembly setVotes={setVotes} assemblyId={assemblyId} />
+                        )}
                     </div>
                 </div>
                 <div className="flex items-center justify-between">
-          <span className="text-small text-default-400">
-            {votes.length} sessions de votes
-          </span>
+                    <span className="text-small text-default-400">{votes?.length || 0} sessions de votes</span>
                     <label className="flex items-center text-small text-default-400">
                         Lignes par page
                         <select
@@ -290,7 +307,7 @@ const TableVotes = ({
                 </div>
             </div>
         );
-    }, [filterValue, onSearchChange, visibleColumns, votes.length, onRowsPerPageChange, onClear]);
+    }, [filterValue, onSearchChange, visibleColumns, combinedScopes, setVotes, assemblyId, votes?.length, onRowsPerPageChange, onClear]);
 
     const bottomContent = React.useMemo(() => {
         return (
@@ -310,33 +327,16 @@ const TableVotes = ({
                     onChange={setPage}
                 />
                 <div className="hidden w-[30%] justify-end gap-2 sm:flex">
-                    <Button
-                        isDisabled={pages === 1}
-                        size="sm"
-                        variant="flat"
-                        onPress={onPreviousPage}
-                    >
+                    <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onPreviousPage}>
                         Précédent
                     </Button>
-                    <Button
-                        isDisabled={pages === 1}
-                        size="sm"
-                        variant="flat"
-                        onPress={onNextPage}
-                    >
+                    <Button isDisabled={pages === 1} size="sm" variant="flat" onPress={onNextPage}>
                         Suivant
                     </Button>
                 </div>
             </div>
         );
-    }, [
-        selectedKeys,
-        filteredItems.length,
-        page,
-        pages,
-        onPreviousPage,
-        onNextPage,
-    ]);
+    }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -364,15 +364,10 @@ const TableVotes = ({
                         </TableColumn>
                     )}
                 </TableHeader>
-                <TableBody
-                    emptyContent={"Aucune sessions de votes"}
-                    items={sortedItems}
-                >
+                <TableBody emptyContent={"Aucune sessions de votes"} items={sortedItems}>
                     {(item) => (
                         <TableRow key={item.id}>
-                            {(columnKey) => (
-                                <TableCell>{renderCell(item, columnKey)}</TableCell>
-                            )}
+                            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                         </TableRow>
                     )}
                 </TableBody>
