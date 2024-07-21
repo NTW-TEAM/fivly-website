@@ -14,7 +14,7 @@ import { Material } from "@/types/Material";
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
 import React from "react";
-import { FaPen } from "react-icons/fa";
+import { FaPlus} from "react-icons/fa";
 
 const HandleAssignMaterialsToActivity: React.FC<{ activity: Activity; setActivities: React.Dispatch<React.SetStateAction<Activity[]>> }> = ({ activity, setActivities }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -80,7 +80,7 @@ const HandleAssignMaterialsToActivity: React.FC<{ activity: Activity; setActivit
 
     return (
         <div>
-            <button onClick={onOpen}><FaPen /></button>
+            <button onClick={onOpen}><FaPlus /></button>
 
             <Modal isOpen={isOpen} onClose={() => onOpenChange()} size="lg">
                 <ModalContent>

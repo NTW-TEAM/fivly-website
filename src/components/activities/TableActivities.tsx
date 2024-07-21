@@ -21,6 +21,8 @@ import {Activity} from "@/types/activity";
 import HandleDeleteActivities from "./HandleDeleteActivities";
 import HandleCreateActivities from "./HandleCreateActivities";
 import HandleAssignMaterialsToActivity from "@/components/activities/HandleAssignMaterialsToActivity";
+import HandleShowParticipants from "@/components/activities/HandleShowParticipants";
+import HandleShowMaterials from "@/components/activities/HandleShowMaterials";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
 
@@ -142,6 +144,8 @@ const TableActivities = ({
                   activity={activity}
                   setActivities={setActivities}
               />
+              <HandleShowMaterials materials={activity.materials || []} />
+              <HandleShowParticipants participants={activity.participants || []} />
               <HandleDeleteActivities
                 activities={activities}
                 setActivities={setActivities}
@@ -151,7 +155,7 @@ const TableActivities = ({
           );
 
         default:
-          return cellValue;
+          return cellValue as string;
       }
     },
     [activities, setActivities],

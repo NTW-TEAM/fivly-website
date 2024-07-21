@@ -6,4 +6,5 @@ export type Material = {
   materialModel: MaterialModel;
   activities: [];
   local: local;
+
 };
