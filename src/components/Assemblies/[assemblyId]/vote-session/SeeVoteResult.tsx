@@ -83,7 +83,7 @@ const SeeVoteResult = ({
                                     {Object.entries(votesResult).map(([option, count]) => (
                                         <div key={option}>
                                             <div className="flex justify-between">
-                                                <span>{option}</span>
+                                                <span>{option == "forVotes" ? "Pour" : "Contre"}</span>
                                                 <span>{count} / {(assembly?.quorum || 1)} (Quorum) </span>
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-full h-2.5">

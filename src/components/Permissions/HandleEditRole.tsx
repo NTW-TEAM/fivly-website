@@ -72,20 +72,20 @@ const HandleEditRole = ({roles, setRoles, roleToEdit}: {roles: Roles[]; setRoles
         };
 
         await localApi
-            .post(`/api/roles`, 
+            .put(`/api/roles/${roleToEdit.name}/scopes`,
             body)
             .then(async (response) => {
                 if (response.data.statusCode === 201) {
 
                     setRoles(await getAllRoles());
-                    ToastHandler.toast("Rôle ajouté avec succès", "success");
+                    ToastHandler.toast("Rôle modifié avec succès", "success");
                 }
                 else {
                     ToastHandler.toast(response.data, "error");
                 }
             })
             .catch((error) => {
-                ToastHandler.toast("Erreur lors de l'ajout du rôle", "error");
+                ToastHandler.toast("Erreur lors de la modification du rôle", "error");
                 console.error("error", error);
             })
             .finally(() => {
