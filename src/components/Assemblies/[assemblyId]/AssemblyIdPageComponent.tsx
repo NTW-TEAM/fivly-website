@@ -11,6 +11,7 @@ import TableMembersAssemblySkeleton from "./TableMembersAssemblySkeleton";
 import {Button} from "@nextui-org/react";
 import {Vote} from "@/types/Vote";
 import {UserJwt} from "@/types/UserJwt";
+import HandleAddVoteToAssembly from "@/components/Assemblies/[assemblyId]/vote-session/HandleAddVoteToAssembly";
 
 const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
   const { assemblyId } = useParams();
@@ -116,9 +117,13 @@ const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
                     </div>
                   </>
                 ) : (
-                  <p>
-                    <strong>Vote Session:</strong> Aucune session de vote
-                  </p>
+                    <>
+                      <p>
+                        <strong>Vote Session:</strong> Aucune session de vote
+                      </p>
+                      <HandleAddVoteToAssembly setVotes={setVotes} assemblyId={assemblyId} />
+                    </>
+                    
                 )}
               </ul>
             </div>

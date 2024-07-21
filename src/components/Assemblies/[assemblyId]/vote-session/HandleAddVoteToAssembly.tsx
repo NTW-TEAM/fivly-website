@@ -19,7 +19,7 @@ const HandleAddVoteToAssembly = ({
   setVotes,
   assemblyId,
 }: {
-  setVotes: React.Dispatch<React.SetStateAction<Vote[]>>;
+  setVotes: React.Dispatch<React.SetStateAction<Vote[] | null>>;
   assemblyId: string | string[];
 }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -53,7 +53,7 @@ const HandleAddVoteToAssembly = ({
       beginDateTime: new Date(formData.get("beginDateTime") as string).toISOString(),
       voteTimeInMinutes: parseInt(formData.get("voteTimeInMinutes") as string, 10),
       type: formData.get("type"),
-      anonymous: formData.get("anonymous") === "true" ? true : false,
+      anonymous: formData.get("anonymous") === "true",
     };
 
     console.log("body", body)
