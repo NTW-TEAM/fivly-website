@@ -122,36 +122,13 @@ const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
                 )}
               </ul>
             </div>
-
-            <div className="w-full rounded-lg bg-white p-4 shadow-md">
-              <div className="flex items-center justify-between"></div>
-
-              <ul className="list-inside list-disc">
-                {electionSessions && electionSessions?.length > 0 ? (
-                  <>
-                    <p className="text-center">
-                      Il y a <strong>{electionSessions.length}</strong> sessions
-                      d&apos;éléctions en cours
-                    </p>
-                    <div className="flex h-full items-center justify-center">
-                      <a href={`/assemblies/${assemblyId}/vote-session`}>
-                        <Button>Accéder aux sessions de vote</Button>
-                      </a>
-                    </div>
-                  </>
-                ) : (
-                  <p className="text-center">
-                    <strong>Aucune session d&apos;éléction</strong>
-                  </p>
-                )}
-              </ul>
-            </div>
           </div>
 
           <div className="mt-4 flex flex-col gap-10">
             <TableMembersAssembly
               assembly={assembly}
               setAssembly={setAssembly}
+              user={user}
             />
           </div>
         </>
