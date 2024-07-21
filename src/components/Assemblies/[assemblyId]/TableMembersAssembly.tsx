@@ -23,10 +23,6 @@ import { Assembly } from "@/types/Assembly";
 import HandleDeleteUserAssembly from "./HandleDeleteUserAssembly";
 import { UserJwt } from "@/types/UserJwt";
 import { Scopes } from "@/types/Scopes";
-import SeeVoteResult from "@/components/Assemblies/[assemblyId]/vote-session/SeeVoteResult";
-import HandleToggleVoteAssembly from "@/components/Assemblies/[assemblyId]/vote-session/HandleToggleVoteAssembly";
-import HandleDeleteVoteAssembly from "@/components/Assemblies/[assemblyId]/vote-session/HandleDeleteVoteAssembly";
-import VoteForSession from "@/components/Assemblies/[assemblyId]/vote-session/VoteForSession";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions"];
 
@@ -79,7 +75,7 @@ const TableMembersAssembly = ({
         };
 
         fetchRolesAndCombineScopes();
-    }, []);
+    }, [user.roles, user.scopes]);
 
     const [filterValue, setFilterValue] = useState("");
     const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([]));
@@ -175,7 +171,7 @@ const TableMembersAssembly = ({
                                         assemblyUserToDelete={user}
                                     />
                                 </>
-                            ) : <p className={'text-small text-default-400'}>Aucune action disponible</p>}
+                            ) : <p className="text-small text-default-400">Aucune action disponible</p>}
                         </div>
                     );
 
