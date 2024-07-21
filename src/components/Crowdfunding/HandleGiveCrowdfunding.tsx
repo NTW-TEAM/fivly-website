@@ -22,7 +22,7 @@ const HandleGiveCrowdfunding = ({crowdfunding}: {crowdfunding: Crowdfunding; }) 
 
         const formData = new FormData(e.currentTarget);
 
-        const amount = parseInt(formData.get("amount") as string, 10);
+        const amount = parseFloat(formData.get("amount") as string);
 
         const body = {
           amount: amount,
