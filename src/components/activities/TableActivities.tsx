@@ -36,18 +36,18 @@ const columns = [
 ];
 
 const TableActivities = ({
-  activities,
-  setActivities,
-}: {
+                           activities,
+                           setActivities,
+                         }: {
   activities: Activity[];
   setActivities: React.Dispatch<React.SetStateAction<Activity[]>>;
 }) => {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState<Selection>(
-    new Set([]),
+      new Set([]),
   );
   const [visibleColumns, setVisibleColumns] = React.useState<Selection>(
-    new Set(INITIAL_VISIBLE_COLUMNS),
+      new Set(INITIAL_VISIBLE_COLUMNS),
   );
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [sortDescriptor, setSortDescriptor] = React.useState<SortDescriptor>({
@@ -63,7 +63,7 @@ const TableActivities = ({
     if (visibleColumns === "all") return columns;
 
     return columns.filter((column) =>
-      Array.from(visibleColumns).includes(column.uid),
+        Array.from(visibleColumns).includes(column.uid),
     );
   }, [visibleColumns]);
 
@@ -72,7 +72,7 @@ const TableActivities = ({
 
     if (hasSearchFilter) {
       filteredActivities = filteredActivities.filter((activityType) =>
-        activityType.title.toLowerCase().includes(filterValue.toLowerCase()),
+          activityType.title.toLowerCase().includes(filterValue.toLowerCase()),
       );
     }
 
@@ -99,66 +99,66 @@ const TableActivities = ({
   }, [sortDescriptor, items]);
 
   const renderCell = React.useCallback(
-    (activity: Activity, columnKey: React.Key) => {
-      const cellValue = activity[columnKey as keyof Activity];
+      (activity: Activity, columnKey: React.Key) => {
+        const cellValue = activity[columnKey as keyof Activity];
 
-      switch (columnKey) {
-        case "id":
-          return (
-            <div className="flex flex-col">
-              <p className="text-small text-default-400">{activity.id}</p>
-            </div>
-          );
-        case "name":
-          return (
-            <div className="flex flex-col">
-              <p className="text-bold text-small capitalize">
-                {activity.title}
-              </p>
-            </div>
-          );
-        case "description":
-          return (
-            <div className="flex flex-col">
-              <p className="text-small text-default-400">{activity.description}</p>
-            </div>
-          );  
-        case "dateDebut":
-          return (
-            <div className="flex flex-col">
-              <p className="text-small text-default-400">
-                {new Date(activity.beginDateTime).toLocaleDateString()}
-              </p>
-            </div>
-          );
-        case "dateFin":
-          return (
-            <div className="flex flex-col">
-              <p className="text-small text-default-400">{new Date(activity.endDateTime).toLocaleDateString()}</p>
-            </div>
-          );
-        case "actions":
-          return (
-            <div className="flex gap-2">
-              <HandleAssignMaterialsToActivity
-                  activity={activity}
-                  setActivities={setActivities}
-              />
-              <HandleShowMaterials materials={activity.materials || []} />
-              <HandleShowParticipants participants={activity.participants || []} />
-              <HandleDeleteActivities
-                activities={activities}
-                setActivities={setActivities}
-                activitieDelete={activity}
-              />
-            </div>
-          );
+        switch (columnKey) {
+          case "id":
+            return (
+                <div className="flex flex-col">
+                  <p className="text-small text-default-400">{activity.id}</p>
+                </div>
+            );
+          case "name":
+            return (
+                <div className="flex flex-col">
+                  <p className="text-bold text-small capitalize">
+                    {activity.title}
+                  </p>
+                </div>
+            );
+          case "description":
+            return (
+                <div className="flex flex-col">
+                  <p className="text-small text-default-400">{activity.description}</p>
+                </div>
+            );
+          case "dateDebut":
+            return (
+                <div className="flex flex-col">
+                  <p className="text-small text-default-400">
+                    {new Date(activity.beginDateTime).toLocaleDateString()}
+                  </p>
+                </div>
+            );
+          case "dateFin":
+            return (
+                <div className="flex flex-col">
+                  <p className="text-small text-default-400">{new Date(activity.endDateTime).toLocaleDateString()}</p>
+                </div>
+            );
+          case "actions":
+            return (
+                <div className="flex gap-2">
+                  <HandleAssignMaterialsToActivity
+                      activity={activity}
+                      setActivities={setActivities}
+                  />
+                  <HandleShowMaterials materials={activity.materials || []} activityId={activity.id.toString()} setActivities={setActivities} />
+                  <HandleShowParticipants participants={activity.participants || []} />
+                  <HandleDeleteActivities
+                      activities={activities}
+                      setActivities={setActivities}
+                      activitieDelete={activity}
+                  />
+                </div>
+            );
 
-        default:
-          return cellValue as string;
-      }
-    },
-    [activities, setActivities],
+          default:
+            return cellValue as string;
+        }
+      },
+      [activities, setActivities],
   );
 
   const onNextPage = React.useCallback(() => {
@@ -174,11 +174,11 @@ const TableActivities = ({
   }, [page]);
 
   const onRowsPerPageChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setRowsPerPage(Number(e.target.value));
-      setPage(1);
-    },
-    [],
+      (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setRowsPerPage(Number(e.target.value));
+        setPage(1);
+      },
+      [],
   );
 
   const onSearchChange = React.useCallback((value?: string) => {
@@ -197,101 +197,101 @@ const TableActivities = ({
 
   const topContent = React.useMemo(() => {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex items-end justify-between gap-3">
-          <Input
-            isClearable
-            className="w-full sm:max-w-[44%]"
-            placeholder="Search by name..."
-            value={filterValue}
-            onClear={() => onClear()}
-            onValueChange={onSearchChange}
-          />
-          <div className="flex gap-3">
-            <Dropdown className="border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
-              <DropdownTrigger className="hidden sm:flex">
-                <Button variant="flat">Colonnes</Button>
-              </DropdownTrigger>
-              <DropdownMenu
-                disallowEmptySelection
-                aria-label="Table Columns"
-                closeOnSelect={false}
-                selectedKeys={visibleColumns}
-                selectionMode="multiple"
-                onSelectionChange={setVisibleColumns}
-              >
-                {columns.map((column) => (
-                  <DropdownItem key={column.uid} className="capitalize">
-                    {column.name}
-                  </DropdownItem>
-                ))}
-              </DropdownMenu>
-            </Dropdown>
-                        <HandleCreateActivities
-              activities={activities}
-              setActivities={setActivities}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-end justify-between gap-3">
+            <Input
+                isClearable
+                className="w-full sm:max-w-[44%]"
+                placeholder="Search by name..."
+                value={filterValue}
+                onClear={() => onClear()}
+                onValueChange={onSearchChange}
             />
+            <div className="flex gap-3">
+              <Dropdown className="border border-stroke bg-white dark:border-strokedark dark:bg-boxdark">
+                <DropdownTrigger className="hidden sm:flex">
+                  <Button variant="flat">Colonnes</Button>
+                </DropdownTrigger>
+                <DropdownMenu
+                    disallowEmptySelection
+                    aria-label="Table Columns"
+                    closeOnSelect={false}
+                    selectedKeys={visibleColumns}
+                    selectionMode="multiple"
+                    onSelectionChange={setVisibleColumns}
+                >
+                  {columns.map((column) => (
+                      <DropdownItem key={column.uid} className="capitalize">
+                        {column.name}
+                      </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </Dropdown>
+              <HandleCreateActivities
+                  activities={activities}
+                  setActivities={setActivities}
+              />
+            </div>
           </div>
-        </div>
-        <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between">
           <span className="text-small text-default-400">
             {activities.length} activité(s)
           </span>
-          <label className="flex items-center text-small text-default-400">
-            Lignes par page
-            <select
-              className="bg-transparent text-small text-default-400 outline-none"
-              onChange={onRowsPerPageChange}
-            >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-              <option value="100">100</option>
-            </select>
-          </label>
+            <label className="flex items-center text-small text-default-400">
+              Lignes par page
+              <select
+                  className="bg-transparent text-small text-default-400 outline-none"
+                  onChange={onRowsPerPageChange}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </label>
+          </div>
         </div>
-      </div>
     );
   }, [filterValue, onSearchChange, visibleColumns, activities, setActivities, onRowsPerPageChange, onClear]);
 
   const bottomContent = React.useMemo(() => {
     return (
-      <div className="flex items-center justify-between px-2 py-2">
+        <div className="flex items-center justify-between px-2 py-2">
         <span className="w-[30%] text-small text-default-400">
           {selectedKeys === "all"
-            ? "Activité sélectionnés"
-            : `${selectedKeys.size} sur ${filteredItems.length} activité(s) sélectionnés`}
+              ? "Activité sélectionnés"
+              : `${selectedKeys.size} sur ${filteredItems.length} activité(s) sélectionnés`}
         </span>
-        <Pagination
-          isCompact
-          showControls
-          showShadow
-          color="primary"
-          page={page}
-          total={pages}
-          onChange={setPage}
-        />
-        <div className="hidden w-[30%] justify-end gap-2 sm:flex">
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onPreviousPage}
-          >
-            Précédent
-          </Button>
-          <Button
-            isDisabled={pages === 1}
-            size="sm"
-            variant="flat"
-            onPress={onNextPage}
-          >
-            Suivant
-          </Button>
+          <Pagination
+              isCompact
+              showControls
+              showShadow
+              color="primary"
+              page={page}
+              total={pages}
+              onChange={setPage}
+          />
+          <div className="hidden w-[30%] justify-end gap-2 sm:flex">
+            <Button
+                isDisabled={pages === 1}
+                size="sm"
+                variant="flat"
+                onPress={onPreviousPage}
+            >
+              Précédent
+            </Button>
+            <Button
+                isDisabled={pages === 1}
+                size="sm"
+                variant="flat"
+                onPress={onNextPage}
+            >
+              Suivant
+            </Button>
+          </div>
         </div>
-      </div>
     );
   }, [
     selectedKeys,
@@ -303,42 +303,42 @@ const TableActivities = ({
   ]);
 
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-      <Table
-        aria-label="Activité Table"
-        isHeaderSticky
-        bottomContent={bottomContent}
-        bottomContentPlacement="outside"
-        classNames={{
-          wrapper: "max-h-[382px] shadow-none p-0",
-        }}
-        sortDescriptor={sortDescriptor}
-        topContent={topContent}
-        topContentPlacement="outside"
-        onSortChange={setSortDescriptor}
-      >
-        <TableHeader columns={headerColumns}>
-          {(column) => (
-            <TableColumn
-              key={column.uid}
-              align={column.uid === "actions" ? "center" : "start"}
-              allowsSorting={column.sortable}
-            >
-              {column.name}
-            </TableColumn>
-          )}
-        </TableHeader>
-        <TableBody emptyContent={"Aucune activité"} items={sortedItems}>
-          {(item) => (
-            <TableRow key={item.id}>
-              {(columnKey) => (
-                <TableCell>{renderCell(item, columnKey)}</TableCell>
-              )}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+      <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <Table
+            aria-label="Activité Table"
+            isHeaderSticky
+            bottomContent={bottomContent}
+            bottomContentPlacement="outside"
+            classNames={{
+              wrapper: "max-h-[382px] shadow-none p-0",
+            }}
+            sortDescriptor={sortDescriptor}
+            topContent={topContent}
+            topContentPlacement="outside"
+            onSortChange={setSortDescriptor}
+        >
+          <TableHeader columns={headerColumns}>
+            {(column) => (
+                <TableColumn
+                    key={column.uid}
+                    align={column.uid === "actions" ? "center" : "start"}
+                    allowsSorting={column.sortable}
+                >
+                  {column.name}
+                </TableColumn>
+            )}
+          </TableHeader>
+          <TableBody emptyContent={"Aucune activité"} items={sortedItems}>
+            {(item) => (
+                <TableRow key={item.id}>
+                  {(columnKey) => (
+                      <TableCell>{renderCell(item, columnKey)}</TableCell>
+                  )}
+                </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
   );
 };
 
