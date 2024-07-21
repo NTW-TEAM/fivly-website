@@ -14,7 +14,7 @@ import { Material } from "@/types/Material";
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
 import React from "react";
-import { FaPlus} from "react-icons/fa";
+import {FaPen, FaPlus} from "react-icons/fa";
 
 const HandleAssignMaterialsToActivity: React.FC<{ activity: Activity; setActivities: React.Dispatch<React.SetStateAction<Activity[]>> }> = ({ activity, setActivities }) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -54,26 +54,6 @@ const HandleAssignMaterialsToActivity: React.FC<{ activity: Activity; setActivit
         }
     };
 
-    const handleUnassign = async () => {
-        try {
-            const unassignPromises = Array.from(selectedMaterials).map((materialId) =>
-                localApi.delete(`/api/materials/${materialId}/unassign/${activity.id}`)
-            );
-            await Promise.all(unassignPromises);
-
-            ToastHandler.toast("Matériels désassignés avec succès", "success");
-
-            // Refetch activities or materials if necessary
-            const activitiesResponse = await localApi.post('/api/activities/search');
-            setActivities(activitiesResponse.data);
-
-            onOpenChange();
-        } catch (error) {
-            ToastHandler.toast("Erreur lors de la désassignation des matériels", "error");
-            console.error("error", error);
-        }
-    };
-
     const handleSelectChange = (keys: Set<React.Key>) => {
         setSelectedMaterials(new Set(Array.from(keys).map(key => String(key))));
     };
@@ -105,9 +85,6 @@ const HandleAssignMaterialsToActivity: React.FC<{ activity: Activity; setActivit
                         </Button>
                         <Button color="success" variant="light" onPress={handleAssign}>
                             Assigner
-                        </Button>
-                        <Button color="warning" variant="light" onPress={handleUnassign}>
-                            Désassigner
                         </Button>
                     </ModalFooter>
                 </ModalContent>

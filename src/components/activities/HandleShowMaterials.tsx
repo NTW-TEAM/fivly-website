@@ -22,7 +22,7 @@ const HandleShowMaterials = ({ materials }: { materials: MaterialSerialNumber[] 
 
     React.useEffect(() => {
         const getAllMaterials = async () => {
-            const response = await localApi.get("/materials");
+            const response = await localApi.get("/api/materials");
             return response.data;
         };
 
@@ -30,7 +30,6 @@ const HandleShowMaterials = ({ materials }: { materials: MaterialSerialNumber[] 
             setMaterials(data);
         });
     }, []);
-
     return (
         <div>
             <button onClick={onOpen}>
@@ -45,7 +44,7 @@ const HandleShowMaterials = ({ materials }: { materials: MaterialSerialNumber[] 
                             <ul>
                                 {materials.map((material) => (
                                     <li key={material.serialNumber}>
-                                        {materialsInfo.map((materialInfo) => {
+                                        {materialsInfo && materialsInfo.map((materialInfo) => {
                                             if (materialInfo.serialNumber === material.serialNumber) {
                                                 return materialInfo.materialModel.name;
                                             }
