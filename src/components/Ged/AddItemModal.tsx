@@ -19,6 +19,7 @@ interface AddItemModalProps {
   onClose: () => void;
   addItem: (newItem: TreeNode) => void;
   currentPath: string;
+  refreshFolderContents?: () => void;
 }
 
 const AddItemModal: React.FC<AddItemModalProps> = ({
@@ -26,6 +27,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
                                                      onClose,
                                                      addItem,
                                                      currentPath,
+                                                     refreshFolderContents,
                                                    }) => {
   const [name, setName] = useState('');
   const [type, setType] = useState<'file' | 'folder'>('folder');
@@ -50,18 +52,11 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
         ToastHandler.toast("Erreur lors de l'ajout du dossier", 'error');
       }
     } else if (type === 'file' && file) {
-      console.log("Sending file to external API...")
       try {
         const formData = new FormData();
         formData.append('file', file);
-        console.log("File : ", file)
         formData.append('path', currentPath);
-        console.log("Path : ", currentPath)
         formData.append('name', name);
-        console.log("Name : ", name)
-
-
-        console.log("formData : ", formData)
         await localApi.post('/api/ged/file', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
