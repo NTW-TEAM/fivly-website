@@ -4,6 +4,12 @@ import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import {NextUIProvider} from "@nextui-org/react";
 import {UserJwt} from "@/types/UserJwt";
+import Chatbot from "react-chatbot-kit";
+import config from "@/components/Chatbot/config";
+import MessageParser from "@/components/Chatbot/MessageParser";
+import ActionProvider from "@/components/Chatbot/ActionProvider";
+import 'react-chatbot-kit/build/main.css';
+import "@/components/Chatbot/FaqOptions.css";
 
 export default function DefaultLayout({
   children,
@@ -13,6 +19,7 @@ export default function DefaultLayout({
   user: UserJwt;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <>
       <NextUIProvider>
@@ -33,6 +40,12 @@ export default function DefaultLayout({
           <main>
             <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
               {children}
+              {/* <ChatBot flow={flow} options={chatBotOptions}/> */}
+              <Chatbot
+                config={config}
+                messageParser={MessageParser}
+                actionProvider={ActionProvider}
+              />
             </div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
