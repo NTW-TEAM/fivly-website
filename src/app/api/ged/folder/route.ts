@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
 import {NextRequest} from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function DELETE(req: NextRequest, res: NextApiResponse) {
   const path = req.nextUrl.searchParams.get("path");
 

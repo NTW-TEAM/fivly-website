@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import api from "@/services/axios";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request, res: NextApiResponse) {
   let body = await req.json();
 

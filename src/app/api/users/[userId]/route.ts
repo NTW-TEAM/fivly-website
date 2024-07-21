@@ -1,6 +1,7 @@
 import api from "@/services/axios";
-import jwt, {JwtPayload} from "jsonwebtoken";
 import {cookies} from "next/headers";
+
+export const dynamic = 'force-dynamic';
 
 export async function PATCH(req: Request, {params}: {params: {userId: string}}) {
 

@@ -11,6 +11,8 @@ import React from "react";
 import {Members} from "@/types/members";
 import {getUser} from "@/tools/GetUser";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: TITLE + " - Membres",
   description: DESCRIPTION,

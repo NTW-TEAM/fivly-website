@@ -4,6 +4,8 @@ import api from "@/services/axios";
 import {cookies} from "next/headers";
 import {NextRequest} from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest, res: NextApiResponse) {
     const data = api.get("/stripe/crowdfunding");
     return Response.json((await data).data);

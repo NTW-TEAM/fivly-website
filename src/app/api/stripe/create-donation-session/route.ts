@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import api from "@/services/axios";
 import {cookies} from "next/headers";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: Request, res: NextApiResponse) {
  try {
     let body = await req.json();

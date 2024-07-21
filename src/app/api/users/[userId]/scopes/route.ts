@@ -1,5 +1,7 @@
 import api from "@/services/axios";
 
+export const dynamic = 'force-dynamic';
+
 export async function PUT(req: Request, {params}: {params: {userId: string}}) {
 
     const { userId } = params;

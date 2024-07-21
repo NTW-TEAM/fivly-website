@@ -3,6 +3,8 @@ import FormData from 'form-data';
 import api, {apiFormData} from '@/services/axios';
 import {NextRequest} from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(req: NextRequest, res: NextApiResponse) {
     const data = await req.formData();
     const file: File | null = data.get('file') as unknown as File;
