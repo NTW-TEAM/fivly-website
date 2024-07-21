@@ -1,18 +1,19 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import localApi from "@/services/localAxiosApi";
 import ToastHandler from "@/tools/ToastHandler";
-import {SiCrowdsource} from "react-icons/si";
-import {Button} from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
 interface ActivityCardProps {
     title: string;
     beginDate: string;
     endDate: string;
     description: string;
-    activityId: number; // Assuming you have activityId to identify the activity
-    userId: number; // Assuming you have userId to identify the user
+    activityId: number;
+    userId: number;
+    participants: { id: number }[]; // Adding participants prop
 }
 
 const ActivityCard: React.FC<ActivityCardProps> = ({
@@ -21,20 +22,16 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
                                                        endDate,
                                                        description,
                                                        activityId,
-                                                       userId
+                                                       userId,
+                                                       participants, // Receiving participants prop
                                                    }) => {
     const [isSubscribed, setIsSubscribed] = useState(false);
 
     useEffect(() => {
-        // Check subscription status when component mounts
-        localApi.get(`/api/activities/${activityId}/registry/${userId}`)
-            .then(response => {
-                setIsSubscribed(response.data.isSubscribed);
-            })
-            .catch(error => {
-                console.error("There was an error checking the subscription status:", error);
-            });
-    }, [activityId, userId]);
+        // Check if the user is a participant
+        const isUserParticipant = participants.some(participant => participant.id === userId);
+        setIsSubscribed(isUserParticipant);
+    }, [participants, userId]);
 
     const handleSubscribe = () => {
         localApi.post(`/api/activities/${activityId}/registry/${userId}`)
@@ -52,7 +49,6 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
             .then(response => {
                 setIsSubscribed(false);
                 ToastHandler.toast("Déinscription réussie", "success");
-
             })
             .catch(error => {
                 console.error("There was an error unsubscribing:", error);
@@ -77,12 +73,15 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
             </div>
 
             <div className="mt-4 flex justify-end gap-2">
+                {isSubscribed ? (
                     <Button onClick={handleUnsubscribe} color="primary">
                         Se désinscrire
                     </Button>
-                    <Button onClick={handleSubscribe} color="success">
+                ) : (
+                    <Button onClick={handleSubscribe} color="success" className="text-white">
                         S&apos;inscrire
                     </Button>
+                )}
             </div>
         </div>
     );

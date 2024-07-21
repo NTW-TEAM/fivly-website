@@ -1,8 +1,7 @@
 "use client";
-import Breadcrumb from "../Breadcrumbs/Breadcrumb";
+import React from "react";
 import DefaultLayout from "../Layouts/DefaultLayout";
 import CardDataStatsWithProgress from "@/components/Home/CardDataStatsWithProgress";
-import React from "react";
 import localApi from "@/services/localAxiosApi";
 import { UserJwt } from "@/types/UserJwt";
 import { Crowdfunding } from "@/types/Crowdfunding";
@@ -11,11 +10,9 @@ import { Assembly } from "@/types/Assembly";
 import { SiCrowdsource } from "react-icons/si";
 import AssemblyCard from "@/components/Home/AssemblyCard";
 import ActivityCard from "@/components/Home/ActivityCard";
-import {Donation} from "@/types/Donation";
+import { Donation } from "@/types/Donation";
 import CardDataStats from "@/components/CardDataStats";
-import {FaEuroSign} from "react-icons/fa";
-import HandleGiveCrowdfunding from "@/components/Crowdfunding/HandleGiveCrowdfunding";
-import {number} from "prop-types";
+import { FaEuroSign } from "react-icons/fa";
 
 const HomePageComponent = ({ user }: { user: UserJwt }) => {
     const getAllCrowdfunding = async () => {
@@ -24,7 +21,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                 .get(`/api/stripe/crowdfunding/onlyActive/true`)
                 .then((response) => {
                     if (response.status === 200) {
-                        resolve(response.data.data); // Ensure we are resolving the correct array
+                        resolve(response.data.data);
                     }
                 })
                 .catch((error) => {
@@ -40,7 +37,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                 .post(`/api/activities/search`)
                 .then((response) => {
                     if (response.status === 200) {
-                        resolve(response.data); // Ensure we are resolving the correct array
+                        resolve(response.data);
                     }
                 })
                 .catch((error) => {
@@ -56,7 +53,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                 .get(`/api/assemblies`)
                 .then((response) => {
                     if (response.status === 200) {
-                        resolve(response.data); // Ensure we are resolving the correct array
+                        resolve(response.data);
                     }
                 })
                 .catch((error) => {
@@ -96,7 +93,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                     reject([]);
                 });
         });
-    }
+    };
 
     const [crowdfunding, setCrowdfunding] = React.useState<Crowdfunding[]>([]);
     const [activities, setActivities] = React.useState<Activity[]>([]);
@@ -133,7 +130,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
         const fetchCrowdfundings = async () => {
             const data = await getAllCrowdfundings();
             setCrowdfundings(data);
-        }
+        };
 
         fetchCrowdfunding();
         fetchActivities();
@@ -149,7 +146,6 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
         .reduce((acc, crowdfunding) => acc + parseFloat(crowdfunding.actualAmount), 0)
         .toFixed(2);
 
-
     return (
         <DefaultLayout user={user}>
             <div className="flex w-full flex-col items-center justify-center">
@@ -161,7 +157,6 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                     <a href={"/donation/give"} className="rounded bg-primary text-white px-4 py-2 mt-6"> Faire un don </a>
                 </div>
                 <hr className="w-1/2 my-6" />
-
             </div>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
                 {crowdfunding &&
@@ -175,7 +170,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                             rate={((parseFloat(item.actualAmount) / parseFloat(item.goalAmount)) * 100).toFixed(2) + "%"}
                             progress={(parseFloat(item.actualAmount) / parseFloat(item.goalAmount)) * 100}
                         >
-                            <SiCrowdsource className="fill-primary dark:fill-white"/>
+                            <SiCrowdsource className="fill-primary dark:fill-white" />
                         </CardDataStatsWithProgress>
                     ))}
 
@@ -189,6 +184,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                             description={activity.description}
                             activityId={activity.id}
                             userId={user.id}
+                            participants={activity.participants} // Passing participants prop
                         />
                     ))}
 

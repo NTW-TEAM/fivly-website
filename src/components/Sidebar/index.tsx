@@ -163,215 +163,240 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, user }: SidebarProps) => {
 
         <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
           {/* <!-- Sidebar Menu --> */}
-          <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
+          <nav className="mt-5 px-4 lg:mt-9 lg:px-6">
+            <div>
+              <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+                ESPACE MEMBRE
+              </h3>
+              <ul className="mb-6 flex flex-col gap-1.5">
+                <li>
+                  <Link
+                      href="/"
+                      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
+                  >
+                    <FaBuilding/>
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                      href="/myActivities"
+                      className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                          pathname.includes("myActivities") && "bg-graydark dark:bg-meta-4"
+                      }`}
+                  >
+                    <FaRegCalendarAlt/>
+                    Mes activités
+                  </Link>
+                </li>
+              </ul>
+            </div>
             {/* <!-- Global Group --> */}
             {isSectionVisible(globalGroupScopes) && (
-                <div>
-                  <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-                    GESTION GLOBALE
-                  </h3>
+                  <div>
+                    <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+                      GESTION GLOBALE
+                    </h3>
 
-                  <ul className="mb-6 flex flex-col gap-1.5">
-                    {checkUserScope(combinedScopes, 'super:admin') && (
-                        <li>
-                          <Link
-                              href="/activityType"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("activityType") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <MdOutlineTypeSpecimen />
-                            Type Activités
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'activities:manage') && (
-                        <li>
-                          <Link
-                              href="/activities"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("activities") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <FaRegCalendarAlt />
-                            Activités
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'members:manage') && (
-                        <li>
-                          <Link
-                              href="/members"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("members") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <FaUsers />
-                            Membres
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'locals:manage') && (
-                        <li>
-                          <Link
-                              href="/locals"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("locals") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <FaBuilding />
-                            Locaux
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'materials:manage') && (
-                        <li>
-                          <Link
-                              href="/materials/model"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.endsWith("materials/model") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <MdOutlineTypeSpecimen />
-                            Model de Matériels
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'materials:manage') && (
-                        <li>
-                          <Link
-                              href="/materials"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.endsWith("materials") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <MdOutlineChairAlt />
-                            Matériels
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'roles:manage') && (
-                        <li>
-                          <Link
-                              href="/permissions"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("permissions") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <FaShieldAlt />
-                            Permissions
-                          </Link>
-                        </li>
-                    )}
-                  </ul>
-                </div>
-            )}
+                    <ul className="mb-6 flex flex-col gap-1.5">
+                      {checkUserScope(combinedScopes, 'super:admin') && (
+                          <li>
+                            <Link
+                                href="/activityType"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4`}
+                            >
+                              <MdOutlineTypeSpecimen/>
+                              Type Activités
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'activities:manage') && (
+                          <li>
+                            <Link
+                                href="/activities"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("activities") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <FaRegCalendarAlt/>
+                              Activités
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'members:manage') && (
+                          <li>
+                            <Link
+                                href="/members"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("members") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <FaUsers/>
+                              Membres
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'locals:manage') && (
+                          <li>
+                            <Link
+                                href="/locals"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("locals") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <FaBuilding/>
+                              Locaux
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'materials:manage') && (
+                          <li>
+                            <Link
+                                href="/materials/model"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.endsWith("materials/model") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <MdOutlineTypeSpecimen/>
+                              Model de Matériels
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'materials:manage') && (
+                          <li>
+                            <Link
+                                href="/materials"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.endsWith("materials") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <MdOutlineChairAlt/>
+                              Matériels
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'roles:manage') && (
+                          <li>
+                            <Link
+                                href="/permissions"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("permissions") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <FaShieldAlt/>
+                              Permissions
+                            </Link>
+                          </li>
+                      )}
+                    </ul>
+                  </div>
+              )}
 
-            {/* <!-- Finance Group --> */}
-            {isSectionVisible(financeGroupScopes) && (
-                <div>
-                  <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-                    FINANCES
-                  </h3>
+              {/* <!-- Finance Group --> */}
+              {isSectionVisible(financeGroupScopes) && (
+                  <div>
+                    <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+                      FINANCES
+                    </h3>
 
-                  <ul className="mb-6 flex flex-col gap-1.5">
-                    {checkUserScope(combinedScopes, 'finances:manage') && (
-                        <li>
-                          <Link
-                              href="/finances"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("finances") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <FaChartPie />
-                            Dashboard Général
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'donation:manage') && (
-                        <li>
-                          <Link
-                              href="/donation"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("donation") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <GiReceiveMoney />
-                            Gestion des dons
-                          </Link>
-                        </li>
-                    )}
-                    {checkUserScope(combinedScopes, 'crowdfunding:manage') && (
-                        <li>
-                          <Link
-                              href="/crowdfunding"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("crowdfunding") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <SiCrowdsource />
-                            Crowdfunding
-                          </Link>
-                        </li>
-                    )}
-                  </ul>
-                </div>
-            )}
+                    <ul className="mb-6 flex flex-col gap-1.5">
+                      {checkUserScope(combinedScopes, 'finances:manage') && (
+                          <li>
+                            <Link
+                                href="/finances"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("finances") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <FaChartPie/>
+                              Dashboard Général
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'donation:manage') && (
+                          <li>
+                            <Link
+                                href="/donation"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("donation") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <GiReceiveMoney/>
+                              Gestion des dons
+                            </Link>
+                          </li>
+                      )}
+                      {checkUserScope(combinedScopes, 'crowdfunding:manage') && (
+                          <li>
+                            <Link
+                                href="/crowdfunding"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("crowdfunding") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <SiCrowdsource/>
+                              Crowdfunding
+                            </Link>
+                          </li>
+                      )}
+                    </ul>
+                  </div>
+              )}
 
-            {/* <!-- Assemblées Général Group --> */}
-            {isSectionVisible(assemblyGroupScopes) && (
-                <div>
-                  <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-                    ASSEMBLÉES GÉNÉRALES
-                  </h3>
+              {/* <!-- Assemblées Général Group --> */}
+              {isSectionVisible(assemblyGroupScopes) && (
+                  <div>
+                    <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+                      ASSEMBLÉES GÉNÉRALES
+                    </h3>
 
-                  <ul className="mb-6 flex flex-col gap-1.5">
-                    {checkUserScope(combinedScopes, 'assemblies:manage') && (
-                        <li>
-                          <Link
-                              href="/assemblies"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("assemblies") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <SiGooglemeet />
-                            Assemblées Générales
-                          </Link>
-                        </li>
-                    )}
-                  </ul>
-                </div>
-            )}
+                    <ul className="mb-6 flex flex-col gap-1.5">
+                      {checkUserScope(combinedScopes, 'assemblies:manage') && (
+                          <li>
+                            <Link
+                                href="/assemblies"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("assemblies") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <SiGooglemeet/>
+                              Assemblées Générales
+                            </Link>
+                          </li>
+                      )}
+                    </ul>
+                  </div>
+              )}
 
-            {/* Gestion Electronique des Documents */}
-            {isSectionVisible(documentGroupScopes) && (
-                <div>
-                  <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-                    DOCUMENTS
-                  </h3>
+              {/* Gestion Electronique des Documents */}
+              {isSectionVisible(documentGroupScopes) && (
+                  <div>
+                    <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+                      DOCUMENTS
+                    </h3>
 
-                  <ul className="mb-6 flex flex-col gap-1.5">
-                    {checkUserScope(combinedScopes, 'documents:manage') && (
-                        <li>
-                          <Link
-                              href="/documents"
-                              className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                                  pathname.includes("documents") && "bg-graydark dark:bg-meta-4"
-                              }`}
-                          >
-                            <FaFileShield />
-                            Documents
-                          </Link>
-                        </li>
-                    )}
-                  </ul>
-                </div>
-            )}
+                    <ul className="mb-6 flex flex-col gap-1.5">
+                      {checkUserScope(combinedScopes, 'documents:manage') && (
+                          <li>
+                            <Link
+                                href="/documents"
+                                className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+                                    pathname.includes("documents") && "bg-graydark dark:bg-meta-4"
+                                }`}
+                            >
+                              <FaFileShield/>
+                              Documents
+                            </Link>
+                          </li>
+                      )}
+                    </ul>
+                  </div>
+              )}
           </nav>
           {/* <!-- Sidebar Menu --> */}
         </div>
       </aside>
-  );
+);
 };
 
 export default Sidebar;
