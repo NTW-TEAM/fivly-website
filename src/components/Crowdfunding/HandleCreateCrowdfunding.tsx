@@ -39,7 +39,7 @@ const HandleCreateCrowdfunding = ({crowdfundings, setCrowdfundings}: {crowdfundi
 
         const title = formData.get("title") as string;
         const description = formData.get("description") as string;
-        const goalAmount = parseInt(formData.get("goalAmount") as string, 10);
+        const goalAmount = parseFloat(formData.get("goalAmount") as string);
         const beginDatetime = new Date(formData.get("beginDatetime") as string).toISOString();
         const endDatetime = new Date(formData.get("endDatetime") as string).toISOString();
 

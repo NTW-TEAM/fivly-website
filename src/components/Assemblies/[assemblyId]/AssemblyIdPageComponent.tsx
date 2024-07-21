@@ -11,6 +11,7 @@ import TableMembersAssemblySkeleton from "./TableMembersAssemblySkeleton";
 import {Button} from "@nextui-org/react";
 import {Vote} from "@/types/Vote";
 import {UserJwt} from "@/types/UserJwt";
+import HandleAddVoteToAssembly from "@/components/Assemblies/[assemblyId]/vote-session/HandleAddVoteToAssembly";
 
 const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
   const { assemblyId } = useParams();
@@ -116,33 +117,13 @@ const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
                     </div>
                   </>
                 ) : (
-                  <p>
-                    <strong>Vote Session:</strong> Aucune session de vote
-                  </p>
-                )}
-              </ul>
-            </div>
-
-            <div className="w-full rounded-lg bg-white p-4 shadow-md">
-              <div className="flex items-center justify-between"></div>
-
-              <ul className="list-inside list-disc">
-                {electionSessions && electionSessions?.length > 0 ? (
-                  <>
-                    <p className="text-center">
-                      Il y a <strong>{electionSessions.length}</strong> sessions
-                      d&apos;éléctions en cours
-                    </p>
-                    <div className="flex h-full items-center justify-center">
-                      <a href={`/assemblies/${assemblyId}/vote-session`}>
-                        <Button>Accéder aux sessions de vote</Button>
-                      </a>
-                    </div>
-                  </>
-                ) : (
-                  <p className="text-center">
-                    <strong>Aucune session d&apos;éléction</strong>
-                  </p>
+                    <>
+                      <p>
+                        <strong>Vote Session:</strong> Aucune session de vote
+                      </p>
+                      <HandleAddVoteToAssembly setVotes={setVotes} assemblyId={assemblyId} />
+                    </>
+                    
                 )}
               </ul>
             </div>
@@ -152,6 +133,7 @@ const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
             <TableMembersAssembly
               assembly={assembly}
               setAssembly={setAssembly}
+              user={user}
             />
           </div>
         </>

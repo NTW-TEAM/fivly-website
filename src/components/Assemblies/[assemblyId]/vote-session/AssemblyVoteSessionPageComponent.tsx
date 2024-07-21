@@ -71,7 +71,7 @@ const AssemblyVoteSessionPageComponent = ({user}: {user: UserJwt}) => {
     <DefaultLayout user={user}>
       <Breadcrumb pageName={["Assemblies", assembly?.description || "", "Sessions de vote"]} />
           <div className="mt-4 flex flex-col gap-10">
-            <TableVotes votes={votes} setVotes={setVotes} assemblyId={assemblyId} />
+            <TableVotes votes={votes} setVotes={setVotes} assemblyId={assemblyId} user={user} />
           </div>
     </DefaultLayout>
   );

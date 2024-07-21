@@ -169,13 +169,10 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
     }
   }, [page]);
 
-  const onRowsPerPageChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onRowsPerPageChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
       setRowsPerPage(Number(e.target.value));
       setPage(1);
-    },
-    [],
-  );
+    }, [],);
 
   const onSearchChange = React.useCallback((value?: string) => {
     if (value) {

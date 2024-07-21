@@ -1,3 +1,5 @@
+import {Members} from "@/types/members";
+
 export type Activity = {
     id: number;
     title: string;
@@ -6,4 +8,5 @@ export type Activity = {
     endDateTime: string;
     activityType: string;
     creator: string;
+    participants: Members[];
 };
