@@ -127,14 +127,14 @@ const TableActivities = ({
             return (
                 <div className="flex flex-col">
                   <p className="text-small text-default-400">
-                    {new Date(activity.beginDateTime).toLocaleDateString()}
+                    {new Date(activity.beginDateTime).toLocaleString("fr-FR")}
                   </p>
                 </div>
             );
           case "dateFin":
             return (
                 <div className="flex flex-col">
-                  <p className="text-small text-default-400">{new Date(activity.endDateTime).toLocaleDateString()}</p>
+                <p className="text-small text-default-400">{new Date(activity.endDateTime).toLocaleString("fr-FR")}</p>
                 </div>
             );
           case "actions":

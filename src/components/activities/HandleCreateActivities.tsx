@@ -145,14 +145,14 @@ const HandleCreateActivities = ({activities, setActivities}: {activities: Activi
                 />
                 <Input
                   label="Date de début"
-                  type="date"
+                  type="datetime-local"
                   name="startDate"
                   defaultValue=""
                   isRequired
                 />
                 <Input
                   label="Date de fin"
-                  type="date"
+                  type="datetime-local"
                   name="endDate"
                   defaultValue=""
                   isRequired
