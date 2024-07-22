@@ -1,0 +1,52 @@
+.react-chatbot-kit-chat-container {
+  position: sticky;
+  bottom: 20px;
+  left: 100%;
+  width: 400px;
+  max-width: 100%;
+  z-index: 9999;
+  box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.1);
+  border: 1px solid #adaaaa;
+    border-radius: 5px;
+}
+
+.react-chatbot-kit-chat-bot-message {
+  margin-left : unset !important;
+}
+
+.faq-options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.faq-option-button {
+  font-size: 13px;
+  margin: 5px 0;
+  padding: 7px;
+  background-color: #d93a00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.faq-option-button:hover {
+  background-color: #d93a00;
+}
+
+.react-chatbot-kit-chat-btn-send {
+  background-color: #d93a00 !important;
+}
+
+.react-chatbot-kit-chat-bot-message {
+  background-color: #d93a00 !important;
+  width: 100%;
+  color: white !important;
+}
+
+.react-chatbot-kit-chat-bot-message-arrow {
+  border-right-color: #d93a00 !important;
+}
