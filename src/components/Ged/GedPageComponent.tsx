@@ -118,7 +118,7 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
                           ))
                     ) : (
                         <div className="col-span-8">
-                          <p className="text-center text-gray-500">Vous n'avez accès à aucun fichier ou dossier dans ce répertoire.</p>
+                          <p className="text-center text-gray-500">Vous n&apos;avez accès à aucun fichier ou dossier dans ce répertoire.</p>
                         </div>
                     )
                 }
