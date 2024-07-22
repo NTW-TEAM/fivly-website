@@ -18,7 +18,7 @@ export async function PATCH(req: Request, {params}: {params: {userId: string}}) 
         const token = response.data.access_token;
 
         cookies().set("auth_token", token, {
-            secure: process.env.NODE_ENV === "production",
+            secure: false,
         });
 
         return Response.json(answer);

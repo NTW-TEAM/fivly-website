@@ -29,7 +29,7 @@ export async function login(formData: FormData) {
     const user = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
     cookies().set("auth_token", token, {
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
     });
     
     return {
