@@ -24,7 +24,7 @@
   font-size: 13px;
   margin: 5px 0;
   padding: 7px;
-  background-color: #007bff;
+  background-color: #d93a00;
   color: white;
   border: none;
   border-radius: 5px;
@@ -34,6 +34,19 @@
 }
 
 .faq-option-button:hover {
-  background-color: #0056b3;
+  background-color: #d93a00;
 }
-  
+
+.react-chatbot-kit-chat-btn-send {
+  background-color: #d93a00 !important;
+}
+
+.react-chatbot-kit-chat-bot-message {
+  background-color: #d93a00 !important;
+  width: 100%;
+  color: white !important;
+}
+
+.react-chatbot-kit-chat-bot-message-arrow {
+  border-right-color: #d93a00 !important;
+}
