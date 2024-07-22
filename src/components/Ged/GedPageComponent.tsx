@@ -8,6 +8,7 @@ import localApi from "@/services/localAxiosApi";
 import { TreeNode } from "@/types/TreeNode";
 import Breadcrumb from "../Breadcrumbs/Breadcrumb";
 import { UserJwt } from "@/types/UserJwt";
+import {ACCESS_READ_WRITE} from "@/constant/access";
 
 interface GedPageComponentProps {
   user: UserJwt;
@@ -16,6 +17,7 @@ interface GedPageComponentProps {
 const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
   const [items, setItems] = useState<TreeNode[]>([]);
   const [currentPath, setCurrentPath] = useState<string>("/");
+  const [access, setAccess] = useState(0);
 
   const fetchFolderContents = async (path: string) => {
     const response = await localApi.post("/api/ged/folder/contents", { path });
@@ -47,10 +49,19 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
       }));
       setItems([...folders, ...files]);
       setCurrentPath(path);
+
+      const responseAccess = await localApi.post("/api/ged/folder/current", { path });
+      if (!responseAccess || !responseAccess.data) {
+        throw new Error("Failed to fetch folder access");
+      }
+      console.log("response:", responseAccess.data);
+      setAccess(responseAccess.data.data.requesterAccess);
+
     } catch (error) {
       console.error("Error fetching folder contents:", error);
     }
   };
+
 
   const refreshFolderContents = () => {
     handleFolderSelect(currentPath);
@@ -83,7 +94,7 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
     setItems((prevItems) => [{ ...newItem }, ...prevItems]);
     refreshFolderContents(); // Refresh the folder contents after adding an item
   };
-
+  console.log("outside access request:", access)
   return (
       <DefaultLayout user={user}>
         <Breadcrumb pageName={"GED"} />
@@ -95,15 +106,19 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
                   onFolderSelect={handleFolderSelect}
               />
               <div className="mt-4 grid grid-cols-8 gap-4">
-                <ItemComponent
-                    item={{ name: "Add Item", path: "", type: "add" , userPermissions: [], rolePermissions: [], requesterAccess: 0}}
-                    addItem={addItem}
-                    currentPath={currentPath}
-                    user={user}
-                    refreshFolderContents={refreshFolderContents}
-                />
                 {
-                  items.length === 0 ? (
+                    access >= ACCESS_READ_WRITE && (
+                        <ItemComponent
+                            item={{ name: "Add Folder", path: "", type: "add", userPermissions: [], rolePermissions: [], requesterAccess: 0}}
+                            addItem={addItem}
+                            currentPath={currentPath}
+                            user={user}
+                            refreshFolderContents={refreshFolderContents}
+                        />
+                    )
+                }
+                {
+                  items.length !== 0 ? (
                         items.map((item) => (
                               <ItemComponent
                                   key={item.id + item.type}
@@ -117,7 +132,7 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
                               />
                           ))
                     ) : (
-                        <div className="col-span-8">
+                        <div className="col-span-7 flex items-center justify-center">
                           <p className="text-center text-gray-500">Vous n&apos;avez accès à aucun fichier ou dossier dans ce répertoire.</p>
                         </div>
                     )

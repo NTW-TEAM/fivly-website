@@ -18,7 +18,7 @@ import AddItemModal from "./AddItemModal";
 import PermissionModal from "./PermissionModal";
 import { TreeNode } from "@/types/TreeNode";
 import { UserJwt } from "@/types/UserJwt";
-import { ACCESS_HANDLE, ACCESS_READ_WRITE } from "@/constant/access";
+import {ACCESS_HANDLE, ACCESS_READ, ACCESS_READ_WRITE} from "@/constant/access";
 
 interface ItemComponentProps {
     item: TreeNode;
@@ -225,6 +225,16 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
                     </div>
                 </ContextMenuTrigger>
                 <ContextMenuContent className="w-64">
+                    {
+                        (item.type === "folder" && (userAccess ?? 0) == ACCESS_READ|| userAccessViaRole == ACCESS_READ ) && (
+                            <ContextMenuItem inset onClick={handleFolderClick}>
+                                Ouvrir
+                                <ContextMenuShortcut>
+                                    <FaFolder />
+                                </ContextMenuShortcut>
+                            </ContextMenuItem>
+                        )
+                    }
                     {item.type === "file" && (
                         <ContextMenuItem inset onClick={handleDownloadFile}>
                             Télécharger
@@ -233,7 +243,6 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
                             </ContextMenuShortcut>
                         </ContextMenuItem>
                     )}
-
                     {
                         ((userAccess ?? 0) >= ACCESS_READ_WRITE || userAccessViaRole >= ACCESS_READ_WRITE ) && (
                             <>
@@ -253,11 +262,13 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
                             </>
                         )
                     }
-
-                    <ContextMenuSeparator />
+                    {(item.type === "folder" && (userAccess ?? 0) != ACCESS_READ|| userAccessViaRole != ACCESS_READ ) &&
+                        (
+                            <ContextMenuSeparator />
+                        )
+                    }
                     {
                         ((userAccess ?? 0) >= ACCESS_READ_WRITE || userAccessViaRole >= ACCESS_READ_WRITE) && (
-
                             <ContextMenuItem inset onClick={handleMoveItem}>
                                 Déplacer
                                 <ContextMenuShortcut>
@@ -265,14 +276,13 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
                                 </ContextMenuShortcut>
                             </ContextMenuItem>)}
                     {
-                        ((userAccess ?? 0) >= ACCESS_HANDLE || userAccessViaRole >= ACCESS_READ_WRITE) && (
+                        ((userAccess ?? 0) >= ACCESS_HANDLE || userAccessViaRole > ACCESS_READ_WRITE) && (
                             <ContextMenuItem inset onClick={handlePermissionClick}>
                                 Permission
                                 <ContextMenuShortcut>
                                     <FaLock />
                                 </ContextMenuShortcut>
                             </ContextMenuItem>
-
                         )
                     }
                 </ContextMenuContent>

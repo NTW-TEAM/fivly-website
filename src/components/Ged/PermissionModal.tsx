@@ -204,7 +204,7 @@ const PermissionModal: React.FC<PermissionModalProps> = ({
                                         <div className="ml-auto text-sm text-gray-600">
                                             <Dropdown>
                                                 <DropdownTrigger>
-                                                    <p className="w-full cursor-pointer mx-4">{accessToText(rolePermission ? rolePermission.access : -1)}</p>
+                                                    <p className="w-full cursor-pointer mx-4">{accessToText((rolePermission?.access ? rolePermission?.access : (item.path == `/${item.name}/` ? 0 : -1)))}</p>
                                                 </DropdownTrigger>
                                                 <DropdownMenu
                                                     aria-label="Role Access"
