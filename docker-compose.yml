@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  fivly-website:
+    build: .
+    ports:
+      - ${WEBSITE_PORT}:3000
+    environment:
+      NODE_ENV: production
