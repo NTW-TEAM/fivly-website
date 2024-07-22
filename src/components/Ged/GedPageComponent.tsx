@@ -102,18 +102,27 @@ const GedPageComponent: React.FC<GedPageComponentProps> = ({ user }) => {
                     user={user}
                     refreshFolderContents={refreshFolderContents}
                 />
-                {items.map((item) => (
-                    <ItemComponent
-                        key={item.id + item.type}
-                        item={item}
-                        updateFileName={updateFileName}
-                        deleteFile={deleteFile}
-                        onFolderSelect={handleFolderSelect}
-                        currentPath={currentPath}
-                        user={user}
-                        refreshFolderContents={refreshFolderContents} // Pass the function here
-                    />
-                ))}
+                {
+                  items.length === 0 ? (
+                        items.map((item) => (
+                              <ItemComponent
+                                  key={item.id + item.type}
+                                  item={item}
+                                  updateFileName={updateFileName}
+                                  deleteFile={deleteFile}
+                                  onFolderSelect={handleFolderSelect}
+                                  currentPath={currentPath}
+                                  user={user}
+                                  refreshFolderContents={refreshFolderContents} // Pass the function here
+                              />
+                          ))
+                    ) : (
+                        <div className="col-span-8">
+                          <p className="text-center text-gray-500">Vous n'avez accès à aucun fichier ou dossier dans ce répertoire.</p>
+                        </div>
+                    )
+                }
+
               </div>
             </div>
           </div>
