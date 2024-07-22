@@ -11,7 +11,7 @@ const MyActivitiesPageComponent = ({ user }: { user: UserJwt }) => {
     const getAllActivities = async () => {
         return new Promise<Activity[]>((resolve, reject) => {
             localApi
-                .post(`/api/activities/search`)
+                .post(`/api/activities/search`, {})
                 .then((response) => {
                     if (response.status === 200) {
                         resolve(response.data);
@@ -29,7 +29,6 @@ const MyActivitiesPageComponent = ({ user }: { user: UserJwt }) => {
     React.useEffect(() => {
         const fetchActivities = async () => {
             const data = await getAllActivities();
-            // Filter activities to include only those where the user is a participant
             const filteredActivities = data.filter(activity =>
                 activity.participants.some(participant => participant.id === user.id)
             );

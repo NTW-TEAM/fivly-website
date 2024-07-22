@@ -8,7 +8,7 @@ const HandleDeleteActivities = ({activities, setActivities, activitieDelete}: {a
     const getAllActivities = async () => {
         return new Promise<Activity[]>((resolve, reject) => {
         localApi
-            .post(`/api/activities/search`)
+          .post(`/api/activities/search`, {})
             .then((response) => {
                 if (response.status === 200) {
                     resolve(response.data);

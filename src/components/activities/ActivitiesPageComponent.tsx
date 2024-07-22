@@ -31,7 +31,7 @@ const ActivitiesPageComponent = ({user}: {user: UserJwt}) => {
     const getAllActivities = async () => {
         return new Promise<Activity[]>((resolve, reject) => {
         localApi
-            .post(`/api/activities/search`)
+            .post(`/api/activities/search`, {})
             .then((response) => {
                 if (response.status === 200) {
                     resolve(response.data);
@@ -65,20 +65,24 @@ const ActivitiesPageComponent = ({user}: {user: UserJwt}) => {
 
     return (
         <DefaultLayout user={user}>
-        <Breadcrumb pageName="Activité"/>
+            <Breadcrumb pageName="Activité"/>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
-            <CardDataStats title="Activités au total" total={activities.length.toString()} rate="">
-                <FaRegCalendarAlt className="fill-primary dark:fill-white"/>
-            </CardDataStats>
-            <CardDataStats title="Type d'activité" total={activityTypes.length.toString()} rate="">
-                <MdOutlineTypeSpecimen className="fill-primary dark:fill-white"/>
-            </CardDataStats>
-        </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
+                <CardDataStats title="Activités au total" total={activities.length.toString()} rate="">
+                    <FaRegCalendarAlt className="fill-primary dark:fill-white"/>
+                </CardDataStats>
+                <CardDataStats title="Type d'activité" total={activityTypes.length.toString()} rate="">
+                    <MdOutlineTypeSpecimen className="fill-primary dark:fill-white"/>
+                </CardDataStats>
+            </div>
 
-        <div className="mt-4 flex flex-col gap-10">
-            <TableActivities activities={activities} setActivities={setActivities} />
-        </div>
+            <div className="mt-4 flex flex-col gap-10">
+                <TableActivities
+                    activities={activities}
+                    setActivities={setActivities}
+                    activityTypes={activityTypes}
+                />
+            </div>
         </DefaultLayout>
     );
     };

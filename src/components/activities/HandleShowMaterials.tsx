@@ -35,7 +35,7 @@ const HandleShowMaterials = ({ materials, activityId, setActivities }: { materia
     const getAllActivities = async () => {
         return new Promise<Activity[]>((resolve, reject) => {
             localApi
-                .post(`/api/activities/search`)
+                .post(`/api/activities/search`, {})
                 .then((response) => {
                     if (response.status === 200) {
                         resolve(response.data);

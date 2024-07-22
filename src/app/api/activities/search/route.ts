@@ -5,6 +5,8 @@ import {NextRequest} from "next/server";
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest, res: NextApiResponse) {
-    const data = api.post("/activities/search");
+    let body = await req.json();
+
+    const data = api.post("/activities/search", body);
     return Response.json((await data).data);
 }

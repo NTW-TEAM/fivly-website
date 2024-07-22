@@ -44,7 +44,7 @@ const HandleAssignMaterialsToActivity: React.FC<{ activity: Activity; setActivit
 
             ToastHandler.toast("Matériels assignés avec succès", "success");
 
-            const activitiesResponse = await localApi.post('/api/activities/search');
+            const activitiesResponse = await localApi.post('/api/activities/search', {});
             setActivities(activitiesResponse.data);
 
             onOpenChange();
