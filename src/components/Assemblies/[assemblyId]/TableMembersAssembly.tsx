@@ -23,6 +23,7 @@ import { Assembly } from "@/types/Assembly";
 import HandleDeleteUserAssembly from "./HandleDeleteUserAssembly";
 import { UserJwt } from "@/types/UserJwt";
 import { Scopes } from "@/types/Scopes";
+import TableMembersAssemblySkeleton from "@/components/Assemblies/[assemblyId]/TableMembersAssemblySkeleton";
 
 const INITIAL_VISIBLE_COLUMNS = ["name", "email", "adresse", "actions"];
 
@@ -45,6 +46,7 @@ const TableMembersAssembly = ({
     user: UserJwt;
 }) => {
     const [combinedScopes, setCombinedScopes] = useState<Scopes[]>([]);
+    const [loading, setLoading] = useState(true);
 
     const checkUserScope = (scopes: Scopes[], requiredScope: string) => {
         return (
@@ -69,6 +71,7 @@ const TableMembersAssembly = ({
                 });
 
                 setCombinedScopes(allScopes);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching roles:', error);
             }
@@ -326,6 +329,10 @@ const TableMembersAssembly = ({
             </div>
         );
     }, [selectedKeys, filteredItems.length, page, pages, onPreviousPage, onNextPage]);
+
+    if(loading) {
+        return <TableMembersAssemblySkeleton />;
+    }
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
