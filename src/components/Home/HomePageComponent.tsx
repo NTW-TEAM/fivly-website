@@ -103,7 +103,9 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
 
     React.useEffect(() => {
         const fetchCrowdfunding = async () => {
-            const data = await getAllCrowdfunding();
+            let data = await getAllCrowdfunding();
+            // si le crowdfunding est terminé, on ne l'affiche pas
+            data = data.filter((crowdfunding) => new Date(crowdfunding.endDatetime) > new Date());
             setCrowdfunding(data);
         };
 

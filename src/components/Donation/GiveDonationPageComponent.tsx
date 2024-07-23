@@ -47,6 +47,7 @@ const GiveDonationPageComponent = () => {
             Faire un don
           </h2>
           <p className="text-gray-600">
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             Votre soutien nous permet de continuer à faire grandir l'association et ses activités.
           </p>
         </div>

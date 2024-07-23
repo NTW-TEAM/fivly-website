@@ -11,6 +11,7 @@ const SuccessPageComponent: React.FC = () => {
             Donation Reçue !
         </h2>
         <p className="text-gray-600 mt-2 mb-6">
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             Merci pour votre soutien, votre donation contribuera grandement à développer l'association et ses activités.
         </p>
 
