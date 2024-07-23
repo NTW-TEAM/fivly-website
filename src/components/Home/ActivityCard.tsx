@@ -83,15 +83,24 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
             </div>
 
             <div className="mt-4 flex items-end justify-between">
-                <span className="text-sm font-medium">Du {new Date(beginDate).toLocaleString("fr-FR", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                })} au {new Date(endDate).toLocaleString("fr-FR", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                })}</span>
+                {// si la date de début est égale à la date de fin
+                    new Date(beginDate).toLocaleDateString() === new Date(endDate).toLocaleDateString() ? (
+                        <span className="text-sm font-medium">Le {new Date(beginDate).toLocaleString("fr-FR", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        })}</span>
+                    ) : (
+                        <span className="text-sm font-medium">Du {new Date(beginDate).toLocaleString("fr-FR", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        })} au {new Date(endDate).toLocaleString("fr-FR", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        })}</span>
+                    )}
             </div>
             <div className=" flex items-end justify-between">
                 <span className="text-sm font-medium text-muted">De {new Date(beginDate).toLocaleString("fr-FR", {
