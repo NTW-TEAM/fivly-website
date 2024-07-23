@@ -111,7 +111,11 @@ const TableRoles = ({ roles, setRoles }: { roles: Roles[]; setRoles: React.Dispa
         return (
           <div className="flex gap-2">
             <HandleEditRole roles={roles} setRoles={setRoles} roleToEdit={role} />
-            <HandleDeleteRole roles={roles} setRoles={setRoles} roleToDelete={role} />
+              {
+                  role.name !== "member" && (
+                      <HandleDeleteRole roles={roles} setRoles={setRoles} roleToDelete={role} />
+                  )
+              }
           </div>
         );
         
