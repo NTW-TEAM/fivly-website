@@ -91,11 +91,11 @@ const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
                 <strong>Location:</strong> {assembly.location}
               </p>
               <p>
-                <strong>Is General:</strong>{" "}
+                <strong>Générale:</strong>{" "}
                 {assembly.isGeneral ? "Oui" : "Non"}
               </p>
               <p>
-                <strong>Has Started:</strong>{" "}
+                <strong>A Débuté:</strong>{" "}
                 {assembly.hasStarted ? "Oui" : "Non"}
               </p>
             </div>
