@@ -11,7 +11,7 @@ const SuccessPageComponent: React.FC = () => {
             Donation Reçue !
         </h2>
         <p className="text-gray-600 mt-2 mb-6">
-            Merci pour votre soutien, votre donation nous aide à continuer à fournir des services gratuits.
+            Merci pour votre soutien, votre donation contribuera grandement à développer l'association et ses activités.
         </p>
 
         <a href="/" className="mt-6 w-full rounded-md bg-green-500 px-4 py-3 text-sm font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">

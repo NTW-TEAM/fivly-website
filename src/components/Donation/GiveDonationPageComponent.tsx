@@ -47,8 +47,7 @@ const GiveDonationPageComponent = () => {
             Faire un don
           </h2>
           <p className="text-gray-600">
-            Votre soutien nous permet de continuer à fournir des services
-            gratuits.
+            Votre soutien nous permet de continuer à faire grandir l'association et ses activités.
           </p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
