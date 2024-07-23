@@ -79,17 +79,20 @@ const AssemblyCard: React.FC<AssemblyCardProps> = ({
 
                     <div className="mt-4 flex justify-end gap-2">
                         {isSubscribed ? (
-                            <Button onClick={handleUnsubscribe} color="primary">
-                                Se désinscrire
-                            </Button>
+                            <>
+                                <Button onClick={handleUnsubscribe} color="primary">
+                                    Se désinscrire
+                                </Button>
+                                <a href={`/assemblies/${assembly.id}`}>
+                                    <Button color="primary">Voir plus</Button>
+                                </a>
+                            </>
                         ) : (
                             <Button onClick={handleSubscribe} color="success" className="text-white">
                                 S&apos;inscrire
                             </Button>
                         )}
-                        <a href={`/assemblies/${assembly.id}`}>
-                            <Button color="primary">Voir plus</Button>
-                        </a>
+
                     </div>
                 </div>
             </div>
