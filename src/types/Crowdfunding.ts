@@ -1,3 +1,5 @@
+import {CrowdfundingGive} from "@/types/CrowdfundingGive";
+
 export type Crowdfunding = {
   id: number;
   title: string;
@@ -20,5 +22,5 @@ export type Crowdfunding = {
     lastConnection: string;
     isActive: boolean;
   };
-  gives: { id: number; amount: string; datetime: string }[];
+  gives: CrowdfundingGive[];
 };

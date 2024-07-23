@@ -19,6 +19,7 @@ import {
 import React from "react";
 import HandleCreateCrowdfunding from "./HandleCreateCrowdfunding";
 import HandleGiveCrowdfunding from "./HandleGiveCrowdfunding";
+import HandleShowGiveCrowdFunding from "@/components/Crowdfunding/HandleShowGiveCrowdFunding";
 
 const INITIAL_VISIBLE_COLUMNS = ["title", "description", "goalAmount", "actualAmount", "beginDatetime", "endDatetime", "actions"];
 
@@ -182,7 +183,11 @@ const TableCrowdfunding = ({ crowdfundings, setCrowdfundings }: { crowdfundings:
           );
         case "actions":
           return (
-            <HandleGiveCrowdfunding crowdfunding={crowdfunding} />
+              <div className="flex">
+                <HandleShowGiveCrowdFunding crowdfunding={crowdfunding} />
+                  <div className="w-2" />
+                <HandleGiveCrowdfunding crowdfunding={crowdfunding} />
+              </div>
           )
 
         default:
