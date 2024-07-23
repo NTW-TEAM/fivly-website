@@ -24,18 +24,10 @@ class ActionProvider {
     this.updateChatbotState(message);
   };
 
-  handleOption5 = () => {
-    const message = this.createChatBotMessage("Vous pouvez créer et personnaliser un thème en accédant à la section 'Personnalisation de l'application' dans votre espace membre. Vous pouvez configurer différents paramètres comme la couleur de l’arrière-plan, la couleur du calendrier et des boutons.");
-    this.updateChatbotState(message);
-  };
-
   handleUnknown = () => {
-    const message = this.createChatBotMessage(
-      "Je ne comprends pas. Veuillez choisir une des options suivantes :",
-      {
-        widget: "faqOptions",
-      }
-    );
+    const message = this.createChatBotMessage("Je ne comprends pas. Veuillez choisir ou poser une question relative aux options suivantes :", {
+      widget: "faqOptions",
+    });
     this.updateChatbotState(message);
   };
 
