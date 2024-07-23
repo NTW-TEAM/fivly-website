@@ -78,7 +78,7 @@ const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
       {assembly ? (
         <>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
-            <div className="w-full rounded-lg bg-white p-4 shadow-md">
+            <div className="w-full rounded-lg bg-white p-4 shadow-md dark:bg-boxdark">
               <h1 className="mb-2 text-xl font-bold">{assembly.description}</h1>
               <p>
                 <strong>Date et heure:</strong>{" "}
@@ -100,7 +100,7 @@ const AssemblyIdPageComponent = ({user}: {user: UserJwt}) => {
               </p>
             </div>
 
-            <div className="w-full rounded-lg bg-white p-4 shadow-md">
+            <div className="w-full rounded-lg bg-white p-4 shadow-md dark:bg-boxdark">
               <div className="flex items-center justify-between"></div>
 
               <ul className="list-inside list-disc">
