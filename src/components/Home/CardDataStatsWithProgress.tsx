@@ -43,6 +43,10 @@ const CardDataStatsWithProgress: React.FC<CardDataStatsProps> = ({
                     <span className="text-sm font-medium">{total} € récoltés / {goal} €</span>
                 </div>
 
+                <div>
+                    <p className="text-sm font-medium text-right">{crowdfunding.description}</p>
+                </div>
+
                 <span
                     className={`flex items-center gap-1 text-sm font-medium ${
                         levelUp && "text-meta-3"

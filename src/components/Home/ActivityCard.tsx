@@ -56,10 +56,24 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
     };
 
     return (
-        <div className="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                <FaRegCalendarAlt className="fill-primary dark:fill-white" />
+        <div
+            className="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="flex justify-between align-center gap-2">
+
+                <div className="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                    <FaRegCalendarAlt className="fill-primary dark:fill-white"/>
+                </div>
+
+                <div className="flex justify-center items-center text-sm font-bold text-black dark:text-white">
+                    <span>{
+                        new Date(beginDate).toLocaleString("fr-FR", {
+                            month: "long",
+                            year: "numeric",
+                        })
+                    }</span>
+                </div>
             </div>
+
 
             <div className="mt-4">
                 <h4 className="text-title-md font-bold text-black dark:text-white">
@@ -69,8 +83,26 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
             </div>
 
             <div className="mt-4 flex items-end justify-between">
-                <span className="text-sm font-medium">Du {beginDate} au {endDate}</span>
+                <span className="text-sm font-medium">Du {new Date(beginDate).toLocaleString("fr-FR", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                })} au {new Date(endDate).toLocaleString("fr-FR", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                })}</span>
             </div>
+            <div className=" flex items-end justify-between">
+                <span className="text-sm font-medium text-muted">De {new Date(beginDate).toLocaleString("fr-FR", {
+                    hour: "numeric",
+                    minute: "numeric",
+                })} à {new Date(endDate).toLocaleString("fr-FR", {
+                    hour: "numeric",
+                    minute: "numeric",
+                })}</span>
+            </div>
+
 
             <div className="mt-4 flex justify-end gap-2">
                 {isSubscribed ? (
