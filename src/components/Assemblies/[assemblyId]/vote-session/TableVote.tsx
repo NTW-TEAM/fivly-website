@@ -205,12 +205,17 @@ const TableVotes = ({
                                     />
                                 </>
                             )}
-                            <VoteForSession
-                                userId={user.id}
-                                sessionId={vote.id}
-                                assemblyId={assemblyId}
-                                setVotes={setVotes}
-                            />
+                            {
+                                (new Date(vote.beginDateTime) < new Date()) && (
+                                    <VoteForSession
+                                        userId={user.id}
+                                        sessionId={vote.id}
+                                        assemblyId={assemblyId}
+                                        setVotes={setVotes}
+                                    />
+                                )
+                            }
+
                         </div>
                     );
                 default:
