@@ -28,6 +28,7 @@ const HandleEditMember: React.FC<HandleEditMemberProps> = ({ userInfo}) => {
 
         const firstName = formData.get("firstName") as string;
         const lastName = formData.get("lastName") as string;
+        const password = formData.get("password") as string;
         const phoneNumber = formData.get("phoneNumber") as string;
         const numberAndStreet = formData.get("numberAndStreet") as string;
         const postalCode = formData.get("postalCode") as string;
@@ -37,6 +38,7 @@ const HandleEditMember: React.FC<HandleEditMemberProps> = ({ userInfo}) => {
         const body = {
             firstName,
             lastName,
+            password,
             phoneNumber,
             numberAndStreet,
             postalCode,
@@ -94,6 +96,12 @@ const HandleEditMember: React.FC<HandleEditMemberProps> = ({ userInfo}) => {
                                 defaultValue={userInfo.email}
                                 isRequired
                                 disabled
+                            />
+                            <Input
+                                label="Mot de passe"
+                                type="password"
+                                name="password"
+                                isRequired
                             />
                             <Input
                                 label="Numéro de téléphone"
