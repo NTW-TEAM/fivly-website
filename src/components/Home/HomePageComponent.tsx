@@ -186,6 +186,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                             datetime={assembly.datetime}
                             location={assembly.location}
                             quorum={assembly.quorum}
+                            user={user}
                         />
                     ))}
 
