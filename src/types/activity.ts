@@ -10,7 +10,9 @@ export type Activity = {
     description: string;
     beginDateTime: string;
     endDateTime: string;
-    activityType: string;
+    activityType: {
+        name: string;
+    }
     creator: string;
     participants: Members[];
     materials: MaterialSerialNumber[];

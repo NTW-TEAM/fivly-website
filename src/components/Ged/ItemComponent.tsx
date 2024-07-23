@@ -218,8 +218,8 @@ const ItemComponent: React.FC<ItemComponentProps> = ({
                         <span
                             className={`text-sm ${item.name.length > 9 ? "overflow-hidden" : ""}`}
                         >
-              {item.name.length > 7
-                  ? `${item.name.substring(0, 7)}...`
+              {item.name.length > 14
+                  ? `${item.name.substring(0, 14)}...`
                   : item.name}
             </span>
                     </div>

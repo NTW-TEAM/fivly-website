@@ -24,12 +24,13 @@ import HandleAssignMaterialsToActivity from "@/components/activities/HandleAssig
 import HandleShowParticipants from "@/components/activities/HandleShowParticipants";
 import HandleShowMaterials from "@/components/activities/HandleShowMaterials";
 
-const INITIAL_VISIBLE_COLUMNS = ["name", "description", "actions"];
+const INITIAL_VISIBLE_COLUMNS = ["name", "description", "activityType", "actions"];
 
 const columns = [
   { name: "Id", uid: "id", sortable: true},
   { name: "Nom", uid: "name", sortable: true },
   { name: "Description", uid: "description", sortable: false },
+  { name: "Type d'activité", uid: "activityType", sortable: false },
   { name: "Date de début", uid: "dateDebut", sortable: true },
   { name: "Date de fin", uid: "dateFin", sortable: true },
   { name: "Actions", uid: "actions", sortable: false },
@@ -121,6 +122,12 @@ const TableActivities = ({
             return (
                 <div className="flex flex-col">
                   <p className="text-small text-default-400">{activity.description}</p>
+                </div>
+            );
+          case "activityType":
+            return (
+                <div className="flex flex-col">
+                    <p className="text-small text-default-400">{activity.activityType.name}</p>
                 </div>
             );
           case "dateDebut":

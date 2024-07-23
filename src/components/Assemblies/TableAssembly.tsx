@@ -29,7 +29,7 @@ const columns = [
   { name: "Identifiant", uid: "id", sortable: true },
   { name: "Description", uid: "description", sortable: true },
   { name: "Général", uid: "isGeneral", sortable: true },
-  { name: "A débuter", uid: "hasStarted", sortable: true },
+  { name: "A débuté", uid: "hasStarted", sortable: true },
   { name: "Date", uid: "datetime", sortable: true },
   { name: "Quorum", uid: "quorum", sortable: true },
   { name: "Lieu", uid: "location", sortable: true },
@@ -108,13 +108,13 @@ const TableAssembly = ({ assemblies, setAssemblies }: { assemblies: Assembly[]; 
       case "isGeneral":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.isGeneral ? "Yes" : "No"}</p>
+            <p className="text-bold text-small capitalize">{assembly.isGeneral ? "Oui" : "Non"}</p>
           </div>
         );
       case "hasStarted":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{assembly.hasStarted ? "Yes" : "No"}</p>
+            <p className="text-bold text-small capitalize">{assembly.hasStarted ? "Oui" : "Non"}</p>
           </div>
         );
       case "datetime":

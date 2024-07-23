@@ -40,12 +40,14 @@ const CardDataStatsWithProgress: React.FC<CardDataStatsProps> = ({
                     <h4 className="text-title-md font-bold text-black dark:text-white">
                         {title}
                     </h4>
+
+                    <div>
+                        <p className="mb-4 text-sm font-medium">{crowdfunding.description}</p>
+                    </div>
+
                     <span className="text-sm font-medium">{total} € récoltés / {goal} €</span>
                 </div>
 
-                <div>
-                    <p className="text-sm font-medium text-right">{crowdfunding.description}</p>
-                </div>
 
                 <span
                     className={`flex items-center gap-1 text-sm font-medium ${

@@ -107,7 +107,7 @@ const TableMembers = ({ users }: { users: Members[]}) => {
       case "email":
         return (
           <div className="flex flex-col">
-            <p className="text-bold text-small capitalize">{user.email}</p>
+            <p className="text-bold text-small">{user.email}</p>
           </div>
         );
       case "phoneNumber":

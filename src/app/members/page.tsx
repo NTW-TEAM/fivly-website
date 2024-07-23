@@ -35,9 +35,6 @@ const MembersPage = async () => {
         <CardDataStats title="Administrateur" total={users.filter((user) => user.roles.map((role) => role.name).includes("admin")).length.toString()} rate="">
            <FaUserShield className="fill-primary dark:fill-white" />
         </CardDataStats>
-        <CardDataStats title="Autres" total={(users.length * 234).toString()} rate="">
-          <FaUsers className="fill-primary dark:fill-white" />
-        </CardDataStats>
       </div>
 
       <div className="mt-4 flex flex-col gap-10">

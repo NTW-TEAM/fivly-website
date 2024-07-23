@@ -17,7 +17,7 @@ import { RolePermission, TreeNode } from '@/types/TreeNode';
 import { accessToText } from '@/tools/AccessToText';
 import localApi from '@/services/localAxiosApi';
 import ToastHandler from '@/tools/ToastHandler';
-import { ACCESS_READ_WRITE } from '@/constant/access';
+import {ACCESS_HERITE, ACCESS_NONE, ACCESS_READ_WRITE} from '@/constant/access';
 import { Roles } from '@/types/roles';
 import { Members } from '@/types/members';
 
@@ -204,7 +204,7 @@ const PermissionModal: React.FC<PermissionModalProps> = ({
                                         <div className="ml-auto text-sm text-gray-600">
                                             <Dropdown>
                                                 <DropdownTrigger>
-                                                    <p className="w-full cursor-pointer mx-4">{accessToText((rolePermission?.access ? rolePermission?.access : (item.path == `/${item.name}/` ? 0 : -1)))}</p>
+                                                    <p className="w-full cursor-pointer mx-4">{accessToText(rolePermission ? rolePermission.access : -1)}</p>
                                                 </DropdownTrigger>
                                                 <DropdownMenu
                                                     aria-label="Role Access"
