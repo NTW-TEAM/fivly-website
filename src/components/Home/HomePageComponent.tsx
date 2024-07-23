@@ -100,11 +100,12 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
     const [assemblies, setAssemblies] = React.useState<Assembly[]>([]);
     const [donations, setDonations] = React.useState<Donation[]>([]);
     const [crowdfundings, setCrowdfundings] = React.useState<Crowdfunding[]>([]);
+    const [crowdfundingNotFiltered, setCrowdfundingNotFiltered] = React.useState<Crowdfunding[]>([]);
 
     React.useEffect(() => {
         const fetchCrowdfunding = async () => {
             let data = await getAllCrowdfunding();
-            // si le crowdfunding est terminé, on ne l'affiche pas
+            setCrowdfundingNotFiltered(data);
             data = data.filter((crowdfunding) => new Date(crowdfunding.endDatetime) > new Date());
             setCrowdfunding(data);
         };
@@ -144,7 +145,7 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
     const totalAmountDonation = donations
         .reduce((acc, donation) => acc + parseFloat(donation.amount), 0)
         .toFixed(2);
-    const totalAmountCrowdfunding = crowdfundings
+    const totalAmountCrowdfunding = crowdfundingNotFiltered
         .reduce((acc, crowdfunding) => acc + parseFloat(crowdfunding.actualAmount), 0)
         .toFixed(2);
 
@@ -176,20 +177,6 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                         </CardDataStatsWithProgress>
                     ))}
 
-                {activities &&
-                    activities.map((activity) => (
-                        <ActivityCard
-                            key={activity.id}
-                            title={activity.title}
-                            beginDate={new Date(activity.beginDateTime).toLocaleDateString()}
-                            endDate={new Date(activity.endDateTime).toLocaleDateString()}
-                            description={activity.description}
-                            activityId={activity.id}
-                            userId={user.id}
-                            participants={activity.participants} // Passing participants prop
-                        />
-                    ))}
-
                 {assemblies &&
                     assemblies.map((assembly) => (
                         <AssemblyCard
@@ -201,6 +188,22 @@ const HomePageComponent = ({ user }: { user: UserJwt }) => {
                             quorum={assembly.quorum}
                         />
                     ))}
+
+                {activities &&
+                    activities.map((activity) => (
+                        <ActivityCard
+                            key={activity.id}
+                            title={activity.title}
+                            beginDate={activity.beginDateTime}
+                            endDate={activity.endDateTime}
+                            description={activity.description}
+                            activityId={activity.id}
+                            userId={user.id}
+                            participants={activity.participants} // Passing participants prop
+                        />
+                    ))}
+
+
 
                 <CardDataStats title="Total des donations" total={totalAmountDonation.replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " €"} rate="">
                     <FaEuroSign className="fill-primary dark:fill-white" />
